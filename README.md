@@ -22,7 +22,7 @@ https://tk-pbp-e-10.herokuapp.com
 ## Latar Belakang 🏥 
 **Topik G20:** Global Health  
 
-Berdasarkan informasi dari WHO di tahun 2019, sebanyak 14% remaja terjangkit penyakit mental. Orang-orang dengan penyakit mental berat meninggal rata-rata 10-20 tahun lebih cepat dari populasi umum. [WHO](https://www.who.int/news/item/17-06-2022-who-highlights-urgent-need-to-transform-mental-health-and-mental-health-care)  
+Berdasarkan informasi dari WHO di tahun 2019, sebanyak 14% remaja di dunia terjangkit penyakit mental. Orang-orang dengan penyakit mental berat meninggal rata-rata 10-20 tahun lebih cepat dari populasi umum. [WHO](https://www.who.int/news/item/17-06-2022-who-highlights-urgent-need-to-transform-mental-health-and-mental-health-care)  
 
 Sebagai tanggapan atas masalah kesehatan yang menjadi perhatian dunia, terutama dalam bidang kesehatan mental, kami berencana membuat website sebagai solusi dari masalah tersebut. Website ini tidak hanya dirancang agar bisa mendiagnosis kondisi mental Anda, tetapi juga dirancang untuk dapat menampilkan informasi mengenai kesehatan mental serta menjadi wadah bagi komunitas untuk saling berdiskusi dan berbagi.  
 </br>
