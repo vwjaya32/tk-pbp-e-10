@@ -3,12 +3,12 @@
 ---
 
 ## Anggota E-10 👨‍👨‍👦‍👦
-1.
-2. 2106637776 - Vinsen Wijaya
-3. 2106708324 - Marcelinus Gerardo
-4. 2106633626 - Rafito Humam Abrar
-5. 2106650001 - Thobyas Muda Parlindungan
-6. 2106751184 - Balqis Asy-Syifa Lumbun
+1) 2106638614 - Felix Tjahyadi
+2) 2106637776 - Vinsen Wijaya
+3) 2106708324 - Marcelinus Gerardo
+4) 2106633626 - Rafito Humam Abrar
+5) 2106650001 - Thobyas Muda Parlindungan
+6) 2106751184 - Balqis Asy-Syifa Lumbun
 
 ---
 
