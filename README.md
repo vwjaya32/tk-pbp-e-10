@@ -29,15 +29,15 @@ Sebagai tanggapan atas masalah kesehatan yang menjadi perhatian dunia, terutama 
 
 ## Modul 🎯
 Modul yang akan diimplementasikan-Handler:  
-- [ ] Forums -  
+- [ ] Forums - `Rafito`  
 Pada modul ini pengguna dapat membuat thread dan me-reply thread yang ada. Pengguna yang berpartisipasi dalam suatu forum akan masuk dalam daftar peserta thread.
-- [ ] Articles -   
+- [ ] Articles - `Gerardo`  
 Artikel tentang kesehatan mental akan ditampilkan pada modul ini. Artikel hanya dapat ditulis oleh Admin, namun dapat dibaca oleh semua tipe user.
-- [ ] Community Events -   
+- [ ] Community Events - `Felix`  
 Terdapat daftar event yang dapat diikuti oleh user. Sebuah acara hanya dapat dibuat oleh Admin, user yang sudah login dapat mendaftarkan diri pada acara tersebut
-- [ ] Mental Health Goods -  
+- [ ] Mental Health Goods - `Thobyas`   
 Modul ini akan menampilkan barang yang berhubungan dengan kesehatan mental untuk yang dijual di website ini.
-- [ ] Mental Health Tests -  
+- [ ] Mental Health Tests - `Balqis`  
 Modul ini akan menampilkan pertanyaan singkat untuk menilai keadaan mental seseorang.
 - [ ] Motivational Quotes - `Vinsen`  
 Pada modul ini, pengguna dapat mengunggah gambar berisi kutipan motivasi yang dapat dilihat oleh user lain.
@@ -47,9 +47,9 @@ Pada modul ini, pengguna dapat mengunggah gambar berisi kutipan motivasi yang da
 😊 Pengguna Biasa 😊
 1. Bisa mengakses `Mental Health Test`
 2. Bisa posting, baca, dan reply di `Forum`
-3. Bisa hapus postingan pribadi di `Forum’
+3. Bisa hapus postingan pribadi di `Forum`
 4. Bisa add jadwal event dari `Community Events`
-5. Bisa beli barang di `Mental Health Goods’
+5. Bisa beli barang di `Mental Health Goods`
 6. Bisa posting gambar di `Motivational Quotes`
 </br>
 
@@ -58,6 +58,6 @@ Pada modul ini, pengguna dapat mengunggah gambar berisi kutipan motivasi yang da
 2. Bisa hapus paksa thread di `Forum`
 3. Bisa add Event di `Community Events`
 4. Bisa add Article di `Articles`
-5. Bisa add new item di `Mental Health Goods’
+5. Bisa add new item di `Mental Health Goods`
 6. Bisa delete gambar di `Motivational Quotes`
 </br>
