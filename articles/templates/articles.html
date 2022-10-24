@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>RYOK? | Articles</title>
+{% endblock meta %}
+
+{% block content %}
+<body>
+    <style>
+        .carousel-item {
+            height: 32rem;
+            background: #777;
+            color: white;
+            position: relative;
+        }
+        .container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding-bottom: 50px;
+        }
+    </style>
+
+    <div id="carousel-ctn" class="carousel slide"  data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carousel-ctn" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#carousel-ctn" data-bs-slide-to="1"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container">
+                    <h1>Default 01</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eleifend felis ligula, 
+                        non sagittis nisl efficitur non. Suspendisse porta dictum neque. Ut nisl enim, tempor quis nunc in, 
+                        auctor luctus diam. Mauris vel suscipit augue. Duis non vestibulum urna. 
+                        Ut eleifend arcu consectetur justo consectetur varius eu in nibh. Etiam placerat diam sit amet cursus porta. 
+                        Integer vel urna metus.</p>
+                    <a class="btn btn-lg btn-primary">Read More</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <h1>Default 02</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eleifend felis ligula, 
+                        non sagittis nisl efficitur non. Suspendisse porta dictum neque. Ut nisl enim, tempor quis nunc in, 
+                        auctor luctus diam. Mauris vel suscipit augue. Duis non vestibulum urna. 
+                        Ut eleifend arcu consectetur justo consectetur varius eu in nibh. Etiam placerat diam sit amet cursus porta. 
+                        Integer vel urna metus.</p>
+                    <a class="btn btn-lg btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-ctn" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carousel-ctn" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+    </div>
+
+    <a type="button" class="btn btn-warning" href="{% url 'articles:write_articles' %}">Write Articles</a>
+    <div>
+        <table border="1" style="text-align: center;">
+            <th>Author</th>
+            <th>Title</th>
+            <th>Content</th>
+            {% for i in data %}
+            <tr>
+                <td>{{i.author}}</td>
+                <td>{{i.title}}</td>
+                <td>{{i.content}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</body>
+{% endblock content %}

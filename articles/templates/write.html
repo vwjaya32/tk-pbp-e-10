@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>RYOK? | Write Articles</title>
+{% endblock meta %}
+
+{% block content %}
+<body> 
+    <style>
+        /* .login {
+            
+        } */
+
+        .login form input[type="submit"]{
+            font-weight: bold;
+            background-color: rgb(4, 113, 214);
+            color: azure;
+            margin-top: 12px;
+        }
+    </style>
+
+    <div class="login">
+        <h1>Write new articles for the world!</h1>
+        <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+            <td></td>
+            <td><input class="btn" type="submit" name="submit" value="Post" style="float:right"/></td>
+            </tr>
+        </table>
+        </form>
+
+    </div>
+</body>
+{% endblock content %}
