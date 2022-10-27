@@ -8,4 +8,5 @@ urlpatterns = [
     path('write-news/', write_articles, name='write_articles'),
     path('delete/<int:id>', delete_articles, name='delete_articles'),
     path('read/<int:id>', read_articles, name='read_articles'),
+    path('comment/<int:id>', write_comments, name='write_comments'),
 ]
