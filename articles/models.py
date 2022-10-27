@@ -7,4 +7,5 @@ class Articles(models.Model):
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
     author = models.CharField(max_length = 150)
     title = models.CharField(max_length = 150)
+    date = models.DateField(auto_now_add=True)
     content = models.TextField()

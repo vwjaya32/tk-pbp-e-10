@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+<head>
+    {% block meta %}
+    <title>RYOK? | {{target.title}}</title>
+    {% endblock meta %}
+</head>
+
+{% block content %}
+<body>
+    <style>
+        .container {
+            position:sticky;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            box-sizing: border-box;
+            background-color: aqua;
+        }
+    </style>
+    <div style="text-align:center ;">
+        <h2>{{target.title}}</h2>
+        <h4>written by {{target.author}} on {{target.date}}</h4>
+    </div>
+
+    <div class=container>
+        <p>{{target.content}}</p>
+    </div>
+
+
+</body>
+{% endblock content %}

@@ -32,3 +32,14 @@ def write_articles(request):
     forms = edit_box()
     context={"form":forms}
     return render(request, "write.html", context)
+
+def delete_articles(request, id):
+    Articles.objects.get(id=id).delete()
+    return redirect("articles:show_articles")
+
+def read_articles(request, id):
+    theObject=Articles.objects.get(id=id)
+    context = {
+        'target': theObject,
+    }
+    return render(request, "read.html", context)

@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 
-{% block meta %}
-<title>RYOK? | Articles</title>
-{% endblock meta %}
+<head>
+    {% block meta %}
+    <title>RYOK? | Articles</title>
+    {% endblock meta %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
 
 {% block content %}
 <body>
     <style>
+        *{
+            margin: 0; 
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
         .carousel-item {
             height: 32rem;
             background: #777;
@@ -14,11 +22,42 @@
             position: relative;
         }
         .container {
-            position: absolute;
+            position:sticky;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            box-sizing: border-box;
+        }
+        .row {
+            display:flex;
+            height: 100%;
+            align-items: center;
+        }
+        .coll {
+            flex-basis: 50%;
+        }
+        .card {
+            width: 250px;
+            height: 250px;
+            display: inline-block;
+            border-radius: 10px;
+            cursor: pointer;
+            
+        }
+        .carousel-item {
+            height: 32rem;
+            background: #777;
+            color: white;
+            position: relative;
+        }
+        .container {
             bottom: 0;
             left: 0;
             right: 0;
             padding-bottom: 50px;
+        }
+        body {
+            background-color: rgb(226, 226, 226);
         }
     </style>
 
@@ -29,7 +68,7 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <div class="container">
+                <div class="carousel-caption">
                     <h1>Default 01</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eleifend felis ligula, 
                         non sagittis nisl efficitur non. Suspendisse porta dictum neque. Ut nisl enim, tempor quis nunc in, 
@@ -40,7 +79,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <div class="container">
+                <div class="carousel-caption">
                     <h1>Default 02</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eleifend felis ligula, 
                         non sagittis nisl efficitur non. Suspendisse porta dictum neque. Ut nisl enim, tempor quis nunc in, 
@@ -54,28 +93,42 @@
         <button class="carousel-control-prev" type="button" data-bs-target="#carousel-ctn" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carousel-ctn" data-bs-slide="next">
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel-ctn" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
-          </button>
+        </button>
     </div>
 
     <a type="button" class="btn btn-warning" href="{% url 'articles:write_articles' %}">Write Articles</a>
-    <div>
-        <table border="1" style="text-align: center;">
-            <th>Author</th>
-            <th>Title</th>
-            <th>Content</th>
+
+    <div class="row">
+        <div class="coll" style="text-align: center">
+            <h1>RYOK?</h1>
+            <p>we are here for you</p>
+        </div>
+
+        <div class="coll">
             {% for i in data %}
-            <tr>
-                <td>{{i.author}}</td>
-                <td>{{i.title}}</td>
-                <td>{{i.content}}</td>
-            </tr>
+            <div class="card">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title"> {{i.title}} </h4>
+                    <h6 class="card-subtitle mb-2 text-muted">by {{i.author}} ({{i.date}})</h6>
+                    <p class="card-text"> {{i.content}}</p>
+                    <div class="flex justify-between gap-3">
+                    <div class="flex flex-col justify-center rounded">
+                        <a type="button" class="btn btn-danger" href="{% url 'articles:delete_articles' i.id %}">Delete</a>
+                    </div>
+                    <div class="flex flex-col justify-center rounded">
+                        <a type="button" class="btn btn-primary" href="{% url 'articles:read_articles' i.id %}">Read more</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-        </table>
+        </div>
     </div>
+    
 
 </body>
 {% endblock content %}
