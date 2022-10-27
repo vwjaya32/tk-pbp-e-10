@@ -1,0 +1,150 @@
+{% extends 'base.html' %} {% block meta %}
+
+<head>
+    <title>RYOK? | Mental Health Tests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+{% endblock meta %} {% block content %}
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <div class="container bg-warning text-dark rounded">
+        <center>
+            <h3 class="text-danger">Peringatan!</h3>
+            <p>Tes ini bukan berfungsi sebagai alat diagnosis sungguhan, namun dapat digunakan sebagai gambaran dari kondisi yang anda alami sekarang.</p>
+            <p>Gunakan tes ini dengan bijak, jawab dengan jujur sesuai dengan keadaan anda. Silakan berkonsultasi dengan psikolog atau psikiater anda jika dibutuhkan.</p>
+        </center>
+    </div>
+    <div class="container bg-white text-dark">
+        <h4>Apakah Kamu Sering Merasa Sedih Belakangan Ini?</h4>
+        <div class="form-check">
+            <input type="radio" id="health11" name="tes1" value=1>
+            <label for="health11">Tidak</label><br>
+            <input type="radio" id="health12" name="tes1" value=2>
+            <label for="health12">Mungkin</label><br>
+            <input type="radio" id="health13" name="tes1" value=3>
+            <label for="health13">Iya</label><br>
+        </div>
+
+        <h4>Dalam satu minggu, apakah kamu merasa lelah secara mental lebih dari tiga hari?</h4>
+        <div class="form-check">
+            <input type="radio" id="health21" name="tes2" value=1>
+            <label for="health21">Tidak</label><br>
+            <input type="radio" id="health22" name="tes2" value=2>
+            <label for="health22">Mungkin</label><br>
+            <input type="radio" id="health23" name="tes2" value=3>
+            <label for="health23">Iya</label><br>
+        </div>
+
+        <h4>Berapa kali kamu menangis atau berdiam sedih dalam dua minggu ini?</h4>
+        <div class="form-check">
+            <input type="radio" id="health31" name="tes3" value=1>
+            <label for="health31">Kurang dari tiga kali</label><br>
+            <input type="radio" id="health32" name="tes3" value=2>
+            <label for="health32">3-5 kali</label><br>
+            <input type="radio" id="health33" name="tes3" value=3>
+            <label for="health33">Lebih dari 5 kali</label><br>
+            <input type="radio" id="health33" name="tes3" value=4>
+            <label for="health33">Hampir setiap hari</label><br>
+        </div>
+
+        <h4>Apakah kamu merasa sendirian di dunia ini?</h4>
+        <div class="form-check">
+            <input type="radio" id="health41" name="tes4" value=3>
+            <label for="health41">Ya, aku sendirian dan tidak percaya orang lain</label><br>
+            <input type="radio" id="health42" name="tes4" value=2>
+            <label for="health42">Kadang aku merasa sendiri tetapi masih ada orang yang bisa aku andalkan</label><br>
+            <input type="radio" id="health43" name="tes4" value=1>
+            <label for="health43">Aku merasa bahagia memiliki banyak teman di sini.</label><br>
+        </div>
+
+        <h4>Apakah kamu berpikir untuk bunuh diri?</h4>
+        <div class="form-check">
+            <input type="radio" id="health51" name="tes5" value=4>
+            <label for="health51">Belakangan ini aku sangat ingin mengakhiri hidup.</label><br>
+            <input type="radio" id="health52" name="tes5" value=3>
+            <label for="health52">Aku pernah berniat bunuh diri sesekali.</label><br>
+            <input type="radio" id="health53" name="tes5" value=2>
+            <label for="health53">Meski terkadang hidupku sulit, aku tidak berpikir untuk menyudahinya.</label><br>
+            <input type="radio" id="health54" name="tes5" value=1>
+            <label for="health54">Aku bahagia dengan hidupku dan aku ingin hidup sehat.</label><br>
+        </div>
+        <br>
+        <center><button class="btn btn-primary rounded" type="button" onclick="displayValue()">
+        Cek Nilaimu
+        </button>
+        </center>
+        <br>
+        <div class="container bg-warning text-dark rounded">
+            <center>
+                <br>
+                <h5 id="result" class="text-white"></h5>
+                <br>
+                <p id="result2">Klik Tombol untuk cek nilaimu!</p>
+                <br>
+                <h5 id="result3" class="text-dark"></h5>
+            </center>
+        </div>
+
+    </div>
+    <script>
+        function displayValue() {
+            document.getElementById("result").innerHTML = "Hasil Tes Anda";
+            var ele = document.getElementsByName('tes1');
+            var ele2 = document.getElementsByName('tes2');
+            var ele3 = document.getElementsByName('tes3');
+            var ele4 = document.getElementsByName('tes4');
+            var ele5 = document.getElementsByName('tes5');
+            var scorez = 0;
+            for (i = 0; i < ele.length; i++) {
+                if (ele[i].checked) {
+                    var xx = parseInt(ele[i].value);
+                    scorez = scorez + xx;
+
+                }
+
+            }
+            for (i = 0; i < ele2.length; i++) {
+                if (ele2[i].checked) {
+                    var xx = parseInt(ele2[i].value);
+                    scorez = scorez + xx;
+                }
+
+            }
+            for (i = 0; i < ele3.length; i++) {
+                if (ele3[i].checked) {
+                    var xx = parseInt(ele3[i].value);
+                    scorez = scorez + xx;
+
+                }
+
+            }
+            for (i = 0; i < ele4.length; i++) {
+                if (ele4[i].checked) {
+                    var xx = parseInt(ele4[i].value);
+                    scorez = scorez + xx;
+
+                }
+
+            }
+            for (i = 0; i < ele5.length; i++) {
+                if (ele5[i].checked) {
+                    var xx = parseInt(ele5[i].value);
+                    scorez = scorez + xx;
+
+                }
+
+            }
+            document.getElementById("result2").innerHTML = "Nilaimu: " + scorez;
+            if (scorez >= 13) {
+                document.getElementById("result3").innerHTML = "Kamu terindikasi sedang dalam keadaan sedih berat.<br>Curhatlah kepada teman atau keluarga terdekat, hubungi psikiater atau psikolog kamu untuk membantu kamu.<br>";
+            } else if (scorez >= 8) {
+                document.getElementById("result3").innerHTML = "Kamu terindikasi sedang dalam keadaan kurang bahagia.<br>Berbagi rasa sedih kepada teman atau keluarga dapat membantu meringankan rasa sedih yang kamu alami.<br>";
+            } else {
+                document.getElementById("result3").innerHTML = "Saat ini kamu sedang dalam keadaan yang baik.<br>Tetap jaga kesehatan jasmani dan rohani kamu dengan cara berolahraga, beribadah, dan bersosialisasi secara sehat.<br>";
+            }
+        }
+    </script>
+</body>
+{% endblock content %}
