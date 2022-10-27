@@ -8,9 +8,7 @@
 
 {{ cal|safe }}
 
-<button>Add Event</button>
-<button>Delete</button>
-<button>Join</button>
+<button><a href="{% url 'com_events:add_event'%}">Add Event</a></button>
 </center>
 
 <h1>
@@ -30,7 +28,14 @@
         {{ user }}
         {% endfor %}
     </li>
-    
+    <button>
+        <a href="{% url 'com_events:join_event' item.id %}" class="btn">
+            Join
+        </a>
+    </button>
+    <a href="{% url 'com_events:delete' item.id %}" class="btn">
+        Delete
+    </a>
 </ul>
 {% endfor %}
 {% endblock content %}

@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar, month_name
 from datetime import datetime
@@ -31,3 +31,15 @@ def add_event(request):
     else:
         form = EventForm()
     return render(request, "forms_temp.html", {'form':form})
+
+def delete(request, id):
+    event = Event.objects.get(pk=id)
+    event.delete()
+    return redirect('com_events:show_events')
+
+def join_event(request, id):
+    event = Event.objects.get(pk=id)
+    if request.method == 'POST':
+        event.attendees.add(request.user)
+        return redirect('com_events:show_events')
+    return render(request, 'event_details.html', {'event':event})
