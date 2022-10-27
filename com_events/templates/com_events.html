@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+<h1>
+    Events for {{ month }} {{ year }}
+</h1>
+
+{{ cal|safe }}
+
+<button>Add Event</button>
+<button>Delete</button>
+<button>Join</button>
+</center>
+
+<h1>
+    List of Events
+</h1>
+
+{% for item in event_list %}
+<ul>
+    <li>Name: {{ item.name }}</li>
+    <li>Date: {{ item.date }}</li>
+    <li>Manager: {{ item.manager }}</li>
+    <li>Description: {{ item.description }}</li>
+    
+    <li>
+        Attendees: 
+        {% for user in item.attendees.all %}
+        {{ user }}
+        {% endfor %}
+    </li>
+</ul>
+{% endfor %}
+{% endblock content %}
