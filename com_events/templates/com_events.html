@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+<h1>Events for {{ month }} {{ year }}</h1>
+
+{{ cal|safe }}
+
+<button>Add Event</button>
+<button>Delete</button>
+<button>Join</button>
+</center>
+{% endblock content %}
