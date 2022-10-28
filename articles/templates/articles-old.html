@@ -21,43 +21,67 @@
             margin: 0; 
             padding: 0;
         }
-        body {
-            background: rgb(102,105,130);
-            background: linear-gradient(90deg, rgba(102,105,130,1) 0%, rgba(74,55,106,1) 28%, rgba(51,49,80,1) 72%);
-        }
         .carousel-item {
-            height: 25rem;
+            height: 32rem;
             width: 100%;
-            position: static;
             background: #777;
             color: rgb(0, 0, 0);
-            background-size:auto;
+            position: relative;
         }
         .container {
+            position:relative;
             bottom: 0;
             left: 0;
             right: 0;
+            box-sizing: border-box;
+        }
+        .row_a {
+            display:flex;
+            height: 100%;
+            align-items: center;
+        }
+        .coll_a {
+            flex-basis: 50%;
         }
         .card {
-            width: 230px;
+            width: 200px;
             height: 320px;
             display: inline-block;
             border-radius: 10px;
             cursor: pointer;
             margin: 10px;
             background-color: rgb(212, 214, 255);
+            
         }
-        footer {
-            width: 100%;
-            position:relative;
-            bottom: 0;
-            background-color: rgb(36, 35, 48);
-            padding: 20px;
+        .carousel-item {
+            height: 25rem;
+            background: #777;
+            color: white;
+            position: relative;
+            /* background-position:bottom; */
+            background-size:auto;
         }
         h1{
             font-family: 'Nunito', sans-serif;
             font-weight: bold;
             font-style: italic;
+        }
+        .container {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding-bottom: 50px;
+        }
+        body {
+            background: rgb(102,105,130);
+            background: linear-gradient(90deg, rgba(102,105,130,1) 0%, rgba(74,55,106,1) 28%, rgba(51,49,80,1) 72%);
+        }
+        footer {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            background-color: rgb(36, 35, 48);
+            padding: 20px;
         }
         .btn {
             box-shadow: 0 0 5px rgb(36, 35, 48);
@@ -73,7 +97,7 @@
         }
     </style>
 
-    <!-- Static Carousel -->
+    <div>
     <div id="carousel-ctn" class="carousel slide"  data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carousel-ctn" data-bs-slide-to="0" class="active"></button>
@@ -98,7 +122,7 @@
                     <p>After her husband's mental illness takes his life, Meredith realized the extent to which the stigma around mental health is harming all of us. 
                         Her work since his passing has been dedicated to removing this stigma. Meredith Ackley is a Board Member of the Bring Change to Mind program, 
                         which works to end the stigma and discrimination of mental illness through public service announcements, public education materials and school programs. 
-                        #TEDxMountainViewHighSchool</p>
+                        This talk was given at a TEDx event using the TED conference format but independently organized by a local community.</p>
                     <a class="btn btn-lg btn-primary" href="https://youtu.be/SHngcWIUJCY">Watch video</a>
                 </div>
             </div>
@@ -114,42 +138,50 @@
     </div>
 
     <!-- Add Articles Button -->
-    <a type="button" class="btn btn-warning" style="float: right; margin: 20px; color:white;
-    font-family: 'Noto Sans TC', sans-serif; font-size: large; font-weight:800;" 
-    href="{% url 'articles:write_articles' %}">+</a>
+    <a type="button" class="btn" style="float: right; margin: 20px; background-color: rgb(94, 164, 96); color:white;
+        font-family: 'Noto Sans TC', sans-serif; font-size: large; font-weight:800;" 
+        href="{% url 'articles:write_articles' %}">+</a>
+    
+    <!-- Spacing -->
+    <div class=container></div>
 
-    <div class="container" style="margin-top:50px; margin-bottom: 50px;">
-        <h1 style="color:white; text-align: center; margin-top: 20px;">RYOK?</h1>
-        <div class=container>
-        <p style="color:white; font-family: 'Noto Sans', sans-serif; font-size: larger; text-align: center;">
-            Hi there! Are you okay? Explore us to get updates for many mental health news through the world! 
-            Find a relevant article for you and be happy!</p>
+    <div class="row_a" style="border-top:20px">
+        <div class="coll_a" style="text-align:left;">
+            <div style="margin-left: 60px;">
+                <h1 style="color:white; ">RYOK?</h1>
+                <p style="width: 500px; color:white; font-family: 'Noto Sans', sans-serif; font-size: larger;">
+                    Hi there! Explore us to get update for many mental health news through the world! 
+                    Find a relevant articles for you and be happy!</p>
+            </div>
         </div>
 
         <!-- Cards -->
-        <div>
+        <!-- <div class="coll_a">
             {% for i in data %}
             <div class="card">
                 <div class="card-body d-flex flex-column">
                     <h4 class="card-title" style="font-size:large"> {{i.title}} </h4>
                     <h6 class="card-subtitle mb-2 text-muted">• {{i.date}}</h6>
                     <h6 class></h6>
-                    <p class="card-text" style="font-size:medium"> {{i.content|slice:70}}...</p>
+                    <p class="card-text" style="font-size:medium"> {{i.content|slice:70}}...</p> -->
 
                     <!-- Buttons -->
-                    <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
+                    <!-- <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
                         <div class="flex flex-col justify-center rounded" >
-                            <a type="button" class="btn" style="background-color: rgb(125, 138, 255); margin-left: 15px; font-weight: bold; color: white;" 
+                            <a type="button" class="btn" style="background-color: rgb(125, 138, 255); margin-left: 5px; font-weight: bold; color: white;" 
                             href="{% url 'articles:read_articles' i.id %}">Read More</a>
-                            <a type="button" class="btn" style="background-color: rgb(255, 126, 126); margin-left: 10px; font-weight: bold; color: white;" 
+                            <a type="button" class="btn" style="background-color: rgb(255, 126, 126); margin-left: 8px; font-weight: bold; color: white;" 
                             href="{% url 'articles:delete_articles' i.id %}">X</a>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+            {% endfor %} -->
         </div>
     </div>
+
+    </div>
+
 
     <footer>
         <div style="color: rgb(120, 114, 114); text-align: center; font-family: 'Noto Sans', sans-serif;"> 
@@ -158,8 +190,7 @@
             <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
         </div>
     </footer>
-
-
+    
 
 </body>
 {% endblock content %}

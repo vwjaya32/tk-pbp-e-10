@@ -4,6 +4,8 @@
     {% block meta %}
     <title>RYOK? | {{target.title}}</title>
     {% endblock meta %}
+
+    <!-- External Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,600&display=swap" rel="stylesheet">
@@ -18,52 +20,62 @@
             bottom: 0;
             left: 0;
             right: 0;
-            box-sizing: border-box;
             margin-bottom: 30px;
-        }
-        body {
-            background: rgb(102,105,130);
+            box-sizing: border-box;
         }
         h2{
             font-family: 'Nunito', sans-serif;
             font-weight: bold;
         }
+        body{
+            background-color: rgb(30, 30, 30)
+        }
         footer {
+            position:static;
             width: 100%;
-            /* position: absolute; */
             bottom: 0;
-            background-color: rgb(36, 35, 48);
             padding: 20px;
-            border-top-left-radius: 150px;
+            background-color: rgb(36, 35, 48);
+        }
+        .btn {
+            box-shadow: 0 0 5px rgb(36, 35, 48);
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-property: transform;
+            transition-property: transform;
+        }
+        .btn:hover {
+            -webkit-transform: scale(1.08);
+            transform: scale(1.08);
         }
     </style>
 
     <!-- Title Bar -->
-    <div style="text-align:center ; background-color: aliceblue; padding:10px 10px;">
+    <div style="text-align:center; padding:10px 10px; color: rgb(230, 230, 230);">
         <h2>{{target.title}}</h2>
         <h4 style="font-family: 'Noto Sans', sans-serif; font-weight: lighter; font-style: italic;">written by {{target.author}}</h4>
     </div>
 
     <!-- Content Section -->
-    <div class=container style="border-radius:15px; padding:10px; background-color: rgb(212, 214, 255); margin-top:20px">
-        <p style="font-weight:400 ;text-align: justify;">{{target.content}} </p>
-        <h6>[{{target.date}}]</h6>
-    </div>
-    
+    <div style="background: rgb(64, 62, 101); padding:20px; border-top-left-radius: 50px; border-top-right-radius: 50px">
+        <!-- Articles -->
+        <div class=container style="border-radius:15px; padding:10px; background-color: rgb(212, 214, 255); margin-top:20px">
+            <p style="font-weight:400 ;text-align: justify;">{{target.content}} </p>
+            <h6>[{{target.date}}]</h6>
+        </div>
 
+        <!-- Comment -->
+        <div class=container style="background-color: rgb(88, 88, 88); padding:20px; border-radius:15px;">
+                <h2 style="font-size:large; color:aliceblue;">How do you think? 👀</h2>
+                <a type="button" style="font-weight:bold; color:aliceblue;" class="btn btn-warning" href="{% url 'articles:write_comments' target.id %}">Write a comment</a>
 
-    <!-- Comment Section -->
-    <div class=container style="background-color: rgb(88, 88, 88); padding:20px; border-radius:15px;">
-        <p>Your thoughts?</p>
-        <a type="button" class="btn btn-primary" href="{% url 'articles:write_comments' target.id %}">comment</a>
-
-        {% for i in comment %}
-            <div style="border-radius: 15px; background-color: blanchedalmond; padding: 10px; margin: 10px;">
-                <h6 style="margin-left: 2px; font-weight: bold; font-family: 'Nunito', sans-serif;">👾 {{i.author}}</h6>
-                <h6 style="margin-left: 28px; font-weight:normal ; ">{{i.content}}</h6>
-            </div>
-        {% endfor %}
-            
+            {% for i in comment %}
+                <div style="border-radius: 15px; background-color: blanchedalmond; padding: 10px; margin: 10px;">
+                    <h6 style="margin-left: 2px; font-weight: bold; font-family: 'Nunito', sans-serif;">👾 {{i.author}}</h6>
+                    <h6 style="margin-left: 28px; font-weight:normal ; ">{{i.content}}</h6>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
     <footer>
