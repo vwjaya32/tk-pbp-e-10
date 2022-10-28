@@ -8,7 +8,7 @@
 {% block content %}
 <body> 
     <style>
-        /* .login {
+        /* .input {
             
         } */
 
@@ -20,17 +20,19 @@
         }
     </style>
 
-    <div class="login">
+    <div class="input">
         <h1>Write new articles for the world!</h1>
         <form method="POST">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-            <tr>
-            <td></td>
-            <td><input class="btn" type="submit" name="submit" value="Post" style="float:right"/></td>
-            </tr>
-        </table>
+            {% csrf_token %}
+            <table>
+                <tr>Pseudonym: </tr>
+                <tr><input name="author" placeholder="fictitious name" class="form-control"></tr>
+
+                <tr>Your thoughts?: </tr>
+                <tr><textarea name="content" placeholder="...." class="form-control"></textarea></tr>
+                <input class="btn btn-primary" type="submit" name="submit" value="Post" style="float:right"/>
+
+            </table>
         </form>
 
     </div>
