@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='/com_events/login/')
+
 def show_events(request):
     year = datetime.now().year
     month = datetime.now().strftime('%B')
@@ -28,25 +28,42 @@ def show_events(request):
     }
     return render(request, "com_events.html", context)
 
+@login_required(login_url='/com_events/login/')
 def add_event(request):
     if request.method == "POST":
         form = EventForm(request.POST)
         if form.is_valid():
-            form.save()
+            manager = request.user
+            name = request.POST.get('name')
+            description = request.POST.get('description')
+            event = Event(name = name, manager= manager, description = description)
+            event.save()
             return HttpResponseRedirect(reverse('com_events:show_events'))
     else:
         form = EventForm()
     return render(request, "forms_temp.html", {'form':form})
 
+@login_required(login_url='/com_events/login/')
 def delete(request, id):
     event = Event.objects.get(pk=id)
     event.delete()
     return redirect('com_events:show_events')
 
+@login_required(login_url='/com_events/login/')
 def join_event(request, id):
     event = Event.objects.get(pk=id)
     if request.method == 'POST':
         event.attendees.add(request.user)
+        event.is_joined == True
+        return redirect('com_events:show_events')
+    return render(request, 'event_details.html', {'event':event})
+
+@login_required(login_url='/com_events/login/')
+def unjoin_event(request, id):
+    event = Event.objects.get(pk=id)
+    if request.method == 'POST':
+        event.attendees.remove(request.user)
+        event.is_joined == False
         return redirect('com_events:show_events')
     return render(request, 'event_details.html', {'event':event})
 

@@ -9,6 +9,11 @@
 {{ cal|safe }}
 
 <button><a href="{% url 'com_events:add_event'%}">Add Event</a></button>
+{% if user.is_authenticated %}
+<button><a href="{% url 'com_events:logout' %}">
+    Logout
+</a></button>
+{% endif %}
 </center>
 
 <h1>
@@ -28,6 +33,7 @@
         {{ user }}
         {% endfor %}
     </li>
+    {% if user.is_authenticated %}
     <button>
         <a href="{% url 'com_events:join_event' item.id %}" class="btn">
             Join
@@ -36,6 +42,7 @@
     <a href="{% url 'com_events:delete' item.id %}" class="btn">
         Delete
     </a>
+    {% endif %}
 </ul>
 {% endfor %}
 {% endblock content %}
