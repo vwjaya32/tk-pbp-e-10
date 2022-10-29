@@ -28,6 +28,22 @@ def show_events(request):
     }
     return render(request, "com_events.html", context)
 
+def my_events(request):
+    year = datetime.now().year
+    month = datetime.now().strftime('%B')
+    month_number = list(calendar.month_name).index(month)
+    month_number = int(month_number)
+    cal = HTMLCalendar().formatmonth(year, month_number)
+    event_list = Event.objects.filter(attendees = request.user)
+    context = {
+        "cal" : cal,
+        "month": month,
+        "year" : year,
+        "event_list" : event_list,
+    }
+    return render(request, "my_events.html", context)
+
+
 @login_required(login_url='/com_events/login/')
 def add_event(request):
     if request.method == "POST":
