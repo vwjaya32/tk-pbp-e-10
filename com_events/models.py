@@ -1,8 +1,6 @@
 from django.db import models
 from datetime import datetime
-
-class User(models.Model):
-    name = models.CharField(max_length = 100)
+from django.contrib.auth.models import User
 
 class Event(models.Model):
     name = models.CharField(max_length = 100)

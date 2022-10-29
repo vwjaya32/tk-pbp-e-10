@@ -13,7 +13,7 @@
 <p>
     {{ event.description }}
 </p>
-<form method="POST">
+<form method="POST" action="">
     {% csrf_token %}
      <a href="{% url 'com_events:show_events' %}">Go back</a>
     <input type="submit" value="Confirm">

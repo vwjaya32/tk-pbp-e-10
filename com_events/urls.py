@@ -8,4 +8,7 @@ urlpatterns = [
     path('add_event', add_event, name='add_event'),
     path('delete/<int:id>', delete, name='delete'),
     path('join_event/<int:id>', join_event, name='join_event'),
+    path('register/', register_temp, name='register'), 
+    path('login/', login_user_temp, name='login'),
+    path('logout/', logout_user_temp, name='logout'),
 ]
