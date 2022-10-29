@@ -15,9 +15,11 @@ from .forms import ImageForm
 def show_html(request):
     data = Image.objects.all()
     form = ImageForm()
+    user = request.user
     context = {
         'images': data,
-        'form': form
+        'form': form,
+        'user': user,
     }
     return render(request, 'quotes.html', context)
 

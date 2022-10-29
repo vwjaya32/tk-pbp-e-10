@@ -64,11 +64,13 @@
 
     <h1> Motivational Quotes </h1>
 
+    {% if user.is_authenticated %}
     <div class="d-flex justify-content-center mb-4">
       <a class="btn btn-warning btn-lg" href="{% url 'quotes:add_quote' %}" role="button">
         Add Image
       </a>
     </div>
+    {% endif %}
 
     {# Add Quotes Button #}
 {#    <div class="d-flex justify-content-center mb-4">#}
