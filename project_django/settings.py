@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'mh_tests',
     'com_events',
     'mh_goods',
+    'quotes',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,11 @@ STATICFILES_DIRS = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Media files
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
 
 for directory in [*STATICFILES_DIRS, STATIC_ROOT]:
     directory.mkdir(exist_ok=True)

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    {# RUN BOOTSTRAP #}
+
+
+    {# CDN #}
+    {# JQUERY #}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <title> Main Page </title>
+
+    {# EXTERNAL JS #}
+    {# COLCADE FOR LAYOUT #}
+    <script src="/static/js/colcade.js"></script>
+    {# AJAX #}
+    <script src="/static/js/quotes.js"></script>
+
+{% endblock meta %}
+
+{% block content %}
+    <h1> Motivational Quotes </h1>
+
+    {# Add Quotes Button #}
+    <div class="d-flex justify-content-center mb-4">
+        {# Trigger Add Quote Modal #}
+        <button type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#add_quote_modal">
+            Share words with others
+        </button>
+    </div>
+
+    {# Add Quote Modal #}
+    <div class="modal fade"
+         id="add_quote_modal"
+         tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Let's Motivate Other! </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method=POST enctype="multipart/form-data" id="add_quote">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit"
+                           value="Share with others"
+                           class="btn btn-primary">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {# Image Viewer #}
+    <div class="grid" id="board">
+        {# AJAX #}
+    </div>
+
+    {# Image Layout #}
+    <script>
+        var colc = new Colcade( '.grid', {
+            columns: '.grid-col',
+            items  : '.grid-item'
+        });
+    </script>
+
+{% endblock content %}

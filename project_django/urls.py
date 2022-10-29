@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,6 +24,9 @@ urlpatterns = [
     path('articles/', include('articles.urls')),
     path('mh_tests/', include('mh_tests.urls')),
     path('com_events/', include('com_events.urls')),
-]
+    path('quotes/', include('quotes.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# membuat URL untuk setiap gambar sehingga bisa diview.
+
 
 # TODO: Implement Routings Here
