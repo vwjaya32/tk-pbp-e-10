@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from mh_tests.models import *
+
 # Create your views here.
 
 def mhtestpage(request):
@@ -9,3 +10,5 @@ def mhtestpage(request):
         'data': mh_list,
     }
     return render(request, "mhtest.html", context)
+
+
