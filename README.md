@@ -50,7 +50,7 @@ Pada modul ini, pengguna dapat mengunggah gambar berisi kutipan motivasi yang da
 3. Bisa hapus postingan pribadi di `Forum`
 4. Bisa add jadwal event dari `Community Events`
 5. Bisa beli barang di `Mental Health Goods`
-6. Bisa posting gambar di `Motivational Quotes`
+6. Bisa posting gambar & hapus gambar di `Motivational Quotes`
 </br>
 
 😎 Admin/ Polisi Mental 😎
@@ -59,5 +59,4 @@ Pada modul ini, pengguna dapat mengunggah gambar berisi kutipan motivasi yang da
 3. Bisa add Event di `Community Events`
 4. Bisa add Article di `Articles`
 5. Bisa add new item di `Mental Health Goods`
-6. Bisa delete gambar di `Motivational Quotes`
 </br>
