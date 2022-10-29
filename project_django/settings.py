@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'articles',
     'mh_tests',
     'com_events',
+    'mh_goods',
 ]
 
 MIDDLEWARE = [
