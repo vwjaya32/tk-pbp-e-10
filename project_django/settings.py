@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'com_events',
     'mh_goods',
     'quotes',
+    'forum',
 ]
 
 MIDDLEWARE = [
