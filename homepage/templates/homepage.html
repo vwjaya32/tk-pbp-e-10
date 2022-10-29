@@ -41,7 +41,11 @@
                   <a class="nav-link" href="/quotes/"> Quotes </a>
                 </li>
               </ul>
-              <button type="button" class="btn btn-primary">Primary</button>
+              {% if user.is_authenticated %}
+              <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button>
+              {% else %}
+              <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button>
+              {% endif %}
             </div>
           </div>
         </nav>

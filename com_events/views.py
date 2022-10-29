@@ -54,8 +54,9 @@ def add_event(request):
         if form.is_valid():
             manager = request.user
             name = request.POST.get('name')
+            date = request.POST.get('date')
             description = request.POST.get('description')
-            event = Event(name = name, manager= manager, description = description)
+            event = Event(name = name, manager= manager, date=date, description = description)
             event.save()
             return HttpResponseRedirect(reverse('com_events:show_events'))
     else:
