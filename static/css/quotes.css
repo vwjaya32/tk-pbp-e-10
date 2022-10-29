@@ -1,21 +1,29 @@
+/* HOVER */
+.grid-item:hover{
+    transform: scale(1.05);
+}
+
 .navbar{
     background: rgb(51,49,80);
     background: linear-gradient(0deg, rgba(51,49,80,1) 0%, rgba(28,28,52,1) 61%);
 }
 
-body {
-    padding-top : 15px;
-    padding-left : 15px;
-    padding-right : 15px;
-}
-
 h1 {
+    padding-top: 15px;
     color: #009;
     text-align: center;
 }
 
-.container{
-    color: antiquewhite;
+
+.grid-item{
+    margin-left: 15px;
+    margin-bottom: 15px;
+    width: 225px;
+    background-color: #cb8835;
+}
+
+.grid-item p{
+    text-align: center;
 }
 
 img {
