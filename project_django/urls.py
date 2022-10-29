@@ -25,6 +25,7 @@ urlpatterns = [
     path('mh_tests/', include('mh_tests.urls')),
     path('com_events/', include('com_events.urls')),
     path('quotes/', include('quotes.urls')),
+    path('forum/', include('forum.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # membuat URL untuk setiap gambar sehingga bisa diview.
 
