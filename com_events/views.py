@@ -11,6 +11,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
+from django.http import HttpResponse
 
 
 def show_events(request):
@@ -28,6 +30,7 @@ def show_events(request):
     }
     return render(request, "com_events.html", context)
 
+@login_required(login_url='/com_events/login/')
 def my_events(request):
     year = datetime.now().year
     month = datetime.now().strftime('%B')
@@ -112,5 +115,9 @@ def login_user_temp(request):
 
 def logout_user_temp(request):
     logout(request)
-    response = HttpResponseRedirect(reverse('com_events:login'))
+    response = HttpResponseRedirect(reverse('com_events:show_events'))
     return response
+
+def get_json(request):
+    events = Event.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', events), content_type='application/json')

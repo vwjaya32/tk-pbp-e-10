@@ -15,6 +15,10 @@
 {% endif %}
 
 {% if user.is_authenticated %}
+<button data-bs-toggle="modal" data-bs-target="#mainModal"><a href="{% url 'com_events:add_event'%}">
+    Add Event by User for Testing
+</a></button>
+<br>
 <button><a href="{% url 'com_events:show_events' %}">List of Events</a></button>
 <button><a href="{% url 'com_events:my_events' %}">My Events</a></button>
 <button><a href="{% url 'com_events:logout' %}">
@@ -29,6 +33,40 @@
 </a></button>
 {% endif %}
 </center>
+
+<div class="modal fade" id="mainModal" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="mainModalLabel">
+                Add Task
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class = "create">
+                <form method="POST" id="modal_form">  
+                    {% csrf_token %} 
+                    <table>
+                    {{ form.as_table }}
+                    </table>
+                </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="submit_task">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+  
+<h1>
+    Ajax Test
+</h1>
+<div id="main_div">
+
+</div>
 
 <h1>
     List of Events
@@ -61,4 +99,6 @@
     {% endif %}
 </ul>
 {% endfor %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/static/js/com_events.js"></script>
 {% endblock content %}

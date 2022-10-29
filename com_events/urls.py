@@ -6,6 +6,7 @@ app_name = "com_events"
 urlpatterns = [
     path('', show_events, name='show_events'),
     path('my_events', my_events, name='my_events'),
+    path('json', get_json, name='json'),
     path('add_event', add_event, name='add_event'),
     path('delete/<int:id>', delete, name='delete'),
     path('join_event/<int:id>', join_event, name='join_event'),
