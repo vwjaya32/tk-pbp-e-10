@@ -17,7 +17,7 @@
 {% if user.is_authenticated %}
 <button><a href="{% url 'com_events:show_events' %}">List of Events</a></button>
 <button><a href="{% url 'com_events:my_events' %}">My Events</a></button>
-<button><a href="{% url 'com_events:login' %}">
+<button><a href="{% url 'com_events:logout' %}">
     Logout
 </a></button>
 <button id="refresh_data" class="px-3 underline" hidden>
