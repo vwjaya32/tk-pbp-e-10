@@ -248,11 +248,10 @@
                 );
             }
             // onclick="deletes(${data.pk}
-            function deletes(data) {
-                console.log(data);
-                $.post(window.location.href + `delete_res/${data.pk}/`, {}).done(
+            window.deletes = (data) => {
+                $.post(window.location.href + `delete_res/${data}/`, {}).done(
                     (res) => {
-                        $(`#${data.pk}-list`).fadeOut();
+                        $(`#${data}-list`).fadeOut();
                     }
                 );
             }
