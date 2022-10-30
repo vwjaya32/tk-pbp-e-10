@@ -115,31 +115,22 @@
         </center>
         <br>
         <div class="container bg-success text-dark rounded">
-            <center>
-                <br>
-                <h5 id="result" class="text-white">Your score is: </h5>
-                <br>
-                <h5 id="result2" class="text-white">Click the Check Score Button to check your score!</h5>
-                <br>
-                <h5 id="result3" class="text-dark"></h5>
-                <br>
-            </center>
+            <form method="POST" id="myscore">
+                {% csrf_token %}
+                <center>
+                    <br>
+                    <h5 id="result" class="text-white">Your score is: </h5>
+                    <br>
+                    <h5 id="result2" class="text-white">Click the Check Score Button to check your score!</h5>
+                    <br>
+                    <h5 id="result3" class="text-dark"></h5>
+                    <br>
+                    <button id="savebutton" type="submit" class="btn btn-primary rounded" style="display:none">
+                    Save your Score
+                    </button>
+                </center>
+            </form>
         </div>
-        <form method="POST" id="myscore">
-            {% csrf_token %}
-            <table>
-                {{ form.as_table }}
-                <tr>
-                    <td>
-                        <h5>Save your score manually!</h5>
-                    </td>
-                    <td><input class="rounded" type="text" name="scores" id="scores" /></td>
-                </tr>
-            </table>
-            <button id=savebutton type="submit" class="btn btn-primary rounded">
-            Save your Score
-            </button>
-        </form>
     </div>
     <br>
     <center>
@@ -202,6 +193,7 @@
             }
             if (checks == 5) {
                 document.getElementById("result2").innerHTML = scorez;
+                document.getElementById("savebutton").style.display = "block";
                 if (scorez >= 13) {
                     document.getElementById("result3").innerHTML = "You are indicated to be in a very sad state.<br>Talk to your closest friends or family, contact your psychiatrist or psychologist to help you.<br>";
                 } else if (scorez >= 8) {
@@ -224,18 +216,19 @@
                     // deletes(data[i]);
                 }
             });
-            $("#savebutton").click(function() {
-                $("#myscore").submit(function(e) {
-                    e.preventDefault();
-                    $.post(window.location.href + "add/", {
-                        score: $("#scores").val(),
-                    }).done(function(data) {
-                        getData(data);
-                        // deletes(data);
-                        $("#scores").val("");
-                        const makeCard = document.getElementById("beeg");
-                        makeCard.insertAdjacentHTML("beforeend", $(`#${data.pk}_list`));
-                    });
+            $("#myscore").submit(function(e) {
+                e.preventDefault();
+                $.post(window.location.href + "add/", {
+                    score: document.getElementById("result2").innerHTML,
+                    date: new Date().toISOString(),
+                    // Based on: https://stackoverflow.com/questions/55028148/csrf-token-missing-in-django-form-submission
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                }).done(function(data) {
+                    getData(data);
+                    // deletes(data);
+                    $("#scores").val("");
+                    const makeCard = document.getElementById("beeg");
+                    makeCard.insertAdjacentHTML("beforeend", $(`#${data.pk}_list`));
                 });
             });
 
@@ -246,25 +239,24 @@
                             <h4>Date</h4>
                             <h5>${data.fields.date}</h5>
                             <h4>User Name</h4>
-                            <h5>${data.fields.user}</h5>
+                            <h5>${data.fields.user.username}</h5>
                             <h4>Score</h4>
                             <h5>${data.fields.score}</h5>
+                            <button class="delet" onclick="deletes(${data.pk})">Delete</button>
                         </div>
                     `
                 );
             }
-
-            // function deletes(data) {
-            //     $(`#${data.pk}-delete`).click(function() {
-            //         $.post(window.location.href + `delete-task/${data.pk}/`, {}).done(
-            //             (res) => {
-            //                 $(`#${data.pk}-list`).fadeOut();
-            //             }
-            //         );
-            //     });
-            // }
+            // onclick="deletes(${data.pk}
+            function deletes(data) {
+                console.log(data);
+                $.post(window.location.href + `delete_res/${data.pk}/`, {}).done(
+                    (res) => {
+                        $(`#${data.pk}-list`).fadeOut();
+                    }
+                );
+            }
         });
     </script>
-
 </body>
 {% endblock content %}
