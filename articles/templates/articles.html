@@ -25,10 +25,10 @@
             padding: 0;
         }
         .navbar{
-            background: rgb(197,22,22);
+            background: #392C5B;
         }
         body {
-            background: rgb(64, 62, 101)
+            background: #F5E0FF;
         }
         .carousel-item {
             height: 25rem;
@@ -50,7 +50,13 @@
             border-radius: 10px;
             cursor: pointer;
             margin: 10px;
-            background-color: rgb(212, 214, 255);
+            background-color: #221E1F;
+        }
+        .card-title  {
+            color: rgb(203, 203, 203);
+        }
+        .card-text  {
+            color: rgb(132, 132, 132);
         }
         footer {
             width: 100%;
@@ -158,19 +164,25 @@
         </button>
     </div>
 
-    <!-- Add Articles Button -->
-    <a type="button" class="btn btn-warning" style="float: right; margin: 20px; color:white;
-    font-family: 'Noto Sans TC', sans-serif; font-size: large; font-weight:800;" 
+    {% if user.is_superuser %}
+    <!-- manage buttons -->
+    <a type="button" class="btn" style="margin: 20px; margin-right: 5px; color:white; background-color: #2B484B;
+    font-family: 'Noto Sans TC', sans-serif; font-size: large; font-weight:800; ;" 
     href="{% url 'articles:write_articles' %}">+</a>
 
-    <div class="container" style="margin-top:50px; margin-bottom: 50px;">
-        <h1 style="color:white; text-align: center; margin-top: 20px;">RYOK?</h1>
-        <div class=container>
-        <p style="color:white; font-family: 'Noto Sans', sans-serif; font-size: larger; text-align: center;">
+    <a type="button" class="btn" style="color:white; background-color: #84AAA9;
+    font-size: large; font-weight:bold ;" 
+    href="/admin/">Manage</a>
+    {% endif %}
+
+    <div class="container" style="margin-top:20px; margin-bottom: 50px;">
+        <div style="text-align:center">
+        <h1 style=" margin-top: 20px;">RYOK?</h1>
+        <p style="font-family: 'Noto Sans', sans-serif; font-size: larger;">
             Hi there! Are you okay? Explore us to get updates for many mental health news through the world! 
             Find a relevant article for you and be happy!</p>
         </div>
-
+        
         <!-- Showing Article Cards -->
         <div id="articles_cards">
         </div>
@@ -185,6 +197,7 @@
         </div>
     </footer>
 
+    {% if user.is_superuser %}
     <script>
         function ajax_get() {
             
@@ -202,9 +215,9 @@
 
                                 <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
                                     <div class="flex flex-col justify-center rounded" >
-                                        <a type="button" class="btn" style="background-color: rgb(125, 138, 255); margin-left: 15px; font-weight: bold; color: white;" 
+                                        <a type="button" class="btn" style="background-color: #FFCA0C; margin-left: 15px; font-weight: bold; color: white;" 
                                         href="/articles/read/${atc.pk}">Read More</a>
-                                        <a type="button" class="btn" style="background-color: rgb(255, 126, 126); margin-left: 10px; font-weight: bold; color: white;" 
+                                        <a type="button" class="btn" style="background-color: #9D1325; margin-left: 10px; font-weight: bold; color: white;" 
                                         href="/articles/delete-articles/${atc.pk}">X</a>
                                     </div>
                                 </div>
@@ -221,6 +234,42 @@
         });
             
     </script>
+    {% else %}
+    <script>
+        function ajax_get() {
+            
+            $.get('/articles/json-artc', function (articles) {
+                $('#articles_cards').empty()
+                articles.map((atc) => {
+                    $('#articles_cards').append(
+                        `
+                        <div class="card" >
+                            <div class="card-body d-flex flex-column">
+                                <h4 class="card-title" style="font-size:large"> ${atc.fields.title} </h4>
+                                <h6 class="card-subtitle mb-2 text-muted">• ${atc.fields.date}</h6>
+                                <h6 class></h6>
+                                <p class="card-text" style="font-size:medium"> ${atc.fields.content.substring(0,70)}...</p>
+
+                                <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
+                                    <div class="flex flex-col justify-center rounded" >
+                                        <a type="button" class="btn" style="background-color: #FFCA0C; font-weight: bold; color: white;" 
+                                        href="/articles/read/${atc.pk}">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                    )
+                })
+            })
+        }
+
+        $(document).ready(function(){
+            ajax_get()
+        });
+            
+    </script>
+    {% endif %}
 
 
 </body>

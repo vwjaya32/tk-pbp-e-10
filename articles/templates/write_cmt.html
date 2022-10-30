@@ -28,14 +28,25 @@
             padding-top: 5rem;
             padding-bottom: 5rem;
             box-sizing: border-box;
+        }        
+        .card {
+            border-radius: 30px;
+            background-color: rgb(61, 59, 59);
+            box-shadow: 11px 11px 7px rgba(71, 71, 71, 0.764);
+            padding: 10px;
         }
-        h1 {
+        #title-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            font-size: x-large;
+            font-style: italic;
             text-align: center;
             font-family: 'Nunito', sans-serif;
             font-weight: bold;
             font-size: larger;
             font-style:oblique;
             color: whitesmoke;
+            word-wrap: break-word;
         }
         h6 {
             margin-top: 10px;
@@ -43,20 +54,21 @@
             color: whitesmoke;
         }
         body {
-            background: rgb(212,214,255);
+            background: #F5E0FF;
             min-height: 100vh;
-        }
-        .card {
-            border-radius: 30px;
-            background-color: rgb(61, 59, 59);
-            box-shadow: 11px 11px 7px rgba(71, 71, 71, 0.764);
-            padding: 10px;
         }
         textarea {
             height:10rem;
         }
         input {
             margin-top: 10px;
+        }
+        footer {
+            position:sticky;
+            width: 100%;
+            top: 100%;
+            padding: 20px;
+            background-color: rgb(37, 33, 34);
         }
         .btn {
             box-shadow: 0 0 5px rgb(36, 35, 48);
@@ -70,19 +82,13 @@
             -webkit-transform: scale(1.08);
             transform: scale(1.08);
         }
-        footer {
-            width: 100%;
-            position:sticky;
-            top: 100%;
-            background-color: rgb(36, 35, 48);
-            padding: 20px;
-        }
+
     </style>
 
     <div class="container">
         <div class="card align-items-center">
         <div class="card-body">
-        <h1>How do you think about the article "{{the_artc.title}}"?</h1>
+        <p id="title-text">How do you think about the article "{{the_artc.title}}"?</h1>
         <form method="POST">
             {% csrf_token %}
 
@@ -91,8 +97,7 @@
 
                 <h6>Your thoughts? </h6>
                 <textarea name="content" placeholder="It's a great article!" class="form-control"></textarea>
-                <input class="btn btn-warning" style="font-weight:bold; color:aliceblue;" type="submit" name="submit" value="Post"/>
-
+                <input class="btn" style="font-weight:bold; color:aliceblue; background-color: #FFCA0C;" type="submit" name="submit" value="Post"/>
 
         </form>
         </div>
