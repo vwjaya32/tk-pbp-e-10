@@ -25,8 +25,7 @@
             padding: 0;
         }
         .navbar{
-            background: rgb(51,49,80);
-            background: linear-gradient(0deg, rgba(51,49,80,1) 0%, rgba(28,28,52,1) 61%);
+            background: rgb(197,22,22);
         }
         body {
             background: rgb(64, 62, 101)
@@ -77,11 +76,18 @@
             -webkit-transform: scale(1.08);
             transform: scale(1.08);
         }
+        a {
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+        }
+        #log-btn {
+            font-weight: bold;
+        }
     </style>
 
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-        <a class="navbar-brand" href="#"> RYOK? </a>
+        <a class="navbar-brand" href="#" style="font-style:italic"> RYOK? </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -107,9 +113,9 @@
             </li>
             </ul>
             {% if user.is_authenticated %}
-            <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button>
+            <a id="log-btn" class="btn btn-light" href="{% url 'homepage:logout' %}">Logout</a>
             {% else %}
-            <button type="button" class="btn btn-light "><a href="{% url 'homepage:login' %}">Login</a></button>
+            <a id="log-btn" class="btn btn-light "href="{% url 'homepage:login' %}">Login</a>
             {% endif %}
         </div>
         </div>
