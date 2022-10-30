@@ -4,10 +4,7 @@
 <head>
     {% block meta %}
     <title>RYOK? | Articles</title>
-    <script src="jquery-3.6.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     {% endblock meta %}
-    
 
     <!-- External Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -129,10 +126,29 @@
             Find a relevant article for you and be happy!</p>
         </div>
 
-        <!-- Showing Article Cards -->
-        <div id="articles_cards">
-        </div>
+        <!-- Cards -->
+        <div>
+            {% for i in data %}
+            <div class="card">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title" style="font-size:large"> {{i.title}} </h4>
+                    <h6 class="card-subtitle mb-2 text-muted">• {{i.date}}</h6>
+                    <h6 class></h6>
+                    <p class="card-text" style="font-size:medium"> {{i.content|slice:70}}...</p>
 
+                    <!-- Buttons -->
+                    <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
+                        <div class="flex flex-col justify-center rounded" >
+                            <a type="button" class="btn" style="background-color: rgb(125, 138, 255); margin-left: 15px; font-weight: bold; color: white;" 
+                            href="{% url 'articles:read_articles' i.id %}">Read More</a>
+                            <a type="button" class="btn" style="background-color: rgb(255, 126, 126); margin-left: 10px; font-weight: bold; color: white;" 
+                            href="{% url 'articles:delete_articles' i.id %}">X</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
     <footer>
@@ -143,42 +159,6 @@
         </div>
     </footer>
 
-    <script>
-        function ajax_get() {
-            
-            $.get('/articles/json-artc', function (articles) {
-                $('#articles_cards').empty()
-                articles.map((atc) => {
-                    $('#articles_cards').append(
-                        `
-                        <div class="card" >
-                            <div class="card-body d-flex flex-column">
-                                <h4 class="card-title" style="font-size:large"> ${atc.fields.title} </h4>
-                                <h6 class="card-subtitle mb-2 text-muted">• ${atc.fields.date}</h6>
-                                <h6 class></h6>
-                                <p class="card-text" style="font-size:medium"> ${atc.fields.content.substring(0,70)}...</p>
-
-                                <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
-                                    <div class="flex flex-col justify-center rounded" >
-                                        <a type="button" class="btn" style="background-color: rgb(125, 138, 255); margin-left: 15px; font-weight: bold; color: white;" 
-                                        href="/articles/read/${atc.pk}">Read More</a>
-                                        <a type="button" class="btn" style="background-color: rgb(255, 126, 126); margin-left: 10px; font-weight: bold; color: white;" 
-                                        href="/articles/delete-articles/${atc.pk}">X</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        `
-                    )
-                })
-            })
-        }
-
-        $(document).ready(function(){
-            ajax_get()
-        });
-            
-    </script>
 
 
 </body>
