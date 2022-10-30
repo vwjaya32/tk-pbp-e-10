@@ -14,6 +14,9 @@ import os
 import dj_database_url
 from pathlib import Path
 
+# Cloudinary for Image Upload
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'homepage',
     'articles',
     'mh_tests',
@@ -146,6 +151,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 for directory in [*STATICFILES_DIRS, STATIC_ROOT]:
     directory.mkdir(exist_ok=True)
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dyk2nba0c',
+    'API_KEY': '574953534244743',
+    'API_SECRET': 'PfoIMzoVQYXEJoqoLUX8Wi8wQi4',
+    'EXCLUDE_DELETE_ORPHANED_MEDIA_PATHS': (),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
