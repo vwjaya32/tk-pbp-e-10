@@ -1,9 +1,11 @@
 from nntplib import ArticleInfo
 from django.shortcuts import render
 from django.shortcuts import redirect
-from requests import request
 from articles.models import *
 from django import forms
+from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
+from django.urls import reverse
+from django.core import serializers
 
 # Create your views here.
 class edit_box(forms.Form):
@@ -55,14 +57,25 @@ def write_comments(request, id):
     if request.method == "POST":
         forms = comment_box(request.POST)
         if forms.is_valid():
-            new_artc = Comments(
+            new_cmt = Comments(
                 author = forms.cleaned_data["author"],
                 content = forms.cleaned_data["content"],
                 artc_place = Articles.objects.get(id=id),
             )
-            new_artc.save()
+            new_cmt.save()
             return redirect("articles:read_articles", id)
 
     forms = comment_box()
-    context={"form":forms}
+    artc_data = Articles.objects.get(id=id)
+    context={"form":forms, "the_artc":artc_data}
     return render(request, "write_cmt.html", context)
+
+def delete_comments(request, article_id, id):
+    Comments.objects.get(id=id).delete()
+    return redirect("articles:read_articles", article_id)
+
+
+# Data Delivery
+def show_json_articles(request):
+    data = Articles.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")

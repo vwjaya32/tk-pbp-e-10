@@ -4,6 +4,7 @@
     {% block meta %}
     <title>RYOK? | {{target.title}}</title>
     {% endblock meta %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- External Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,13 +28,18 @@
             font-family: 'Nunito', sans-serif;
             font-weight: bold;
         }
+        h6 {
+            white-space:pre;
+        }
         body{
-            background-color: rgb(30, 30, 30)
+            background: rgb(122,122,122);
+            background: linear-gradient(0deg, rgba(122,122,122,1) 0%, rgba(30,30,30,1) 100%);
+            min-height: 100vh;
         }
         footer {
-            position:static;
+            position:sticky;
             width: 100%;
-            bottom: 0;
+            top: 100%;
             padding: 20px;
             background-color: rgb(36, 35, 48);
         }
@@ -51,13 +57,13 @@
     </style>
 
     <!-- Title Bar -->
-    <div style="text-align:center; padding:10px 10px; color: rgb(230, 230, 230);">
+    <div style="text-align:center; padding:10px 10px; margin-top: 3rem ;color: rgb(230, 230, 230);">
         <h2>{{target.title}}</h2>
         <h4 style="font-family: 'Noto Sans', sans-serif; font-weight: lighter; font-style: italic;">written by {{target.author}}</h4>
     </div>
 
-    <!-- Content Section -->
-    <div style="background: rgb(64, 62, 101); padding:20px; border-top-left-radius: 50px; border-top-right-radius: 50px">
+    <!-- Content -->
+    <div style="background: rgb(64, 62, 101); padding:20px; padding-bottom: 25vh ;border-top-left-radius: 50px; border-top-right-radius: 50px;">
         <!-- Articles -->
         <div class=container style="border-radius:15px; padding:10px; background-color: rgb(212, 214, 255); margin-top:20px">
             <p style="font-weight:400 ;text-align: justify;">{{target.content}} </p>
@@ -66,13 +72,18 @@
 
         <!-- Comment -->
         <div class=container style="background-color: rgb(88, 88, 88); padding:20px; border-radius:15px;">
-                <h2 style="font-size:large; color:aliceblue;">How do you think? 👀</h2>
-                <a type="button" style="font-weight:bold; color:aliceblue;" class="btn btn-warning" href="{% url 'articles:write_comments' target.id %}">Write a comment</a>
+            <h2 style="font-size:large; color:aliceblue;">How do you think? 👀</h2>
+
+            <!-- Comment Button -->
+            <a type="button" style="font-weight:bold; color:aliceblue;" class="btn btn-warning" href="{% url 'articles:write_comments' target.id %}">Write a comment</a>
 
             {% for i in comment %}
-                <div style="border-radius: 15px; background-color: blanchedalmond; padding: 10px; margin: 10px;">
-                    <h6 style="margin-left: 2px; font-weight: bold; font-family: 'Nunito', sans-serif;">👾 {{i.author}}</h6>
-                    <h6 style="margin-left: 28px; font-weight:normal ; ">{{i.content}}</h6>
+                <div id="cmt-list" class="d-flex justify-content-between" style="border-radius: 15px; background-color: blanchedalmond; padding: 10px; margin: 10px;">
+                    <div>
+                        <h6 style="margin-left: 2px; font-weight: bold; font-family: 'Nunito', sans-serif;">👾 {{i.author}}  |  {{i.date}}</h6>
+                        <h6 style="margin-left: 28px; font-weight:normal ; ">{{i.content}}</h6>
+                    </div>
+                    <a type="button" style=" font-weight:bold; color:aliceblue; padding-top: 13px;" class="btn btn-danger" href="{% url 'articles:delete_comments' target.id i.id %}">X</a>
                 </div>
             {% endfor %}
         </div>
