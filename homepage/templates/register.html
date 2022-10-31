@@ -36,6 +36,7 @@
         }
         body {
             background-color: #09050D;
+            min-height: 100vh;
         }
         #reg-btn {
             background-color: #FED02B;
@@ -44,25 +45,27 @@
         }
     </style>
 
-    <div id="reg-wrapper" class="container">
-        <h1>Registration Form</h1>  
+    <div class="container">
+        <div id="reg-wrapper" class="container card">
+            <h1>Registration Form</h1>  
 
-            <form method="POST" >  
-                {% csrf_token %}  
-                <table class="reg-table">  
-                    {{ form.as_table }}  
-                </table>
-                <input id="reg-btn" type="submit" name="submit" value="Create Account"/>
-            </form>
+                <form method="POST" >  
+                    {% csrf_token %}  
+                    <table class="reg-table">  
+                        {{ form.as_table }}  
+                    </table>
+                    <input id="reg-btn" type="submit" name="submit" value="Create Account"/>
+                </form>
 
-        {% if messages %}  
-            <ul>   
-                {% for message in messages %}  
-                    <li>{{ message }}</li>  
-                    {% endfor %}  
-            </ul>   
-        {% endif %}
-    </div>  
+            {% if messages %}  
+                <ul>   
+                    {% for message in messages %}  
+                        <li>{{ message }}</li>  
+                        {% endfor %}  
+                </ul>   
+            {% endif %}
+        </div>  
+    </div>
 
 </body>
 {% endblock content %}
