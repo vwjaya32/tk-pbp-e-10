@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <style>
     .navbar{
         background: rgb(51,49,80);
@@ -42,36 +43,29 @@
         </div>
       </div>
     </nav>
-<center>
-<h1>
-    Events for {{ month }} {{ year }}
-</h1>
-
-{{ cal|safe }}
 
 {% if user.is_superuser %}
-<button data-bs-toggle="modal" data-bs-target="#mainModal">
+<button data-bs-toggle="modal" data-bs-target="#modal_add">
     Add Event
 </button>
 {% endif %}
 
 {% if user.is_authenticated %}
-<button data-bs-toggle="modal" data-bs-target="#mainModal">
+<button data-bs-toggle="modal" data-bs-target="#modal_add">
     Add Event AJAX by User for Testing
 </button>
 <button><a href="{% url 'com_events:add_event'%}">
     Add Event by User for Testing
 </a></button>
 <br>
-<button><a href="{% url 'com_events:show_events' %}">List of Events</a></button>
+<button><a href="{% url 'com_events:list_events' %}">List of Events</a></button>
 <button><a href="{% url 'com_events:my_events' %}">My Events</a></button>
 <button id="refresh_data" class="px-3 underline" >
     Refresh
 </button>
 {% endif %}
-</center>
 
-<div class="modal fade" id="mainModal" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_add" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -97,14 +91,15 @@
         </div>
     </div>
 </div>
-  
-<h1>
-    Ajax Test
+
+{% if user.is_authenticated %}
+<h1 id="title">
+    
 </h1>
 <div id="main_div">
 
 </div>
-
+{% else %}
 
 <h1>
     List of Events
@@ -123,7 +118,7 @@
         {{ user }}
         {% endfor %}
     </li>
-    {% if user.is_authenticated %}
+    <!-- {% if user.is_authenticated %}
         <button>
         <a href="{% url 'com_events:join_event' item.id %}" class="btn">
             Join
@@ -134,10 +129,17 @@
         <a href="{% url 'com_events:delete' item.id %}" class="btn">
             Delete
         </a>
-    {% endif %}
+    {% endif %} -->
 </ul>
 {% endfor %}
+{% endif %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/static/js/com_events.js"></script>
+
+{% if user.is_superuser %}
+<script src="/static/js/events_admin.js"></script>
+{% endif %}
+{% if user.is_authenticated %}
+<script src="/static/js/events_user.js"></script>
+{% endif %}
 
 {% endblock content %}

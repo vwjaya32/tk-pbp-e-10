@@ -1,6 +1,7 @@
 from nntplib import ArticleInfo
 from django.shortcuts import render
 from django.shortcuts import redirect
+from requests import request
 from articles.models import *
 from django import forms
 from django.urls import reverse
@@ -45,12 +46,12 @@ def write_comments(request, id):
     if request.method == "POST":
         forms = comment_box(request.POST)
         if forms.is_valid():
-            new_cmt = Comments(
+            new_artc = Comments(
                 author = forms.cleaned_data["author"],
                 content = forms.cleaned_data["content"],
                 artc_place = Articles.objects.get(id=id),
             )
-            new_cmt.save()
+            new_artc.save()
             return redirect("articles:read_articles", id)
 
     forms = comment_box()
