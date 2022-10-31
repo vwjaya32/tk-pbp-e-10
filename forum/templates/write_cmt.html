@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<head>
+    {% block meta %}
+    <title>RYOK? | Write Comment</title>
+    {% endblock meta %}
+
+    <!-- External Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+</head>
+
+{% block content %}
+<body> 
+    <style>
+        *{
+            margin: 0; 
+            padding: 0;
+        }
+        .container {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            box-sizing: border-box;
+        }        
+        .card {
+            border-radius: 30px;
+            background-color: rgb(61, 59, 59);
+            box-shadow: 11px 11px 7px rgba(71, 71, 71, 0.764);
+            padding: 10px;
+        }
+        #title-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            font-size: x-large;
+            font-style: italic;
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            font-size: larger;
+            font-style:oblique;
+            color: whitesmoke;
+            word-wrap: break-word;
+        }
+        h6 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: whitesmoke;
+        }
+        body {
+            background: #F5E0FF;
+            min-height: 100vh;
+        }
+        textarea {
+            height:10rem;
+        }
+        input {
+            margin-top: 10px;
+        }
+        footer {
+            position:sticky;
+            width: 100%;
+            top: 100%;
+            padding: 20px;
+            background-color: rgb(37, 33, 34);
+        }
+        .btn {
+            box-shadow: 0 0 5px rgb(36, 35, 48);
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-property: box-shadow, transform;
+            transition-property: box-shadow, transform;
+        }
+        .btn:hover {
+            box-shadow: 0 0 8px rgb(36, 35, 48);
+            -webkit-transform: scale(1.08);
+            transform: scale(1.08);
+        }
+
+    </style>
+
+    <div class="container">
+        <div class="card align-items-center">
+        <div class="card-body">
+        <p id="title-text">How do you think about the article "{{the_artc.title}}"?</h1>
+        <form method="POST">
+            {% csrf_token %}
+
+                <h6>Pseudonym: </h6>
+                <input name="author" placeholder="Baby John" class="form-control">
+
+                <h6>Your thoughts? </h6>
+                <textarea name="content" placeholder="It's a great article!" class="form-control"></textarea>
+                <input class="btn" style="font-weight:bold; color:aliceblue; background-color: #FFCA0C;" type="submit" name="submit" value="Post"/>
+
+        </form>
+        </div>
+        </div>
+    </div>
+
+    <footer>
+        <div style="color: rgb(120, 114, 114); text-align: center; font-family: 'Noto Sans', sans-serif;"> 
+            <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
+            <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
+            <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
+        </div>
+    </footer>
+
+</body>
+{% endblock content %}

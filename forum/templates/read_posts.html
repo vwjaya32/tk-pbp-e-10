@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+<head>
+    {% block meta %}
+    <title>RYOK? | {{thread.title}}</title>
+    {% endblock meta %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+{% block content %}
+<body>
+    <style>
+        #title-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            font-size: x-large;
+            font-style: italic;
+        }
+        #writer-text {
+            font-family: 'Noto Sans', sans-serif; 
+            font-size: larger; 
+            font-style: italic;
+        }
+        #content-text {
+            font-weight:normal ;
+            text-align: justify;
+        }
+        .container {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+            border-radius: 15px;
+        }
+        #cmt-list p {
+            word-wrap: break-word;
+        }
+        #cmt-author-text {
+            margin-left: 2px;
+            font-weight: bold;
+              font-family: 'Nunito', sans-serif;
+        }
+        #cmt-comment-text {
+            margin-left: 28px;
+            font-weight: normal;
+        }
+        body{
+            background: #F5E0FF;
+            min-height: 100vh;
+        }
+        footer {
+            position:sticky;
+            width: 100%;
+            top: 100%;
+            padding: 20px;
+            background-color: rgb(37, 33, 34);
+        }
+        .btn {
+            box-shadow: 0 0 5px rgb(36, 35, 48);
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-property: transform;
+            transition-property: transform;
+        }
+        .btn:hover {
+            -webkit-transform: scale(1.08);
+            transform: scale(1.08);
+        }
+
+    </style>
+
+    <!-- Title Bar -->
+    <div style="text-align:center; padding:10px 10px; margin-top: 3rem;">
+        <p id="title-text">{{thread.title}}</p>
+        <p id="writer-text">-- written by {{thread.author}} --</p>
+    </div>
+
+    <!-- Content -->
+    <div style="background: rgb(88, 72, 134); padding:20px; padding-bottom: 25vh ;border-top-left-radius: 50px; border-top-right-radius: 50px;">
+        <!-- Articles -->
+        <div class=container style="padding:10px; background-color: rgb(120, 103, 116); margin-top:20px">
+            <p id="content-text">{{thread.content}} </p>
+            <h6>[{{thread.date}}]</h6>
+        </div>
+
+        <!-- Comment -->
+        <div class=container style="background-color: #E1E1E1; padding:20px;">
+            <h2 style="font-size:large; ">How do you think? 👀</h2>
+
+            <!-- Comment Button -->
+            <!-- <a type="button" style="font-weight:bold; color:aliceblue; background-color: #2B484B;" class="btn" href="{% url 'articles:write_comments' thread.id %}">Write a comment</a> -->
+
+            {% for i in comment %}
+                <div id="cmt-list" class="d-flex justify-content-between" style="border-radius: 15px; background-color:#FFCA0C; padding: 10px; margin: 10px;">
+                    <div class="container">
+                        <p id="cmt-author-text">👾 {{i.author}}  |  {{i.date}}</p>
+                        <p id="cmt-comment-text">{{i.content}}</p>
+                    </div>
+                    <!-- <a type="button" style=" font-weight:bold; color:aliceblue; padding-top: 13px; background-color:#DE1C1C;" class="btn" href="{% url 'articles:delete_comments' thread.id i.id %}">X</a> -->
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer>
+        <div style="color: rgb(120, 114, 114); text-align: center; font-family: 'Noto Sans', sans-serif;"> 
+            <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
+            <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
+            <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
+        </div>
+    </footer>
+
+
+</body>
+{% endblock content %}
