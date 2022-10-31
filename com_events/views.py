@@ -76,18 +76,16 @@ def join_event(request, id):
 @login_required(login_url='/com_events/login/')
 def unjoin_event(request, id):
     event = Event.objects.get(pk=id)
-    if request.method == 'POST':
-        event.attendees.remove(request.user)
-        event.is_joined == False
-        return redirect('com_events:show_events')
-    return render(request, 'event_details.html', {'event':event})
+    event.attendees.remove(request.user)
+    event.is_joined == False
+    return redirect('com_events:show_events')
 
 def get_json_all(request):
     events = Event.objects.all()
     return HttpResponse(serializers.serialize('json', events), content_type='application/json')
 
 def get_json_user(request):
-    events = Event.objects.filter(manager=request.user)
+    events = Event.objects.filter(attendees=request.user)
     return HttpResponse(serializers.serialize('json', events), content_type='application/json')
 
 def add_event_ajax(request):
@@ -97,7 +95,7 @@ def add_event_ajax(request):
             data = form.cleaned_data
             manager = request.user
             name = data['name']
-            date = datetime.fromisoformat(data.get('date').toString())
+            date = data['date']
             description = data['description']
             events = Event(manager = manager, name=name, date=date, description = description)
             events.save()

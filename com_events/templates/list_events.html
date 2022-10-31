@@ -48,21 +48,12 @@
 <button data-bs-toggle="modal" data-bs-target="#modal_add">
     Add Event
 </button>
+<button id="refresh_data_admin">List of Events</button>
 {% endif %}
 
 {% if user.is_authenticated %}
-<button data-bs-toggle="modal" data-bs-target="#modal_add">
-    Add Event AJAX by User for Testing
-</button>
-<button><a href="{% url 'com_events:add_event'%}">
-    Add Event by User for Testing
-</a></button>
-<br>
-<button><a href="{% url 'com_events:list_events' %}">List of Events</a></button>
-<button><a href="{% url 'com_events:my_events' %}">My Events</a></button>
-<button id="refresh_data" class="px-3 underline" >
-    Refresh
-</button>
+<button id="refresh_data_user">List of Events</button>
+<button id="refresh_my_events">My Events</button>
 {% endif %}
 
 <div class="modal fade" id="modal_add" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
@@ -118,28 +109,11 @@
         {{ user }}
         {% endfor %}
     </li>
-    <!-- {% if user.is_authenticated %}
-        <button>
-        <a href="{% url 'com_events:join_event' item.id %}" class="btn">
-            Join
-        </a>
-        </button>
-    {% endif %}
-    {% if user.is_superuser %}
-        <a href="{% url 'com_events:delete' item.id %}" class="btn">
-            Delete
-        </a>
-    {% endif %} -->
 </ul>
 {% endfor %}
 {% endif %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-{% if user.is_superuser %}
-<script src="/static/js/events_admin.js"></script>
-{% endif %}
-{% if user.is_authenticated %}
 <script src="/static/js/events_user.js"></script>
-{% endif %}
 
 {% endblock content %}
