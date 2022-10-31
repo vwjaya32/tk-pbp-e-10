@@ -8,12 +8,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
-        #bagron {
-            background: #ae85f4;
+        * {
+            margin: 0;
+            padding: 0;
         }
         
-        #foot {
-            background: darkblue;
+        a {
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+        }
+        
+        #log-btn {
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+        
+        .btn {
+            box-shadow: 0 0 5px rgb(36, 35, 48);
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-property: box-shadow, transform;
+            transition-property: box-shadow, transform;
+        }
+        
+        .btn:hover {
+            box-shadow: 0 0 8px rgb(36, 35, 48);
+            -webkit-transform: scale(1.08);
+            transform: scale(1.08);
+        }
+        
+        .navbar {
+            background: #FFFFFF;
+        }
+        
+        footer {
+            width: 100%;
+            position: relative;
+            bottom: 0;
+            background-color: #613FE5;
+            padding: 20px;
         }
         
         #space {
@@ -21,7 +54,8 @@
         }
         
         #joinus li {
-            font-family: "Century Gothic";
+            font-family: 'Noto Sans', sans-serif;
+            font-size: larger;
         }
         
         #joinus h5 {
@@ -45,8 +79,9 @@
         }
         
         .delet {
-            max-width: 200px;
+            width: 200px;
             align-self: center;
+            border: 10px solid transparent;
             border-radius: 10px;
             background-color: cornflowerblue;
         }
@@ -79,8 +114,8 @@
 
 {% endblock meta %} {% block content %}
 
-<body id="bagron">
-    <nav class="navbar navbar-expand-lg navbar-dark">
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" style="font-style:italic"> RYOK? </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +127,7 @@
                         <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/articles/"> Articles </a>
+                        <a class="nav-link" href="/articles/"> Articles </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/com_events/"> Events </a>
@@ -101,15 +136,15 @@
                         <a class="nav-link" href="/mh_goods/"> Goods </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/mh_tests/"> Tests </a>
+                        <a class="nav-link active" href="/mh_tests/"> Tests </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/quotes/"> Quotes </a>
                     </li>
                 </ul>
                 {% if user.is_authenticated %}
-                <a id="log-btn" class="btn btn-light" href="{% url 'homepage:logout' %}">Logout</a> {% else %}
-                <a id="log-btn" class="btn btn-light " href="{% url 'homepage:login' %}">Login</a> {% endif %}
+                <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:logout' %}">Logout</a> {% else %}
+                <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:login' %}">Login</a> {% endif %}
             </div>
         </div>
     </nav>
@@ -120,99 +155,103 @@
     <br>
     <center>
         <div class="container bg-white text-dark rounded">
-            <h5 class="text-white">Quick Mental Health Test</h5>
+            <br>
             <h2>Quick Mental Health Test</h2>
-            <h5 class="text-white">Quick Mental Health Test</h5>
+            <h5 style="font-family: 'Noto Sans', sans-serif; font-size: larger;">Spend just 3 minutes of taking this test and we will quickly calculate your mental health state.</h5>
+            <br>
         </div>
     </center>
     <br>
-    <div class="container bg-warning text-dark rounded">
+    <div class="container bg-warning text-dark rounded" style="width: 500px;">
         <center>
-            <h3 class="text-danger">Caution!</h3>
-            <p>This test does not serve as a real diagnostic tool, but can be used to picture of the condition you are currently experiencing.</p>
-            <p>Use this test wisely, answer honestly according to your current conditions. Please consult your psychologist or psychiatrist if needed.</p>
+            <h3 class="text-danger" style="font-size:xx-large;">Caution!</h3>
+            <p style="font-family: 'Noto Sans', sans-serif; font-size: medium;">This test does not serve as a real diagnostic tool, but can be used to picture of the condition you are currently experiencing. Use this test wisely, answer honestly according to your current conditions. Please consult your psychologist or
+                psychiatrist if needed.</p>
         </center>
     </div>
-    <div class="container bg-white text-dark rounded">
-        <h5 class="text-white">Questions</h5>
-        <h4>Do you often feel sad lately?</h4>
-        <div class="form-check">
-            <input type="radio" id="health11" name="tes1" value=1>
-            <label for="health11">No</label><br>
-            <input type="radio" id="health12" name="tes1" value=2>
-            <label for="health12">Maybe</label><br>
-            <input type="radio" id="health13" name="tes1" value=3>
-            <label for="health13">Yes</label><br>
-        </div>
+    <br>
+    <div class="bg-dark rounded" style="width: 1200px; margin:0 auto; padding: 20px;">
+        <div class="container text-white rounded">
+            <br>
+            <h4>Do you often feel sad lately?</h4>
+            <div class="form-check">
+                <input type="radio" id="health11" name="tes1" value=1>
+                <label for="health11">No</label><br>
+                <input type="radio" id="health12" name="tes1" value=2>
+                <label for="health12">Maybe</label><br>
+                <input type="radio" id="health13" name="tes1" value=3>
+                <label for="health13">Yes</label><br>
+            </div>
 
-        <h4>In this one week, do you feel mentally tired for more than three days?</h4>
-        <div class="form-check">
-            <input type="radio" id="health21" name="tes2" value=1>
-            <label for="health21">No</label><br>
-            <input type="radio" id="health22" name="tes2" value=2>
-            <label for="health22">Maybe</label><br>
-            <input type="radio" id="health23" name="tes2" value=3>
-            <label for="health23">Yes</label><br>
-        </div>
+            <h4>In this one week, do you feel mentally tired for more than three days?</h4>
+            <div class="form-check">
+                <input type="radio" id="health21" name="tes2" value=1>
+                <label for="health21">No</label><br>
+                <input type="radio" id="health22" name="tes2" value=2>
+                <label for="health22">Maybe</label><br>
+                <input type="radio" id="health23" name="tes2" value=3>
+                <label for="health23">Yes</label><br>
+            </div>
 
-        <h4>How many times have you cried or been silent in the past two weeks?</h4>
-        <div class="form-check">
-            <input type="radio" id="health31" name="tes3" value=1>
-            <label for="health31">Less than three times</label><br>
-            <input type="radio" id="health32" name="tes3" value=2>
-            <label for="health32">3-5 times</label><br>
-            <input type="radio" id="health33" name="tes3" value=3>
-            <label for="health33">More than 5 times</label><br>
-            <input type="radio" id="health33" name="tes3" value=4>
-            <label for="health33">Nearly every day</label><br>
-        </div>
+            <h4>How many times have you cried or been silent in the past two weeks?</h4>
+            <div class="form-check">
+                <input type="radio" id="health31" name="tes3" value=1>
+                <label for="health31">Less than three times</label><br>
+                <input type="radio" id="health32" name="tes3" value=2>
+                <label for="health32">3-5 times</label><br>
+                <input type="radio" id="health33" name="tes3" value=3>
+                <label for="health33">More than 5 times</label><br>
+                <input type="radio" id="health33" name="tes3" value=4>
+                <label for="health33">Nearly every day</label><br>
+            </div>
 
-        <h4>Do you feel alone in this world?</h4>
-        <div class="form-check">
-            <input type="radio" id="health41" name="tes4" value=3>
-            <label for="health41">Yes, I'm alone and I don't trust other people</label><br>
-            <input type="radio" id="health42" name="tes4" value=2>
-            <label for="health42">Sometimes I feel alone but there are still some people I can rely on</label><br>
-            <input type="radio" id="health43" name="tes4" value=1>
-            <label for="health43">I feel happy to have so many friends here.</label><br>
-        </div>
+            <h4>Do you feel alone in this world?</h4>
+            <div class="form-check">
+                <input type="radio" id="health41" name="tes4" value=3>
+                <label for="health41">Yes, I'm alone and I don't trust other people</label><br>
+                <input type="radio" id="health42" name="tes4" value=2>
+                <label for="health42">Sometimes I feel alone but there are still some people I can rely on</label><br>
+                <input type="radio" id="health43" name="tes4" value=1>
+                <label for="health43">I feel happy to have so many friends here.</label><br>
+            </div>
 
-        <h4>Are you thinking about committing suicide?</h4>
-        <div class="form-check">
-            <input type="radio" id="health51" name="tes5" value=4>
-            <label for="health51">Lately I really want to end my life.</label><br>
-            <input type="radio" id="health52" name="tes5" value=3>
-            <label for="health52">I've had suicidal thoughts once in a while.</label><br>
-            <input type="radio" id="health53" name="tes5" value=2>
-            <label for="health53">Even though my life is hard sometimes, I don't think about ending it.</label><br>
-            <input type="radio" id="health54" name="tes5" value=1>
-            <label for="health54">I am happy with my journey and I want to live a healthy life.</label><br>
-        </div>
-        <br>
-        <center><button class="btn btn-primary rounded" type="button" onclick="displayValue()">
+            <h4>Are you thinking about committing suicide?</h4>
+            <div class="form-check">
+                <input type="radio" id="health51" name="tes5" value=4>
+                <label for="health51">Lately I really want to end my life.</label><br>
+                <input type="radio" id="health52" name="tes5" value=3>
+                <label for="health52">I've had suicidal thoughts once in a while.</label><br>
+                <input type="radio" id="health53" name="tes5" value=2>
+                <label for="health53">Even though my life is hard sometimes, I don't think about ending it.</label><br>
+                <input type="radio" id="health54" name="tes5" value=1>
+                <label for="health54">I am happy with my journey and I want to live a healthy life.</label><br>
+            </div>
+            <br>
+            <center><button class="btn btn-primary rounded" type="button" onclick="displayValue()">
         Check your Score!
         </button>
-        </center>
-        <br>
-        <div class="container bg-success text-dark rounded">
-            <form method="POST" id="myscore">
-                {% csrf_token %}
-                <center>
-                    <br>
-                    <h5 id="result" class="text-white">Your score is: </h5>
-                    <br>
-                    <h5 id="result2" class="text-white">Click the Check Score Button to check your score!</h5>
-                    <br>
-                    <h5 id="result3" class="text-dark"></h5>
-                    <br>
-                    <button id="savebutton" type="submit" class="btn btn-primary rounded" style="display:none">
+            </center>
+            <br>
+            <div class="container bg-success text-dark rounded">
+                <form method="POST" id="myscore">
+                    {% csrf_token %}
+                    <center>
+                        <br>
+                        <h5 id="result" class="text-white">Your score is: </h5>
+                        <br>
+                        <h5 id="result2" class="text-white">Click the Check Score Button to check your score!</h5>
+                        <br>
+                        <h5 id="result3" class="text-dark"></h5>
+                        <br>
+                        <button id="savebutton" type="submit" class="btn btn-primary rounded" style="display:none">
                     Save your Score
                     </button>
-                    <br>
-                </center>
-            </form>
+                        <br>
+                    </center>
+                </form>
+            </div>
+            <br>
         </div>
-        <h5 class="text-white">Questions</h5>
     </div>
     <br>
     <center>
@@ -231,24 +270,26 @@
             <br>
             <h3>Do you want to take a free mental health test?</h3>
             <br>
-            <h3>Login Today!</h3>
+            <h3><span style="color: green; font-weight:bold">Login</span> or <span style="color: rgb(21, 0, 128); font-weight:bold">Sign Up</span> Today!</h3>
 
         </center>
         <br>
         <h5>Get Many Benefits of Joining RYOK? Community:</h5>
+        <br>
         <ul>
-            <li>Start a Discussion</li>
+            <li>Start a Discussion about Mental Health</li>
             <li>Take a Quick Mental Health Test</li>
             <li>See newer articles</li>
-            <li>Join Fun Events</li>
+            <li>Join exciting events</li>
             <li>Share your Inspirational Quote</li>
             <li>Buy recommended goods for your soul</li>
             <li>Share your interests</li>
+            <li>And of course, have fun together!</li>
         </ul>
         <br>
 
         <center>
-            <h3>JOIN US!</h3><a id="log-btn" class="btn btn-success" href="{% url 'homepage:login' %}">Login</a></center>
+            <h3>COME JOIN US!</h3><br><a id="log-btn" class="btn btn-success" href="{% url 'homepage:login' %}">Login to RYOK?</a><br><br><a id="log-btn" class="btn btn-primary" href="{% url 'homepage:register' %}">Register as a Member</a></center>
         <br>
     </div>
     <br> {% endif %}
@@ -374,8 +415,8 @@
             }
         });
     </script>
-    <footer id="foot">
-        <div style="color: beige; text-align: center; font-family: 'Noto Sans', sans-serif;">
+    <footer>
+        <div style="color: white; text-align: center; font-family: 'Noto Sans', sans-serif;">
             <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
             <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
             <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>

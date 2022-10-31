@@ -1,19 +1,17 @@
-from django.urls import reverse
-from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar, month_name
 from datetime import datetime
+from multiprocessing import context
 from com_events.models import *
 from com_events.forms import EventForm
-from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import render, redirect
+from django.http import *
+from django.contrib import *
+from django.contrib.auth import *
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
-from django.http import HttpResponse
-
 
 def show_events(request):
     year = datetime.now().year
@@ -21,27 +19,26 @@ def show_events(request):
     month_number = list(calendar.month_name).index(month)
     month_number = int(month_number)
     cal = HTMLCalendar().formatmonth(year, month_number)
-    event_list = Event.objects.all()
     context = {
         "cal" : cal,
         "month": month,
         "year" : year,
-        "event_list" : event_list,
     }
-    return render(request, "com_events.html", context)
+    return render(request, "events_home.html", context)
+
+def list_events(request):
+    form = EventForm()
+    event_list = Event.objects.all()
+    context = {
+        'form': form,
+        'event_list':event_list
+    }
+    return render(request, "list_events.html", context)
 
 @login_required(login_url='/com_events/login/')
 def my_events(request):
-    year = datetime.now().year
-    month = datetime.now().strftime('%B')
-    month_number = list(calendar.month_name).index(month)
-    month_number = int(month_number)
-    cal = HTMLCalendar().formatmonth(year, month_number)
     event_list = Event.objects.filter(attendees = request.user)
     context = {
-        "cal" : cal,
-        "month": month,
-        "year" : year,
         "event_list" : event_list,
     }
     return render(request, "my_events.html", context)
@@ -58,7 +55,7 @@ def add_event(request):
             description = request.POST.get('description')
             event = Event(name = name, manager= manager, date=date, description = description)
             event.save()
-            return HttpResponseRedirect(reverse('com_events:show_events'))
+            return HttpResponseRedirect(reverse('com_events:list_events'))
     else:
         form = EventForm()
     return render(request, "forms_temp.html", {'form':form})
@@ -72,11 +69,9 @@ def delete(request, id):
 @login_required(login_url='/com_events/login/')
 def join_event(request, id):
     event = Event.objects.get(pk=id)
-    if request.method == 'POST':
-        event.attendees.add(request.user)
-        event.is_joined == True
-        return redirect('com_events:show_events')
-    return render(request, 'event_details.html', {'event':event})
+    event.attendees.add(request.user)
+    event.is_joined == True
+    return redirect('com_events:show_events')
 
 @login_required(login_url='/com_events/login/')
 def unjoin_event(request, id):
@@ -87,38 +82,24 @@ def unjoin_event(request, id):
         return redirect('com_events:show_events')
     return render(request, 'event_details.html', {'event':event})
 
-def register_temp(request):
-    form = UserCreationForm()
-
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Akun telah berhasil dibuat!')
-            return redirect('com_events:login')
-    
-    context = {'form':form}
-    return render(request, 'register_temp.html', context)
-
-def login_user_temp(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user) 
-            response = HttpResponseRedirect(reverse("com_events:show_events")) 
-            return response
-        else:
-            messages.info(request, 'Username atau Password salah!')
-    context = {}
-    return render(request, 'login_temp.html', context)
-
-def logout_user_temp(request):
-    logout(request)
-    response = HttpResponseRedirect(reverse('com_events:show_events'))
-    return response
-
-def get_json(request):
-    events = Event.objects.filter(user=request.user)
+def get_json_all(request):
+    events = Event.objects.all()
     return HttpResponse(serializers.serialize('json', events), content_type='application/json')
+
+def get_json_user(request):
+    events = Event.objects.filter(manager=request.user)
+    return HttpResponse(serializers.serialize('json', events), content_type='application/json')
+
+def add_event_ajax(request):
+    if request.method == "POST":
+        form = EventForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            manager = request.user
+            name = data['name']
+            date = datetime.fromisoformat(data.get('date').toString())
+            description = data['description']
+            events = Event(manager = manager, name=name, date=date, description = description)
+            events.save()
+        return redirect('com_events:show_events')
+    return HttpResponseNotFound()

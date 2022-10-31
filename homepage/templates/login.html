@@ -1,45 +1,67 @@
+<!-- extend to implement external styling -->
 {% extends 'base.html' %}
 
-{% block meta %}
-<title>Login</title>
-{% endblock meta %}
+<head>
+    {% block meta %}
+    <title>RYOK? | Login</title>
+    {% endblock meta %}
+
+</head>
 
 {% block content %}
+<body>
+    <style>
+        body {
+            background: rgb(13,7,19);
+            background: linear-gradient(90deg, rgba(13,7,19,1) 12%, rgba(29,12,46,1) 50%);
+        }
+        #log-wrapper {
+            padding: 3rem;
+            margin-top: 10rem;
+            background-color: white;
+            border-top-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+        input {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        h6 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        .btn {
+            background-color: #9516E2;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
 
-<div class = "login">
+    <div id="log-wrapper" class="container">
+        <h1>🟣 Login and enjoy our features!</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+                <h6>Username: </h6>
+                <input type="text" name="username"  class="form-control">
+                        
+                <h6>Password: </h6>
+                <input type="password" name="password" class="form-control">
 
-    <h1>Login</h1>
-
-    <form method="POST" action="">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
-
-            <tr>
                 <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
-    </form>
+                <td><input class="btn login_btn btn-dark" type="submit" value="Login"></td>
+        </form>
+    
 
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}     
-        
-    Belum mempunyai akun? <a href="{% url 'homepage:register' %}">Buat Akun</a>
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}     
+            
+        Don't have any account? <a href="{% url 'homepage:register' %}">Create account</a>
+    </div>
 
-</div>
-
+</body>
 {% endblock content %}
