@@ -7,24 +7,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        #bagron {
+            background: #ae85f4;
+        }
+        
+        #foot {
+            background: darkblue;
+        }
+        
+        #space {
+            height: 1ch;
+        }
+        
+        #joinus li {
+            font-family: "Century Gothic";
+        }
+        
+        #joinus h5 {
+            font-family: "Century Gothic";
+            font-weight: bold;
+            color: rgb(28, 98, 6);
+        }
+        
+        #joinus h3 {
+            font-family: "Century Gothic";
+            font-weight: bold;
+        }
+        
+        #cg {
+            font-family: "Century Gothic";
+            font-weight: bold;
+        }
+        
+        .card {
+            max-width: 500px;
+        }
+        
+        .delet {
+            max-width: 200px;
+            align-self: center;
+            border-radius: 10px;
+            background-color: cornflowerblue;
+        }
+        
+        h2 {
+            font-family: "Century Gothic";
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+        }
+        
+        @media (max-width:500px) {
+            /* .beeg{
+            display:flex;
+        } */
+            .card {
+                display: flex;
+            }
+        }
+        
+        @media (min-width:300px) {
+            /* .beeg{
+            display:flex;
+        } */
+            .card {
+                display: flex;
+            }
+        }
+    </style>
 </head>
 
 {% endblock meta %} {% block content %}
 
-<body>
+<body id="bagron">
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"> RYOK? </a>
+            <a class="navbar-brand" href="#" style="font-style:italic"> RYOK? </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/articles/"> Articles </a>
+                        <a class="nav-link active" href="/articles/"> Articles </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/com_events/"> Events </a>
@@ -40,13 +108,24 @@
                     </li>
                 </ul>
                 {% if user.is_authenticated %}
-                <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button> {% else %}
-                <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button> {% endif %}
+                <a id="log-btn" class="btn btn-light" href="{% url 'homepage:logout' %}">Logout</a> {% else %}
+                <a id="log-btn" class="btn btn-light " href="{% url 'homepage:login' %}">Login</a> {% endif %}
             </div>
         </div>
     </nav>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+    <div id="space">
+    </div>
+    {% if user.is_authenticated %}
+    <br>
+    <center>
+        <div class="container bg-white text-dark rounded">
+            <h5 class="text-white">Quick Mental Health Test</h5>
+            <h2>Quick Mental Health Test</h2>
+            <h5 class="text-white">Quick Mental Health Test</h5>
+        </div>
+    </center>
+    <br>
     <div class="container bg-warning text-dark rounded">
         <center>
             <h3 class="text-danger">Caution!</h3>
@@ -54,7 +133,8 @@
             <p>Use this test wisely, answer honestly according to your current conditions. Please consult your psychologist or psychiatrist if needed.</p>
         </center>
     </div>
-    <div class="container bg-white text-dark">
+    <div class="container bg-white text-dark rounded">
+        <h5 class="text-white">Questions</h5>
         <h4>Do you often feel sad lately?</h4>
         <div class="form-check">
             <input type="radio" id="health11" name="tes1" value=1>
@@ -128,15 +208,50 @@
                     <button id="savebutton" type="submit" class="btn btn-primary rounded" style="display:none">
                     Save your Score
                     </button>
+                    <br>
                 </center>
             </form>
         </div>
+        <h5 class="text-white">Questions</h5>
     </div>
     <br>
+    <center>
+        <h5 id="cg">Score History</h5>
+    </center>
+
     <center>
         <div id="beeg">
         </div>
     </center>
+    {% else %}
+
+    <br>
+    <div class="container bg-white text-dark rounded bg-opacity-25" id="joinus">
+        <center>
+            <br>
+            <h3>Do you want to take a free mental health test?</h3>
+            <br>
+            <h3>Login Today!</h3>
+
+        </center>
+        <br>
+        <h5>Get Many Benefits of Joining RYOK? Community:</h5>
+        <ul>
+            <li>Start a Discussion</li>
+            <li>Take a Quick Mental Health Test</li>
+            <li>See newer articles</li>
+            <li>Join Fun Events</li>
+            <li>Share your Inspirational Quote</li>
+            <li>Buy recommended goods for your soul</li>
+            <li>Share your interests</li>
+        </ul>
+        <br>
+
+        <center>
+            <h3>JOIN US!</h3><a id="log-btn" class="btn btn-success" href="{% url 'homepage:login' %}">Login</a></center>
+        <br>
+    </div>
+    <br> {% endif %}
 
     <script>
         function displayValue() {
@@ -220,7 +335,7 @@
                 e.preventDefault();
                 $.post(window.location.href + "add/", {
                     score: document.getElementById("result2").innerHTML,
-                    date: new Date().toISOString(),
+                    //date: new Date().toISOString().slice(0, 10),
                     // Based on: https://stackoverflow.com/questions/55028148/csrf-token-missing-in-django-form-submission
                     csrfmiddlewaretoken: "{{ csrf_token }}",
                 }).done(function(data) {
@@ -238,15 +353,17 @@
                         <div id="${data.pk}_list" class="card" >
                             <h4>Date</h4>
                             <h5>${data.fields.date}</h5>
-                            <h4>User Name</h4>
-                            <h5>${data.fields.user.username}</h5>
-                            <h4>Score</h4>
+                            <h4>My Score</h4>
                             <h5>${data.fields.score}</h5>
                             <button class="delet" onclick="deletes(${data.pk})">Delete</button>
+                            <br>
                         </div>
+                        <br>
                     `
                 );
             }
+            // <h4>User Name</h4>
+            //                 <h5>${data.fields.user.username}</h5>
             // onclick="deletes(${data.pk}
             window.deletes = (data) => {
                 $.post(window.location.href + `delete_res/${data}/`, {}).done(
@@ -257,5 +374,12 @@
             }
         });
     </script>
+    <footer id="foot">
+        <div style="color: beige; text-align: center; font-family: 'Noto Sans', sans-serif;">
+            <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
+            <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
+            <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
+        </div>
+    </footer>
 </body>
 {% endblock content %}

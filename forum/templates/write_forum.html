@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block meta %}
+<title>RYOK? | Start a New Forum</title>
+{% endblock meta %} 
+
+{% block content %}
+<style>
+
+</style>
+
+<body>
+    <div class="container">
+        <h1>Let's Start a Forum!</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+                <tr>
+                    <td></td>
+                    <td><input class="btn btn-success" type="submit" name="submit" value="Post" style="float:right" /></td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+</body>
+{% endblock content %}

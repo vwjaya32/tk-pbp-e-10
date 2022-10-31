@@ -16,26 +16,56 @@
 {% block content %}
 <body>
     <style>
+        #title-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            font-size: x-large;
+            font-style: italic;
+        }
+        #writer-text {
+            font-family: 'Noto Sans', sans-serif; 
+            font-size: larger; 
+            font-style: italic;
+        }
+        #content-text {
+            font-weight:normal ;
+            text-align: justify;
+        }
         .container {
             bottom: 0;
             left: 0;
             right: 0;
             margin-bottom: 30px;
             box-sizing: border-box;
+            border-radius: 15px;
         }
-        h2{
-            font-family: 'Nunito', sans-serif;
+        #cmt-list p {
+            word-wrap: break-word;
+        }
+        #cmt-author-text {
+            margin-left: 2px;
             font-weight: bold;
+              font-family: 'Nunito', sans-serif;
         }
+<<<<<<< HEAD
         body{
             background-color: rgb(30, 30, 30)
+=======
+        #cmt-comment-text {
+            margin-left: 28px;
+            font-weight: normal;
+        }
+        body{
+            background: #F5E0FF;
+            min-height: 100vh;
+>>>>>>> eff4b9bfa5bf106402835581a276c7c363371462
         }
         footer {
             position:static;
             width: 100%;
             bottom: 0;
             padding: 20px;
-            background-color: rgb(36, 35, 48);
+            background-color: rgb(37, 33, 34);
         }
         .btn {
             box-shadow: 0 0 5px rgb(36, 35, 48);
@@ -48,9 +78,11 @@
             -webkit-transform: scale(1.08);
             transform: scale(1.08);
         }
+
     </style>
 
     <!-- Title Bar -->
+<<<<<<< HEAD
     <div style="text-align:center; padding:10px 10px; color: rgb(230, 230, 230);">
         <h2>{{target.title}}</h2>
         <h4 style="font-family: 'Noto Sans', sans-serif; font-weight: lighter; font-style: italic;">written by {{target.author}}</h4>
@@ -58,13 +90,23 @@
 
     <!-- Content Section -->
     <div style="background: rgb(64, 62, 101); padding:20px; border-top-left-radius: 50px; border-top-right-radius: 50px">
+=======
+    <div style="text-align:center; padding:10px 10px; margin-top: 3rem;">
+        <p id="title-text">{{target.title}}</p>
+        <p id="writer-text">-- written by {{target.author}} --</p>
+    </div>
+
+    <!-- Content -->
+    <div style="background: rgb(88, 72, 134); padding:20px; padding-bottom: 25vh ;border-top-left-radius: 50px; border-top-right-radius: 50px;">
+>>>>>>> eff4b9bfa5bf106402835581a276c7c363371462
         <!-- Articles -->
-        <div class=container style="border-radius:15px; padding:10px; background-color: rgb(212, 214, 255); margin-top:20px">
-            <p style="font-weight:400 ;text-align: justify;">{{target.content}} </p>
+        <div class=container style="padding:10px; background-color: rgb(120, 103, 116); margin-top:20px">
+            <p id="content-text">{{target.content}} </p>
             <h6>[{{target.date}}]</h6>
         </div>
 
         <!-- Comment -->
+<<<<<<< HEAD
         <div class=container style="background-color: rgb(88, 88, 88); padding:20px; border-radius:15px;">
                 <h2 style="font-size:large; color:aliceblue;">How do you think? 👀</h2>
                 <a type="button" style="font-weight:bold; color:aliceblue;" class="btn btn-warning" href="{% url 'articles:write_comments' target.id %}">Write a comment</a>
@@ -73,6 +115,21 @@
                 <div style="border-radius: 15px; background-color: blanchedalmond; padding: 10px; margin: 10px;">
                     <h6 style="margin-left: 2px; font-weight: bold; font-family: 'Nunito', sans-serif;">👾 {{i.author}}</h6>
                     <h6 style="margin-left: 28px; font-weight:normal ; ">{{i.content}}</h6>
+=======
+        <div class=container style="background-color: #E1E1E1; padding:20px;">
+            <h2 style="font-size:large; ">How do you think? 👀</h2>
+
+            <!-- Comment Button -->
+            <a type="button" style="font-weight:bold; color:aliceblue; background-color: #2B484B;" class="btn" href="{% url 'articles:write_comments' target.id %}">Write a comment</a>
+
+            {% for i in comment %}
+                <div id="cmt-list" class="d-flex justify-content-between" style="border-radius: 15px; background-color:#FFCA0C; padding: 10px; margin: 10px;">
+                    <div class="container">
+                        <p id="cmt-author-text">👾 {{i.author}}  |  {{i.date}}</p>
+                        <p id="cmt-comment-text">{{i.content}}</p>
+                    </div>
+                    <a type="button" style=" font-weight:bold; color:aliceblue; padding-top: 13px; background-color:#DE1C1C;" class="btn" href="{% url 'articles:delete_comments' target.id i.id %}">X</a>
+>>>>>>> eff4b9bfa5bf106402835581a276c7c363371462
                 </div>
             {% endfor %}
         </div>

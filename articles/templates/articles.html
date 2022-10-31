@@ -1,10 +1,13 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %}
 
 <head>
     {% block meta %}
     <title>RYOK? | Articles</title>
     {% endblock meta %}
+<<<<<<< HEAD
+=======
+
+>>>>>>> eff4b9bfa5bf106402835581a276c7c363371462
 
     <!-- External Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,31 +18,37 @@
 </head>
 
 {% block content %}
+
 <body>
     <style>
-        *{
-            margin: 0; 
+        * {
+            margin: 0;
             padding: 0;
         }
-        .navbar{
-            background: rgb(197,22,22);
+        
+        .navbar {
+            background: #392C5B;
         }
+        
         body {
-            background: rgb(64, 62, 101)
+            background: #F5E0FF;
         }
+        
         .carousel-item {
             height: 25rem;
             width: 100%;
             position: static;
             background: #777;
             color: rgb(0, 0, 0);
-            background-size:auto;
+            background-size: auto;
         }
+        
         .container {
             bottom: 0;
             left: 0;
             right: 0;
         }
+        
         .card {
             width: 230px;
             height: 320px;
@@ -47,20 +56,31 @@
             border-radius: 10px;
             cursor: pointer;
             margin: 10px;
-            background-color: rgb(212, 214, 255);
+            background-color: #221E1F;
         }
+        
+        .card-title {
+            color: rgb(203, 203, 203);
+        }
+        
+        .card-text {
+            color: rgb(132, 132, 132);
+        }
+        
         footer {
             width: 100%;
-            position:relative;
+            position: relative;
             bottom: 0;
             background-color: rgb(36, 35, 48);
             padding: 20px;
         }
-        h1{
+        
+        h1 {
             font-family: 'Nunito', sans-serif;
             font-weight: bold;
             font-style: italic;
         }
+        
         .btn {
             box-shadow: 0 0 5px rgb(36, 35, 48);
             -webkit-transition-duration: 0.3s;
@@ -68,15 +88,18 @@
             -webkit-transition-property: box-shadow, transform;
             transition-property: box-shadow, transform;
         }
+        
         .btn:hover {
             box-shadow: 0 0 8px rgb(36, 35, 48);
             -webkit-transform: scale(1.08);
             transform: scale(1.08);
         }
+        
         a {
             font-family: 'Nunito', sans-serif;
             font-weight: bold;
         }
+        
         #log-btn {
             font-weight: bold;
         }
@@ -84,42 +107,40 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-        <a class="navbar-brand" href="#" style="font-style:italic"> RYOK? </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#" style="font-style:italic"> RYOK? </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/articles/"> Articles </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/com_events/"> Events </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/mh_goods/"> Goods </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/mh_tests/"> Tests </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/quotes/"> Quotes </a>
-            </li>
-            </ul>
-            {% if user.is_authenticated %}
-            <a id="log-btn" class="btn btn-light" href="{% url 'homepage:logout' %}">Logout</a>
-            {% else %}
-            <a id="log-btn" class="btn btn-light "href="{% url 'homepage:login' %}">Login</a>
-            {% endif %}
-        </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/articles/"> Articles </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/com_events/"> Events </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mh_goods/"> Goods </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mh_tests/"> Tests </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/quotes/"> Quotes </a>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                <a id="log-btn" class="btn btn-light" href="{% url 'homepage:logout' %}">Logout</a> {% else %}
+                <a id="log-btn" class="btn btn-light " href="{% url 'homepage:login' %}">Login</a> {% endif %}
+            </div>
         </div>
     </nav>
 
     <!-- Static Carousel -->
-    <div id="carousel-ctn" class="carousel slide"  data-bs-ride="carousel">
+    <div id="carousel-ctn" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carousel-ctn" data-bs-slide-to="0" class="active"></button>
             <button type="button" data-bs-target="#carousel-ctn" data-bs-slide-to="1"></button>
@@ -129,18 +150,16 @@
                 <div></div>
                 <div class="carousel-caption">
                     <h1>Get Updates on Mental Health Issues!</h1>
-                    <p>In recent years, there has been increasing acknowledgement of the important role mental health plays in achieving global development goals,
-                         as illustrated by the inclusion of mental health in the Sustainable Development Goals. 
-                         Depression is one of the leading causes of disability. Suicide is the fourth leading cause of death among 15-29-year-olds.[WHO]</p>
+                    <p>In recent years, there has been increasing acknowledgement of the important role mental health plays in achieving global development goals, as illustrated by the inclusion of mental health in the Sustainable Development Goals. Depression
+                        is one of the leading causes of disability. Suicide is the fourth leading cause of death among 15-29-year-olds.[WHO]</p>
                     <a class="btn btn-lg btn-primary" href="https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response">Read More</a>
                 </div>
             </div>
             <div class="carousel-item" style="background:url(../static/articles_static/02-1.png)">
                 <div class="carousel-caption">
                     <h1> Meredith Ackley | Let's Talk Mental Health</h1>
-                    <p>After her husband's mental illness takes his life, Meredith realized the extent to which the stigma around mental health is harming all of us. 
-                        Her work since his passing has been dedicated to removing this stigma. She works to end the stigma and discrimination of mental illness through 
-                        public education materials and school programs. #TEDxMountainViewHighSchool</p>
+                    <p>After her husband's mental illness takes his life, Meredith realized the extent to which the stigma around mental health is harming all of us. Her work since his passing has been dedicated to removing this stigma. She works to end
+                        the stigma and discrimination of mental illness through public education materials and school programs. #TEDxMountainViewHighSchool</p>
                     <a class="btn btn-lg btn-primary" href="https://youtu.be/SHngcWIUJCY">Watch video</a>
                 </div>
             </div>
@@ -155,17 +174,19 @@
         </button>
     </div>
 
-    <!-- Add Articles Button -->
-    <a type="button" class="btn btn-warning" style="float: right; margin: 20px; color:white;
-    font-family: 'Noto Sans TC', sans-serif; font-size: large; font-weight:800;" 
-    href="{% url 'articles:write_articles' %}">+</a>
+    {% if user.is_superuser %}
+    <!-- manage buttons -->
+    <a type="button" class="btn" style="margin: 20px; margin-right: 5px; color:white; background-color: #2B484B;
+    font-family: 'Noto Sans TC', sans-serif; font-size: large; font-weight:800; ;" href="{% url 'articles:write_articles' %}">+</a>
 
-    <div class="container" style="margin-top:50px; margin-bottom: 50px;">
-        <h1 style="color:white; text-align: center; margin-top: 20px;">RYOK?</h1>
-        <div class=container>
-        <p style="color:white; font-family: 'Noto Sans', sans-serif; font-size: larger; text-align: center;">
-            Hi there! Are you okay? Explore us to get updates for many mental health news through the world! 
-            Find a relevant article for you and be happy!</p>
+    <a type="button" class="btn" style="color:white; background-color: #84AAA9;
+    font-size: large; font-weight:bold ;" href="/admin/">Manage</a> {% endif %}
+
+    <div class="container" style="margin-top:20px; margin-bottom: 50px;">
+        <div style="text-align:center">
+            <h1 style=" margin-top: 20px;">RYOK?</h1>
+            <p style="font-family: 'Noto Sans', sans-serif; font-size: larger;">
+                Hi there! Are you okay? Explore us to get updates for many mental health news through the world! Find a relevant article for you and be happy!</p>
         </div>
 
         <!-- Cards -->
@@ -194,13 +215,87 @@
     </div>
 
     <footer>
-        <div style="color: rgb(120, 114, 114); text-align: center; font-family: 'Noto Sans', sans-serif;"> 
+        <div style="color: rgb(120, 114, 114); text-align: center; font-family: 'Noto Sans', sans-serif;">
             <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
             <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
             <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
         </div>
     </footer>
 
+<<<<<<< HEAD
+=======
+    {% if user.is_superuser %}
+    <script>
+        function ajax_get() {
+
+            $.get('/articles/json-artc', function(articles) {
+                $('#articles_cards').empty()
+                articles.map((atc) => {
+                    $('#articles_cards').append(
+                        `
+                        <div class="card" >
+                            <div class="card-body d-flex flex-column">
+                                <h4 class="card-title" style="font-size:large"> ${atc.fields.title} </h4>
+                                <h6 class="card-subtitle mb-2 text-muted">• ${atc.fields.date}</h6>
+                                <h6 class></h6>
+                                <p class="card-text" style="font-size:medium"> ${atc.fields.content.substring(0,70)}...</p>
+
+                                <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
+                                    <div class="flex flex-col justify-center rounded" >
+                                        <a type="button" class="btn" style="background-color: #FFCA0C; margin-left: 15px; font-weight: bold; color: white;" 
+                                        href="/articles/read/${atc.pk}">Read More</a>
+                                        <a type="button" class="btn" style="background-color: #9D1325; margin-left: 10px; font-weight: bold; color: white;" 
+                                        href="/articles/delete-articles/${atc.pk}">X</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                    )
+                })
+            })
+        }
+
+        $(document).ready(function() {
+            ajax_get()
+        });
+    </script>
+    {% else %}
+    <script>
+        function ajax_get() {
+
+            $.get('/articles/json-artc', function(articles) {
+                $('#articles_cards').empty()
+                articles.map((atc) => {
+                    $('#articles_cards').append(
+                        `
+                        <div class="card" >
+                            <div class="card-body d-flex flex-column">
+                                <h4 class="card-title" style="font-size:large"> ${atc.fields.title} </h4>
+                                <h6 class="card-subtitle mb-2 text-muted">• ${atc.fields.date}</h6>
+                                <h6 class></h6>
+                                <p class="card-text" style="font-size:medium"> ${atc.fields.content.substring(0,70)}...</p>
+
+                                <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
+                                    <div class="flex flex-col justify-center rounded" >
+                                        <a type="button" class="btn" style="background-color: #FFCA0C; font-weight: bold; color: white;" 
+                                        href="/articles/read/${atc.pk}">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                    )
+                })
+            })
+        }
+
+        $(document).ready(function() {
+            ajax_get()
+        });
+    </script>
+    {% endif %}
+>>>>>>> eff4b9bfa5bf106402835581a276c7c363371462
 
 
 </body>

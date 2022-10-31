@@ -20,20 +20,23 @@ from django.forms.models import model_to_dict
 #         username = request.user.username
 #         return username
 
-@login_required(login_url='/homepage/login/')
+# @login_required(login_url='/homepage/login/')
 def mhtestpage(request):
-    mh_list = MentalTest.objects.filter(user=request.user)
-    context = {
-        'data': mh_list,
-    }
-    return render(request, "mhtest.html", context)
+    if request.user.is_authenticated:
+        mh_list = MentalTest.objects.filter(user=request.user)
+        context = {
+            'data': mh_list,
+        }
+        return render(request, "mhtest.html", context)
+    else:
+        return render(request, "mhtest.html")
     
-@login_required(login_url='/homepage/login/')
+# @login_required(login_url='/homepage/login/')
 def save_points(request):
     if request.method == 'POST':
         user = request.user
         score = request.POST.get("score")
-        date = request.POST.get("date")
+        date=datetime.date.today()
         new_result = MentalTest( user=user, score=score, date=date)
         new_result.save()
 
@@ -50,7 +53,7 @@ def json_res(request):
     data = MentalTest.objects.filter(user = request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-@login_required(login_url='/homepage/login/')
+# @login_required(login_url='/homepage/login/')
 @csrf_exempt
 def delete_res(request, pk):
     lists=MentalTest.objects.get(id=pk)
