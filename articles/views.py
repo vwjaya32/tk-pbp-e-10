@@ -4,8 +4,6 @@ from django.shortcuts import redirect
 from requests import request
 from articles.models import *
 from django import forms
-<<<<<<< HEAD
-=======
 from django.urls import reverse
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm
@@ -13,7 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 from django.core import serializers
 from django.contrib.auth.decorators import user_passes_test
->>>>>>> 4d4090f7f09062acadeee28fac186496afed900a
 
 # Form Classes
 # ------------
@@ -58,10 +55,6 @@ def write_comments(request, id):
             return redirect("articles:read_articles", id)
 
     forms = comment_box()
-<<<<<<< HEAD
-    context={"form":forms}
-    return render(request, "write_cmt.html", context)
-=======
     artc_data = Articles.objects.get(id=id)
     context={"form":forms, "the_artc":artc_data}
     return render(request, "write_cmt.html", context)
@@ -102,4 +95,3 @@ def delete_comments(request, article_id, id):
 def show_json_articles(request):
     data = Articles.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
->>>>>>> 4d4090f7f09062acadeee28fac186496afed900a

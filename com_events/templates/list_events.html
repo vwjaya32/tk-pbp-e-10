@@ -92,33 +92,9 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_confirm" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-          <h1 class="modal-title fs-5" id="mainModalLabel">
-              Are You Sure?
-          </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_confirm"></button>
-          </div>
-          <div class="modal-body">
-              <div class = "create">
-              <form method="POST" id="confirm_form">  
-                  {% csrf_token %} 
-              </form>
-              </div>
-          </div>
-          <div class="modal-footer">
-          <button type="button" data-bs-dismiss="modal">Go Back</button>
-          <button type="submit" class="btn btn-primary" id="confirm">Confirm</button>
-          </div>
-      </div>
-  </div>
-</div>
-
 {% if user.is_authenticated %}
-<h1>
-    Ajax Test
+<h1 id="title">
+    
 </h1>
 <div id="main_div">
 

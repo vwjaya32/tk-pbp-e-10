@@ -2,7 +2,9 @@
 $(document).ready(function(){
     $("#refresh_data").click(function(){
         $.get("/com_events/json_all/", function(data) {
+            $("#title").empty();
             $("#main_div").empty();
+            $("#title").append('List Of Events');
               for(var i = 0 ; i < data.length; i++){
                 const date = new Date(data[i].fields.date)
                   $("#main_div").append(`
