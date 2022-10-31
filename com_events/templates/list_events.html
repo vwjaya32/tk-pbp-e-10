@@ -44,16 +44,17 @@
       </div>
     </nav>
 
+
+{% if user.is_authenticated %}
 {% if user.is_superuser %}
 <button data-bs-toggle="modal" data-bs-target="#modal_add">
     Add Event
 </button>
 <button id="refresh_data_admin">List of Events</button>
-{% endif %}
-
-{% if user.is_authenticated %}
+{% else %}
 <button id="refresh_data_user">List of Events</button>
 <button id="refresh_my_events">My Events</button>
+{% endif %}
 {% endif %}
 
 <div class="modal fade" id="modal_add" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
