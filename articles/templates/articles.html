@@ -4,10 +4,6 @@
     {% block meta %}
     <title>RYOK? | Articles</title>
     {% endblock meta %}
-<<<<<<< HEAD
-=======
-
->>>>>>> eff4b9bfa5bf106402835581a276c7c363371462
 
     <!-- External Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -186,34 +182,9 @@
     font-size: large; font-weight:bold ;" href="/admin/">Manage</a> 
     </div>{% endif %}
 
-<<<<<<< HEAD
-        <!-- Cards -->
-        <div>
-            {% for i in data %}
-            <div class="card">
-                <div class="card-body d-flex flex-column">
-                    <h4 class="card-title" style="font-size:large"> {{i.title}} </h4>
-                    <h6 class="card-subtitle mb-2 text-muted">• {{i.date}}</h6>
-                    <h6 class></h6>
-                    <p class="card-text" style="font-size:medium"> {{i.content|slice:70}}...</p>
-
-                    <!-- Buttons -->
-                    <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
-                        <div class="flex flex-col justify-center rounded" >
-                            <a type="button" class="btn" style="background-color: rgb(125, 138, 255); margin-left: 15px; font-weight: bold; color: white;" 
-                            href="{% url 'articles:read_articles' i.id %}">Read More</a>
-                            <a type="button" class="btn" style="background-color: rgb(255, 126, 126); margin-left: 10px; font-weight: bold; color: white;" 
-                            href="{% url 'articles:delete_articles' i.id %}">X</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-=======
     <div style="padding:20px; padding-top: 3rem ;padding-bottom:10rem; background-color: #09050D;">
         <!-- Showing Article Cards -->
         <div id="articles_cards">
->>>>>>> 4d4090f7f09062acadeee28fac186496afed900a
         </div>
     </div>
 
@@ -225,8 +196,6 @@
         </div>
     </footer>
 
-<<<<<<< HEAD
-=======
     {% if user.is_superuser %}
     <script>
         function ajax_get() {
@@ -298,7 +267,6 @@
         });
     </script>
     {% endif %}
->>>>>>> eff4b9bfa5bf106402835581a276c7c363371462
 
 
 </body>

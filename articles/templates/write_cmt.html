@@ -8,22 +8,6 @@
 {% block content %}
 <body> 
     <style>
-<<<<<<< HEAD
-        /* .input {
-            
-        } */
-
-        .login form input[type="submit"]{
-            font-weight: bold;
-            background-color: rgb(4, 113, 214);
-            color: azure;
-            margin-top: 12px;
-        }
-    </style>
-
-    <div class="input">
-        <h1>Write new articles for the world!</h1>
-=======
         *{
             margin: 0; 
             padding: 0;
@@ -95,32 +79,23 @@
         <div class="card align-items-center">
         <div class="card-body">
         <p id="title-text">How do you think about the article "{{the_artc.title}}"?</h1>
->>>>>>> eff4b9bfa5bf106402835581a276c7c363371462
         <form method="POST">
             {% csrf_token %}
             <table>
                 <tr>Pseudonym: </tr>
                 <tr><input name="author" placeholder="fictitious name" class="form-control"></tr>
 
-<<<<<<< HEAD
-                <tr>Your thoughts?: </tr>
-                <tr><textarea name="content" placeholder="...." class="form-control"></textarea></tr>
-                <input class="btn btn-primary" type="submit" name="submit" value="Post" style="float:right"/>
-=======
                 <h6>Pseudonym: </h6>
                 <input name="author" placeholder="Little Rabbit" class="form-control">
 
                 <h6>Your thoughts? </h6>
                 <textarea name="content" placeholder="Incredible!" class="form-control"></textarea>
                 <input class="btn" style="font-weight:bold; color:aliceblue; background-color: #FFCA0C;" type="submit" name="submit" value="Post"/>
->>>>>>> eff4b9bfa5bf106402835581a276c7c363371462
 
             </table>
         </form>
 
     </div>
-<<<<<<< HEAD
-=======
 
     <footer>
         <div style="color:white ; text-align: center; font-family: 'Noto Sans', sans-serif;"> 
@@ -130,6 +105,5 @@
         </div>
     </footer>
 
->>>>>>> 4d4090f7f09062acadeee28fac186496afed900a
 </body>
 {% endblock content %}
