@@ -18,19 +18,21 @@
 <body>
     <style>
         #title-text {
-            font-family: 'Nunito', sans-serif;
+            font-family: 'Roboto Slab', serif;
             font-weight: bold;
-            font-size: x-large;
-            font-style: italic;
+            font-size: xx-large;
+            color: white;
         }
         #writer-text {
             font-family: 'Noto Sans', sans-serif; 
             font-size: larger; 
             font-style: italic;
+            color: white;
         }
         #content-text {
             font-weight:normal ;
             text-align: justify;
+            word-wrap: break-word;
         }
         .container {
             bottom: 0;
@@ -53,7 +55,7 @@
             font-weight: normal;
         }
         body{
-            background: #F5E0FF;
+            background: #09050D;
             min-height: 100vh;
         }
         footer {
@@ -61,7 +63,7 @@
             width: 100%;
             top: 100%;
             padding: 20px;
-            background-color: rgb(37, 33, 34);
+            background-color: #613FE5;
         }
         .btn {
             box-shadow: 0 0 5px rgb(36, 35, 48);
@@ -84,34 +86,37 @@
     </div>
 
     <!-- Content -->
-    <div style="background: rgb(88, 72, 134); padding:20px; padding-bottom: 25vh ;border-top-left-radius: 50px; border-top-right-radius: 50px;">
+    <div style="background: white; padding:20px; padding-bottom: 25vh ;border-top-left-radius: 50px; border-top-right-radius: 50px;">
         <!-- Articles -->
-        <div class=container style="padding:10px; background-color: rgb(120, 103, 116); margin-top:20px">
+        <div class=container style="padding:10px; margin-top:20px; border: 4px solid #613FE5;">
             <p id="content-text">{{target.content}} </p>
             <h6>[{{target.date}}]</h6>
         </div>
 
         <!-- Comment -->
-        <div class=container style="background-color: #E1E1E1; padding:20px;">
-            <h2 style="font-size:large; ">How do you think? 👀</h2>
+        <div class=container style="background-color: #09050D; padding:20px;">
+            <h2 style="font-size:large; color: white;">Your thoughts? 👀</h2>
 
             <!-- Comment Button -->
-            <a type="button" style="font-weight:bold; color:aliceblue; background-color: #2B484B;" class="btn" href="{% url 'articles:write_comments' target.id %}">Write a comment</a>
+            <a type="button" style="font-weight:bold; color:aliceblue; background-color: #FFCA0C;" class="btn" href="{% url 'articles:write_comments' target.id %}">Write a comment</a>
 
             {% for i in comment %}
-                <div id="cmt-list" class="d-flex justify-content-between" style="border-radius: 15px; background-color:#FFCA0C; padding: 10px; margin: 10px;">
+                <div id="cmt-list" class="d-flex justify-content-between" style="border-radius: 15px; background-color:white; padding: 10px; margin: 10px;">
                     <div class="container">
-                        <p id="cmt-author-text">👾 {{i.author}}  |  {{i.date}}</p>
-                        <p id="cmt-comment-text">{{i.content}}</p>
+                        <h6 id="cmt-author-text">👾 {{i.author}} </h6>
+                        <p id="cmt-comment-text">{{i.content}} ({{i.date}})</p>
                     </div>
+
+                    {% if user.is_superuser %}
                     <a type="button" style=" font-weight:bold; color:aliceblue; padding-top: 13px; background-color:#DE1C1C;" class="btn" href="{% url 'articles:delete_comments' target.id i.id %}">X</a>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
     </div>
 
     <footer>
-        <div style="color: rgb(120, 114, 114); text-align: center; font-family: 'Noto Sans', sans-serif;"> 
+        <div style="color: white; text-align: center; font-family: 'Noto Sans', sans-serif;"> 
             <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
             <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
             <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>

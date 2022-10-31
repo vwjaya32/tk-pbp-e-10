@@ -30,8 +30,8 @@
             box-sizing: border-box;
         }        
         .card {
-            border-radius: 30px;
-            background-color: rgb(61, 59, 59);
+            border-radius: 0px;
+            background-color: #09050D;
             box-shadow: 11px 11px 7px rgba(71, 71, 71, 0.764);
             padding: 10px;
         }
@@ -54,7 +54,6 @@
             color: whitesmoke;
         }
         body {
-            background: #F5E0FF;
             min-height: 100vh;
         }
         textarea {
@@ -68,7 +67,7 @@
             width: 100%;
             top: 100%;
             padding: 20px;
-            background-color: rgb(37, 33, 34);
+            background-color: #613FE5;
         }
         .btn {
             box-shadow: 0 0 5px rgb(36, 35, 48);
@@ -93,10 +92,10 @@
             {% csrf_token %}
 
                 <h6>Pseudonym: </h6>
-                <input name="author" placeholder="Baby John" class="form-control">
+                <input name="author" placeholder="Little Rabbit" class="form-control">
 
                 <h6>Your thoughts? </h6>
-                <textarea name="content" placeholder="It's a great article!" class="form-control"></textarea>
+                <textarea name="content" placeholder="Incredible!" class="form-control"></textarea>
                 <input class="btn" style="font-weight:bold; color:aliceblue; background-color: #FFCA0C;" type="submit" name="submit" value="Post"/>
 
         </form>
@@ -105,7 +104,7 @@
     </div>
 
     <footer>
-        <div style="color: rgb(120, 114, 114); text-align: center; font-family: 'Noto Sans', sans-serif;"> 
+        <div style="color:white ; text-align: center; font-family: 'Noto Sans', sans-serif;"> 
             <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
             <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
             <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
