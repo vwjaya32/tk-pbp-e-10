@@ -6,4 +6,4 @@ from datetime import date
 class MentalTest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
-    date = models.DateTimeField(default=date.today())
+    date = models.DateTimeField()

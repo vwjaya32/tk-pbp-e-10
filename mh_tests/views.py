@@ -33,7 +33,7 @@ def save_points(request):
     if request.method == 'POST':
         user = request.user
         score = request.POST.get("score")
-        date = request.POST.get("date")
+        date=datetime.date.today()
         new_result = MentalTest( user=user, score=score, date=date)
         new_result.save()
 

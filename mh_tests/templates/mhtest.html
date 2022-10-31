@@ -7,11 +7,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        #bagron {
+            background: #FBFFAD;
+        }
+        
+        #foot {
+            background: darkblue;
+        }
+        
+        #space {
+            height: 1ch;
+        }
+        
+        #cg {
+            font-family: "Century Gothic";
+            font-weight: bold;
+        }
+        
+        .card {
+            max-width: 500px;
+        }
+        
+        .delet {
+            max-width: 200px;
+            align-self: center;
+            border-radius: 10px;
+            background-color: cornflowerblue;
+        }
+        
+        @media (max-width:500px) {
+            /* .beeg{
+            display:flex;
+        } */
+            .card {
+                display: flex;
+            }
+        }
+        
+        @media (min-width:300px) {
+            /* .beeg{
+            display:flex;
+        } */
+            .card {
+                display: flex;
+            }
+        }
+    </style>
 </head>
 
 {% endblock meta %} {% block content %}
 
-<body>
+<body id="bagron">
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"> RYOK? </a>
@@ -46,7 +93,8 @@
         </div>
     </nav>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+    <div id="space">
+    </div>
     <div class="container bg-warning text-dark rounded">
         <center>
             <h3 class="text-danger">Caution!</h3>
@@ -128,11 +176,16 @@
                     <button id="savebutton" type="submit" class="btn btn-primary rounded" style="display:none">
                     Save your Score
                     </button>
+                    <br>
                 </center>
             </form>
         </div>
     </div>
     <br>
+    <center>
+        <h5 id="cg">Score History</h5>
+    </center>
+
     <center>
         <div id="beeg">
         </div>
@@ -220,7 +273,7 @@
                 e.preventDefault();
                 $.post(window.location.href + "add/", {
                     score: document.getElementById("result2").innerHTML,
-                    date: new Date().toISOString(),
+                    //date: new Date().toISOString().slice(0, 10),
                     // Based on: https://stackoverflow.com/questions/55028148/csrf-token-missing-in-django-form-submission
                     csrfmiddlewaretoken: "{{ csrf_token }}",
                 }).done(function(data) {
@@ -238,15 +291,17 @@
                         <div id="${data.pk}_list" class="card" >
                             <h4>Date</h4>
                             <h5>${data.fields.date}</h5>
-                            <h4>User Name</h4>
-                            <h5>${data.fields.user.username}</h5>
-                            <h4>Score</h4>
+                            <h4>My Score</h4>
                             <h5>${data.fields.score}</h5>
                             <button class="delet" onclick="deletes(${data.pk})">Delete</button>
+                            <br>
                         </div>
+                        <br>
                     `
                 );
             }
+            // <h4>User Name</h4>
+            //                 <h5>${data.fields.user.username}</h5>
             // onclick="deletes(${data.pk}
             window.deletes = (data) => {
                 $.post(window.location.href + `delete_res/${data}/`, {}).done(
@@ -257,5 +312,12 @@
             }
         });
     </script>
+    <footer id="foot">
+        <div style="color: beige; text-align: center; font-family: 'Noto Sans', sans-serif;">
+            <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
+            <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
+            <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
+        </div>
+    </footer>
 </body>
 {% endblock content %}
