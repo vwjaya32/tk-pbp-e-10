@@ -55,10 +55,15 @@
             background-color: #221E1F;
         }
         .card-title {
-            color: rgb(203, 203, 203);
+            color: #897EDB;
+            text-align:center;
+        }
+        .card-subtitle {
+            text-align: center;
         }
         .card-text {
-            color: rgb(132, 132, 132);
+            color: rgb(255, 255, 255);
+            text-align: justify;
         }
         footer {
             width: 100%;
@@ -128,7 +133,7 @@
         </div>
     </nav>
 
-    <div id="greet" style="text-align:center; margin: 50px;">
+    <div id="greet" style="text-align:center; margin: 5rem;">
         <h1 >RYOK?</h1>
         <p style="font-family: 'Noto Sans', sans-serif; font-size: larger;">
             Hi there! Are you okay? Explore us to get updates for many mental health news through the world! Find a relevant article for you and be happy!</p>
@@ -208,7 +213,7 @@
                                 <h4 class="card-title" style="font-size:large"> ${atc.fields.title} </h4>
                                 <h6 class="card-subtitle mb-2 text-muted">• ${atc.fields.date}</h6>
                                 <h6 class></h6>
-                                <p class="card-text" style="font-size:medium"> ${atc.fields.content.substring(0,70)}...</p>
+                                <p class="card-text" style="font-size:medium"> ${atc.fields.content.substring(0,50)}...</p>
 
                                 <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
                                     <div class="flex flex-col justify-center rounded" >
