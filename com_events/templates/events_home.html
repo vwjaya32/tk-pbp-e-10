@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <style>
     .navbar{
         background: rgb(51,49,80);
@@ -43,50 +42,18 @@
         </div>
       </div>
     </nav>
-
 <center>
-
-{% if user.is_superuser %}
-<button data-bs-toggle="modal" data-bs-target="#mainModal">
-    Add Event
-</button>
-{% endif %}
-
-<!-- {% if user.is_authenticated %} -->
-<button><a href="{% url 'com_events:list_events' %}">List of Events</a></button>
-<button><a href="{% url 'com_events:my_events' %}">My Events</a></button>
-<button id="refresh_data" class="px-3 underline" hidden>
-    Refresh
-</button>
-<!-- {% endif %} -->
-</center>
-
 <h1>
-    My Events
+    Events for {{ month }} {{ year }}
 </h1>
 
-{% for item in event_list %}
-<ul>
-    <li>Name: {{ item.name }}</li>
-    <li>Date: {{ item.date }}</li>
-    <li>Manager: {{ item.manager }}</li>
-    <li>Description: {{ item.description }}</li>
-    
-    <li>
-        Attendees: 
-        {% for user in item.attendees.all %}
-        {{ user }}
-        {% endfor %}
-    </li>
-    {% if user.is_authenticated %}
-        <button>
-            <a href="{% url 'com_events:unjoin_event' item.id %}" class="btn">
-                UnJoin
-            </a>
-        </button>
-    {% endif %}
-</ul>
-{% endfor %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/static/js/com_events.js"></script>
+{{ cal|safe }}
+
+<button><a href="{% url 'com_events:list_events' %}">List of Events</a></button>
+{% if user.is_authenticated %}
+<button><a href="{% url 'com_events:my_events' %}">My Events</a></button>
+{% endif %}
+
+</center>
+
 {% endblock content %}
