@@ -1,34 +1,68 @@
+<!-- extend to implement external styling -->
 {% extends 'base.html' %}
 
-{% block meta %}
-<title>Registrasi Akun</title>
-{% endblock meta %}
+<head>
+    {% block meta %}
+    <title>RYOK? | Register</title>
+    {% endblock meta %}
+
+</head>
 
 {% block content %}  
+<body>
+    <style>
+        h1 {
+            color: white;
+        }
+        #reg-wrapper {
+            padding: 20px;
+            margin-top: 5rem;
+            border-bottom-right-radius: 30px;
+            border-top-left-radius: 30px;
+            background: rgb(88,45,200);
+            background: linear-gradient(90deg, rgba(88,45,200,1) 0%, rgba(149,22,226,1) 61%);
+        }
+        table, th, td {
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid black;
+            background-color: white;
+            padding: 10px;
+        }
+        input {
+            margin: 0 auto;
+            display: block;
+            margin-top: 10px;
+        }
+        body {
+            background-color: #09050D;
+        }
+        #reg-btn {
+            background-color: #FED02B;
+            padding: 5px;
+            font-weight: bold;
+        }
+    </style>
 
-<div class = "login">
-    
-    <h1>Formulir Registrasi</h1>  
+    <div id="reg-wrapper" class="container">
+        <h1>Registration Form</h1>  
 
-        <form method="POST" >  
-            {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/></td>  
-                </tr>  
-            </table>  
-        </form>
+            <form method="POST" >  
+                {% csrf_token %}  
+                <table class="reg-table">  
+                    {{ form.as_table }}  
+                </table>
+                <input id="reg-btn" type="submit" name="submit" value="Create Account"/>
+            </form>
 
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
-    {% endif %}
+        {% if messages %}  
+            <ul>   
+                {% for message in messages %}  
+                    <li>{{ message }}</li>  
+                    {% endfor %}  
+            </ul>   
+        {% endif %}
+    </div>  
 
-</div>  
-
+</body>
 {% endblock content %}

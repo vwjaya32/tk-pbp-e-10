@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
 </head>
 
 {% block content %}
@@ -25,62 +26,57 @@
             margin: 0;
             padding: 0;
         }
-        
         .navbar {
-            background: #392C5B;
+            background: #FFFFFF
         }
-        
-        body {
-            background: #F5E0FF;
-        }
-        
         .carousel-item {
-            height: 25rem;
+            height: 30rem;
             width: 100%;
             position: static;
             background: #777;
             color: rgb(0, 0, 0);
             background-size: auto;
         }
-        
         .container {
             bottom: 0;
             left: 0;
             right: 0;
         }
-        
         .card {
-            width: 230px;
+            width: 220px;
             height: 320px;
             display: inline-block;
-            border-radius: 10px;
+            float: none;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 25px;
             cursor: pointer;
             margin: 10px;
             background-color: #221E1F;
         }
-        
         .card-title {
-            color: rgb(203, 203, 203);
+            color: #897EDB;
+            text-align:center;
         }
-        
+        .card-subtitle {
+            text-align: center;
+        }
         .card-text {
-            color: rgb(132, 132, 132);
+            color: rgb(255, 255, 255);
+            text-align: justify;
         }
-        
         footer {
             width: 100%;
             position: relative;
             bottom: 0;
-            background-color: rgb(36, 35, 48);
+            background-color: #613FE5;
             padding: 20px;
         }
-        
         h1 {
-            font-family: 'Nunito', sans-serif;
+            font-family: 'Roboto Slab', serif;
             font-weight: bold;
-            font-style: italic;
         }
-        
         .btn {
             box-shadow: 0 0 5px rgb(36, 35, 48);
             -webkit-transition-duration: 0.3s;
@@ -88,24 +84,23 @@
             -webkit-transition-property: box-shadow, transform;
             transition-property: box-shadow, transform;
         }
-        
         .btn:hover {
             box-shadow: 0 0 8px rgb(36, 35, 48);
             -webkit-transform: scale(1.08);
             transform: scale(1.08);
         }
-        
         a {
             font-family: 'Nunito', sans-serif;
             font-weight: bold;
         }
-        
         #log-btn {
             font-weight: bold;
+            color: #FFFFFF;
         }
+
     </style>
 
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" style="font-style:italic"> RYOK? </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -133,11 +128,17 @@
                     </li>
                 </ul>
                 {% if user.is_authenticated %}
-                <a id="log-btn" class="btn btn-light" href="{% url 'homepage:logout' %}">Logout</a> {% else %}
-                <a id="log-btn" class="btn btn-light " href="{% url 'homepage:login' %}">Login</a> {% endif %}
+                <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:logout' %}">Logout</a> {% else %}
+                <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:login' %}">Login</a> {% endif %}
             </div>
         </div>
     </nav>
+
+    <div id="greet" style="text-align:center; margin: 5rem;">
+        <h1 >RYOK?</h1>
+        <p style="font-family: 'Noto Sans', sans-serif; font-size: larger;">
+            Hi there! Are you okay? Explore us to get updates for many mental health news through the world! Find a relevant article for you and be happy!</p>
+    </div>
 
     <!-- Static Carousel -->
     <div id="carousel-ctn" class="carousel slide" data-bs-ride="carousel">
@@ -152,7 +153,8 @@
                     <h1>Get Updates on Mental Health Issues!</h1>
                     <p>In recent years, there has been increasing acknowledgement of the important role mental health plays in achieving global development goals, as illustrated by the inclusion of mental health in the Sustainable Development Goals. Depression
                         is one of the leading causes of disability. Suicide is the fourth leading cause of death among 15-29-year-olds.[WHO]</p>
-                    <a class="btn btn-lg btn-primary" href="https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response">Read More</a>
+                    <a class="btn btn-lg btn-light" href="https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response"
+                        style="font-weight: bold">Read More</a>
                 </div>
             </div>
             <div class="carousel-item" style="background:url(../static/articles_static/02-1.png)">
@@ -160,7 +162,7 @@
                     <h1> Meredith Ackley | Let's Talk Mental Health</h1>
                     <p>After her husband's mental illness takes his life, Meredith realized the extent to which the stigma around mental health is harming all of us. Her work since his passing has been dedicated to removing this stigma. She works to end
                         the stigma and discrimination of mental illness through public education materials and school programs. #TEDxMountainViewHighSchool</p>
-                    <a class="btn btn-lg btn-primary" href="https://youtu.be/SHngcWIUJCY">Watch video</a>
+                    <a class="btn btn-lg btn-light" href="https://youtu.be/SHngcWIUJCY" style="font-weight: bold;">Watch video</a>
                 </div>
             </div>
         </div>
@@ -176,19 +178,15 @@
 
     {% if user.is_superuser %}
     <!-- manage buttons -->
-    <a type="button" class="btn" style="margin: 20px; margin-right: 5px; color:white; background-color: #2B484B;
+    <div style="background-color:#09050D">
+    <a type="button" class="btn" style="margin: 20px; margin-right: 5px; color:white; background-color: #FFCA0C;
     font-family: 'Noto Sans TC', sans-serif; font-size: large; font-weight:800; ;" href="{% url 'articles:write_articles' %}">+</a>
 
-    <a type="button" class="btn" style="color:white; background-color: #84AAA9;
-    font-size: large; font-weight:bold ;" href="/admin/">Manage</a> {% endif %}
+    <a type="button" class="btn" style="color:white; background-color: #FFCA0C;
+    font-size: large; font-weight:bold ;" href="/admin/">Manage</a> 
+    </div>{% endif %}
 
-    <div class="container" style="margin-top:20px; margin-bottom: 50px;">
-        <div style="text-align:center">
-            <h1 style=" margin-top: 20px;">RYOK?</h1>
-            <p style="font-family: 'Noto Sans', sans-serif; font-size: larger;">
-                Hi there! Are you okay? Explore us to get updates for many mental health news through the world! Find a relevant article for you and be happy!</p>
-        </div>
-
+<<<<<<< HEAD
         <!-- Cards -->
         <div>
             {% for i in data %}
@@ -211,11 +209,16 @@
                 </div>
             </div>
             {% endfor %}
+=======
+    <div style="padding:20px; padding-top: 3rem ;padding-bottom:10rem; background-color: #09050D;">
+        <!-- Showing Article Cards -->
+        <div id="articles_cards">
+>>>>>>> 4d4090f7f09062acadeee28fac186496afed900a
         </div>
     </div>
 
     <footer>
-        <div style="color: rgb(120, 114, 114); text-align: center; font-family: 'Noto Sans', sans-serif;">
+        <div style="color: white; text-align: center; font-family: 'Noto Sans', sans-serif;">
             <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
             <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
             <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
@@ -238,11 +241,11 @@
                                 <h4 class="card-title" style="font-size:large"> ${atc.fields.title} </h4>
                                 <h6 class="card-subtitle mb-2 text-muted">• ${atc.fields.date}</h6>
                                 <h6 class></h6>
-                                <p class="card-text" style="font-size:medium"> ${atc.fields.content.substring(0,70)}...</p>
+                                <p class="card-text" style="font-size:medium"> ${atc.fields.content.substring(0,50)}...</p>
 
                                 <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
                                     <div class="flex flex-col justify-center rounded" >
-                                        <a type="button" class="btn" style="background-color: #FFCA0C; margin-left: 15px; font-weight: bold; color: white;" 
+                                        <a type="button" class="btn" style="background-color: #613FE5; margin-left: 15px; font-weight: bold; color: white;" 
                                         href="/articles/read/${atc.pk}">Read More</a>
                                         <a type="button" class="btn" style="background-color: #9D1325; margin-left: 10px; font-weight: bold; color: white;" 
                                         href="/articles/delete-articles/${atc.pk}">X</a>
@@ -278,7 +281,7 @@
 
                                 <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
                                     <div class="flex flex-col justify-center rounded" >
-                                        <a type="button" class="btn" style="background-color: #FFCA0C; font-weight: bold; color: white;" 
+                                        <a type="button" class="btn" style="background-color: #613FE5; font-weight: bold; color: white;" 
                                         href="/articles/read/${atc.pk}">Read More</a>
                                     </div>
                                 </div>
