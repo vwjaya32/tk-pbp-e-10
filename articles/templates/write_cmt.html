@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block meta %}
-<title>RYOK? | Write Comment</title>
-{% endblock meta %}
+<head>
+    {% block meta %}
+    <title>RYOK? | Write Comment</title>
+    {% endblock meta %}
+
+</head>
 
 {% block content %}
 <body> 
@@ -81,9 +84,6 @@
         <p id="title-text">How do you think about the article "{{the_artc.title}}"?</h1>
         <form method="POST">
             {% csrf_token %}
-            <table>
-                <tr>Pseudonym: </tr>
-                <tr><input name="author" placeholder="fictitious name" class="form-control"></tr>
 
                 <h6>Pseudonym: </h6>
                 <input name="author" placeholder="Little Rabbit" class="form-control">
@@ -92,9 +92,9 @@
                 <textarea name="content" placeholder="Incredible!" class="form-control"></textarea>
                 <input class="btn" style="font-weight:bold; color:aliceblue; background-color: #FFCA0C;" type="submit" name="submit" value="Post"/>
 
-            </table>
         </form>
-
+        </div>
+        </div>
     </div>
 
     <footer>
