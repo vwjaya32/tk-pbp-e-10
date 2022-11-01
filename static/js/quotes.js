@@ -1,7 +1,6 @@
 // Function Ready
 $(function(){
     showImage()
-    layout()
 });
 
 function showImage(){
@@ -25,6 +24,9 @@ function showImage(){
 
                 appendImage(title, image);
             }
+
+            // Run this after appending Image
+            layout();
         },
         // Debug
         error: function(){
@@ -42,6 +44,7 @@ function appendImage(title, image){
     `)
 }
 
+// Run Masonry Layout
 function layout() {
     console.log("loaded");
     var $grid = $('#board').masonry({
@@ -53,6 +56,19 @@ function layout() {
         $grid.masonry('layout');
     });
 }
+
+// Image Preview on Modal
+$(document).on('click', '#promptAdd', function(){
+    $("#imageurl").on('input', function() {
+        console.log("test")
+        // Adding img html to Modal
+        $("#imageFrame").html("<img id='imagePreview' src='' alt='Not a Valid Image'>")
+
+        // Change src attr to input url
+        let url = $("#imageurl").val();
+        $("#imagePreview").attr("src", url);
+    });
+});
 
 // // Submit Event
 // $(document).on('submit', '#add_quote', function(event) {

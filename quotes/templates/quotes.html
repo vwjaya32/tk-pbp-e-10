@@ -2,6 +2,7 @@
 
 
 {% block meta %}
+    <title> Main Page </title>
     {# EXTERNAL CSS #}
     <link rel="stylesheet" href="/static/css/quotes.css">
 
@@ -13,63 +14,7 @@
 
     {# EXTERNAL JS #}
     <script src="/static/js/masonry.js"></script>
-    <title> Main Page </title>
-    <script>
-    // Function Ready
-    $(function(){
-        showImage()
-    });
-
-function showImage() {
-    // Get Data & Append
-    $.ajax({
-        type: "GET",
-        url: "/quotes/get_image",
-        success: function (response) {
-            // Debug
-            console.log("Below is the data");
-            console.log(response);
-
-            let Array = response.images
-
-            for (let key in Array) {
-                let title = Array[key].title;
-                let image = Array[key].image;
-
-                appendImage(title, image);
-            }
-
-            console.log("Layout")
-            layout()
-        },
-        // Debug
-        error: function () {
-            alert("ERROR | get_image failure");
-        }
-    });
-
-    function appendImage(title, image) {
-        $("#board").append(`
-            <div class="grid-item">
-                <img src="${image}" alt="${title}">
-                <p> x </p>
-            </div>
-        `)
-        console.log("after that")
-    }
-
-    function layout(){
-        var $grid = $('#board').masonry({
-            itemSelector: '.grid-item',
-            columnWidth: 0,
-        });
-
-        $grid.imagesLoaded().progress(function () {
-            $grid.masonry();
-        });
-    }
-}
-</script>
+    <script src="/static/js/quotes.js"></script>
 
 {% endblock meta %}
 
@@ -119,23 +64,18 @@ function showImage() {
     <h1> Motivational Quotes </h1>
 
     {% if user.is_authenticated %}
+    {# Add Quotes Button #}
     <div class="d-flex justify-content-center mb-4">
-      <a class="btn btn-warning btn-lg" href="{% url 'quotes:add_quote' %}" role="button">
-        Add Image
-      </a>
+    {# Trigger Add Quote Modal#}
+        <button id="promptAdd"
+                type="button"
+                class="btn btn-warning btn-lg"
+                data-bs-toggle="modal"
+                data-bs-target="#add_quote_modal">
+            Share yours!
+        </button>
     </div>
     {% endif %}
-
-    {# Add Quotes Button #}
-{#    <div class="d-flex justify-content-center mb-4">#}
-        {# Trigger Add Quote Modal #}
-{#        <button type="button"#}
-{#                class="btn btn-primary"#}
-{#                data-bs-toggle="modal"#}
-{#                data-bs-target="#add_quote_modal">#}
-{#            Share words with others#}
-{#        </button>#}
-{#    </div>#}
 
     {# Add Quote Modal #}
     <div class="modal fade"
@@ -153,6 +93,11 @@ function showImage() {
                     <form action="{% url 'quotes:add_quote' %}" method=POST enctype="multipart/form-data" id="add_quote">
                         {% csrf_token %}
                         {{ form.as_p }}
+
+                        <div class="" id="imageFrame">
+
+                        </div>
+
                         <input type="submit"
                            value="Share with others"
                            class="btn btn-primary">
@@ -164,17 +109,21 @@ function showImage() {
 
 
     {# Image Viewer #}
-    <div style="text-align: center;">
+    <div>
         <div class="grid"
          id="board">
 
         </div>
     </div>
 
-    {# Image Layout #}
-    <script>
-    console.log("load")
-    </script>
-    
+
+    {# Footer #}
+    <footer class="sticky-footer">
+        <div id="footer">
+            <p> Developed by Team E-10 </p>
+            <h5> Platform Based Programming 2022 </h5>
+            <h5> Faculty of Computer Science University of Indonesia </h5>
+        </div>
+    </footer>
 
 {% endblock content %}
