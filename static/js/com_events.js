@@ -36,9 +36,6 @@ $(document).ready(function(){
                         <button data-bs-toggle="modal" data-bs-target="#modal_confirm-${data[i].pk}">
                             Join
                         </button>
-                        <button data-pk="${data[i].pk}" id="delete-${data[i].pk}">
-                            Delete
-                        </button>
                   </div>
                   `
                   )
@@ -48,11 +45,6 @@ $(document).ready(function(){
                     $(`#close_confirm-${id_item}`).click();
                     setTimeout(function(){$("#refresh_data_user").click();}, 200);
                 }); 
-                $(`#delete-${data[i].pk}`).click(function(){
-                    const id_item = $(this).attr("data-pk")
-                    $.get(`/com_events/delete/${id_item}`);
-                    setTimeout(function(){$("#refresh_data_user").click();}, 200);
-                })
             }
         });
     });
