@@ -19,34 +19,6 @@
           <a class="navbar-brand" href="#" style="font-style:italic"> RYOK? </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-<<<<<<< HEAD
-      </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                      <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/articles/"> Articles </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/com_events/"> Events </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/mh_goods/"> Goods </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/mh_tests/"> Tests </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/quotes/"> Quotes </a>
-                  </li>
-              </ul>
-              {% if user.is_authenticated %}
-              <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:logout' %}">Logout</a> {% else %}
-              <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:login' %}">Login</a> {% endif %}
-          </div>
-=======
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -78,7 +50,6 @@
           <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button>
           {% endif %}
         </div>
->>>>>>> 8697f1494ab361250e59ca18ee379401bba83aa0
       </div>
   </nav>
 <center>
