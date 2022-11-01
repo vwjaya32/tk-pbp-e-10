@@ -133,7 +133,7 @@ $(document).ready(function(){
                 $(`#delete-${data[i].pk}`).click(function(){
                     const id_item = $(this).attr("data-pk")
                     $.get(`/com_events/delete/${id_item}`);
-                    setTimeout(function(){$("#refresh_data_user").click();}, 200);
+                    setTimeout(function(){$("#refresh_data_admin").click();}, 200);
                 })
             }
         });
