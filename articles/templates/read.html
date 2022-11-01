@@ -3,8 +3,11 @@
 <head>
     {% block meta %}
     <title>RYOK? | {{target.title}}</title>
-    {% endblock meta %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <!-- external stling -->
+    <link rel="stylesheet" href="/static/css/articles.css">
+    {% endblock meta %}
 
 </head>
 
@@ -51,24 +54,6 @@
         body{
             background: #09050D;
             min-height: 100vh;
-        }
-        footer {
-            position:sticky;
-            width: 100%;
-            top: 100%;
-            padding: 20px;
-            background-color: #613FE5;
-        }
-        .btn {
-            box-shadow: 0 0 5px rgb(36, 35, 48);
-            -webkit-transition-duration: 0.3s;
-            transition-duration: 0.3s;
-            -webkit-transition-property: transform;
-            transition-property: transform;
-        }
-        .btn:hover {
-            -webkit-transform: scale(1.08);
-            transform: scale(1.08);
         }
 
     </style>
