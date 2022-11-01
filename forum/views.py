@@ -63,6 +63,6 @@ def reply_forum(request):
     context={"form":forms}
     return render(request, "write_forum.html", context)
 
-def json(request):
+def show_forum_json(request):
     data = Posts.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
