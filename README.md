@@ -58,5 +58,5 @@ Pada modul ini, pengguna dapat mengunggah gambar berisi kutipan motivasi yang da
 2. Bisa hapus paksa thread di `Forum`
 3. Bisa add Event di `Community Events`
 4. Bisa add Article di `Articles`
-5. Bisa add new item di `Mental Health Goods`
+5. Bisa add new item di `Goods Catalogue`
 </br>
