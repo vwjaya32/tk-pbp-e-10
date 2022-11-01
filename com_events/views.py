@@ -36,31 +36,6 @@ def list_events(request):
     return render(request, "list_events.html", context)
 
 @login_required(login_url='/com_events/login/')
-def my_events(request):
-    event_list = Event.objects.filter(attendees = request.user)
-    context = {
-        "event_list" : event_list,
-    }
-    return render(request, "my_events.html", context)
-
-
-@login_required(login_url='/com_events/login/')
-def add_event(request):
-    if request.method == "POST":
-        form = EventForm(request.POST)
-        if form.is_valid():
-            manager = request.user
-            name = request.POST.get('name')
-            date = request.POST.get('date')
-            description = request.POST.get('description')
-            event = Event(name = name, manager= manager, date=date, description = description)
-            event.save()
-            return HttpResponseRedirect(reverse('com_events:list_events'))
-    else:
-        form = EventForm()
-    return render(request, "forms_temp.html", {'form':form})
-
-@login_required(login_url='/com_events/login/')
 def delete(request, id):
     event = Event.objects.get(pk=id)
     event.delete()
@@ -71,6 +46,7 @@ def join_event(request, id):
     event = Event.objects.get(pk=id)
     event.attendees.add(request.user)
     event.is_joined == True
+    event.save()
     return redirect('com_events:show_events')
 
 @login_required(login_url='/com_events/login/')
@@ -78,16 +54,46 @@ def unjoin_event(request, id):
     event = Event.objects.get(pk=id)
     event.attendees.remove(request.user)
     event.is_joined == False
+    event.save()
     return redirect('com_events:show_events')
 
 def get_json_all(request):
     events = Event.objects.all()
-    return HttpResponse(serializers.serialize('json', events), content_type='application/json')
+    return JsonResponse({
+        'data':
+            [{
+                'model':'com_events.event',
+                'pk': event.pk,
+                'fields':{
+                    'name':event.name,
+                    'date':event.date,
+                    'description':event.description,
+                    'is_joined':event.is_joined,
+                    'attendees':[attendee.username for attendee in event.attendees.all()],
+                }
+            }for event in events]
+    })
+    # return HttpResponse(serializers.serialize('json', events), content_type='application/json')
 
 def get_json_user(request):
     events = Event.objects.filter(attendees=request.user)
-    return HttpResponse(serializers.serialize('json', events), content_type='application/json')
+    return JsonResponse({
+        'data':
+            [{
+                'model':'com_events.event',
+                'pk': event.pk,
+                'fields':{
+                    'name':event.name,
+                    'date':event.date,
+                    'description':event.description,
+                    'is_joined':event.is_joined,
+                    'attendees':[attendee.username for attendee in event.attendees.all()],
+                }
+            }for event in events]
+    })
+    # return HttpResponse(serializers.serialize('json', events), content_type='application/json')
 
+@login_required(login_url='/com_events/login/')
 def add_event_ajax(request):
     if request.method == "POST":
         form = EventForm(request.POST)
