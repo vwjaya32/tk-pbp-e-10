@@ -3,30 +3,71 @@ body{
     min-height: 100vh;
 }
 
-#promptAdd{
-    font-weight: bold;
-}
-
-
-/* =============== HOVER =============== */
+/* =============== HOVER SECTION =============== */
 .grid-item:hover{
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
-
-/* =============== NAVBAR =============== */
-.navbar{
-    background: rgb(51,49,80);
-    background: linear-gradient(0deg, rgba(51,49,80,1) 0%, rgba(28,28,52,1) 61%);
+.nav-link:hover{
+    transform: scale(1.05);
 }
 
+#formSubmit:hover{
+    transform: scale(1);
+    -webkit-text-fill-color: black;
+    background-position: left bottom;
+}
 
-/* =============== HEADINGS =============== */
+/* =============== RELATED TO NAVBAR =============== */
+.navbar{
+    background: #FFFFFF
+}
+
+.nav-link.active{
+    font-weight: bold;
+}
+
+/* =============== RELATED TO GENERAL HEADINGS =============== */
 h1 {
     padding-top: 15px;
     color: #009;
     text-align: center;
+}
+
+
+/* =============== RELATED TO IMG UPLOAD MODAL =============== */
+#promptAdd{
+    box-shadow: 0 0 0;
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+#imagePreview{
+    margin-bottom: 15px;
+    height:auto;
+    width:100%;
+}
+
+#imageFrame{
+    margin: auto;
+    width:75%;
+}
+
+#formSubmit{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    border-width: 0;
+    background: linear-gradient(to right, #FFC107 50%, #613FE5 50%) right bottom;
+    background-size: 200%;
+    box-shadow: 0 0 0;
+
+    -webkit-text-fill-color: white;
+    font-weight: bold;
+
+    transition: all 0.4s ease-out;
 }
 
 
@@ -43,11 +84,16 @@ h1 {
     text-align: center;
 }
 
-/* =============== RELATED TO IMG =============== */
+/* =============== RELATED TO IMG VIEW =============== */
 img {
     width:100%;
 }
 
+/* =============== RELATED TO GENERAL BUTTON =============== */
+#log-btn {
+    font-weight: bold;
+    color: #FFFFFF;
+}
 
 /* =============== RELATED TO FOOTER =============== */
 .sticky-footer {

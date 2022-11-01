@@ -62,7 +62,7 @@ $(document).on('click', '#promptAdd', function(){
     $("#imageurl").on('input', function() {
         console.log("test")
         // Adding img html to Modal
-        $("#imageFrame").html("<img id='imagePreview' src='' alt='Not a Valid Image'>")
+        $("#imageFrame").html('<img id="imagePreview"  class="rounded mx-auto d-block" src="" alt="Not a Valid Image">')
 
         // Change src attr to input url
         let url = $("#imageurl").val();

@@ -20,8 +20,8 @@
 
 {% block content %}
     {# NAVBAR #}
-    <nav class="navbar navbar-expand-lg navbar-dark">
-          <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container-fluid">
             <a class="navbar-brand" href="/homepage/"> RYOK? </a>
             <button class="navbar-toggler" type="button"
                     data-bs-toggle="collapse"
@@ -29,39 +29,41 @@
                     aria-controls="navbarSupportedContent"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link" href="/forum/"> Forums </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/articles/"> Articles </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/com_events/"> Events </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/mh_goods/"> Goods </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/mh_tests/"> Tests </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/quotes/"> Quotes </a>
-                </li>
-              </ul>
-              {% if user.is_authenticated %}
-              <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button>
-              {% else %}
-              <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button>
-              {% endif %}
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/forum/"> Forums </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/articles/"> Articles </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/com_events/"> Events </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/mh_goods/"> Goods </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/mh_tests/"> Tests </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link active" aria-current="page" href="/quotes/"> Quotes </a>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:logout' %}"> Logout </a>
+                {% else %}
+                    <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:login' %}">Login</a>
+                {% endif %}
             </div>
-          </div>
+        </div>
     </nav>
 
+    {# CONTENT #}
     <h1> Motivational Quotes </h1>
+    <br>
 
     {% if user.is_authenticated %}
     {# Add Quotes Button #}
@@ -76,6 +78,7 @@
         </button>
     </div>
     {% endif %}
+    <br>
 
     {# Add Quote Modal #}
     <div class="modal fade"
@@ -85,8 +88,8 @@
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Let's Motivate Other! </h1>
+                <div class="modal-header text-center">
+                    <h1 class="modal-title fs-5 w-100" id="uploadTitle"> Let's Motivate Other! </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -94,30 +97,28 @@
                         {% csrf_token %}
                         {{ form.as_p }}
 
-                        <div class="" id="imageFrame">
-
-                        </div>
+                        <div class="" id="imageFrame"></div>
 
                         <input type="submit"
-                           value="Share with others"
-                           class="btn btn-primary">
+                               id="formSubmit"
+                               value="Share with others"
+                               class="btn">
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-
     {# Image Viewer #}
     <div>
         <div class="grid"
          id="board">
-
+            {# AJAX #}
         </div>
     </div>
 
 
-    {# Footer #}
+    {# FOOTER #}
     <footer class="sticky-footer">
         <div id="footer">
             <p> Developed by Team E-10 </p>
