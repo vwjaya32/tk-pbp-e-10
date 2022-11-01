@@ -49,7 +49,7 @@ Pada modul ini, pengguna dapat mengunggah gambar berisi kutipan motivasi yang da
 2. Bisa posting, baca, dan reply di `Forum`
 3. Bisa hapus postingan pribadi di `Forum`
 4. Bisa add jadwal event dari `Community Events`
-5. Bisa beli barang di `Mental Health Goods`
+5. Bisa lihat barang di `Goods Catalogue` dan checkout barang di `My Cart`
 6. Bisa posting gambar & hapus gambar di `Motivational Quotes`
 </br>
 
