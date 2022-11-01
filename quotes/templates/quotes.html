@@ -13,10 +13,64 @@
 
     {# EXTERNAL JS #}
     <script src="/static/js/masonry.js"></script>
-
-    {# AJAX #}
-
     <title> Main Page </title>
+    <script>
+    // Function Ready
+    $(function(){
+        showImage()
+    });
+
+function showImage() {
+    // Get Data & Append
+    $.ajax({
+        type: "GET",
+        url: "/quotes/get_image",
+        success: function (response) {
+            // Debug
+            console.log("Below is the data");
+            console.log(response);
+
+            let Array = response.images
+
+            for (let key in Array) {
+                let title = Array[key].title;
+                let image = Array[key].image;
+
+                appendImage(title, image);
+            }
+
+            console.log("Layout")
+            layout()
+        },
+        // Debug
+        error: function () {
+            alert("ERROR | get_image failure");
+        }
+    });
+
+    function appendImage(title, image) {
+        $("#board").append(`
+            <div class="grid-item">
+                <img src="${image}" alt="${title}">
+                <p> x </p>
+            </div>
+        `)
+        console.log("after that")
+    }
+
+    function layout(){
+        var $grid = $('#board').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: 0,
+        });
+
+        $grid.imagesLoaded().progress(function () {
+            $grid.masonry();
+        });
+    }
+}
+</script>
+
 {% endblock meta %}
 
 {% block content %}
@@ -110,25 +164,16 @@
 
 
     {# Image Viewer #}
-    <div class="grid">
-        {% for image in images %}
-            <div class="grid-item">
-                <img src="{{ image.image.url }}" alt="{{ image.title }}">
-                <p> {{ image.id }}</p>
-            </div>
-        {% endfor %}
+    <div style="text-align: center;">
+        <div class="grid"
+         id="board">
+
+        </div>
     </div>
 
     {# Image Layout #}
     <script>
-        var $grid = $('.grid').masonry({
-            itemSelector: '.grid-item',
-            columnWidth: 0,
-        });
-
-        $grid.imagesLoaded().progress( function() {
-            $grid.masonry('layout');
-        });
+    console.log("load")
     </script>
     
 

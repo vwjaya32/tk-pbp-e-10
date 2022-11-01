@@ -1,6 +1,7 @@
 // Function Ready
 $(function(){
     showImage()
+    layout()
 });
 
 function showImage(){
@@ -16,7 +17,6 @@ function showImage(){
             console.log("Below is the data");
             console.log(response);
 
-            $("#board").empty();
             let Array = response.images
 
             for (let key in Array){
@@ -37,9 +37,21 @@ function showImage(){
 function appendImage(title, image){
     $("#board").append(`
         <div class="grid-item">
-            <img src="/media/${image}" alt="${title}"/>
+            <img src="${image}" alt="${title}"/>
         </div>
     `)
+}
+
+function layout() {
+    console.log("loaded");
+    var $grid = $('#board').masonry({
+        itemSelector: '.grid-item',
+        columnWidth: 0,
+    });
+
+    $grid.imagesLoaded().progress(function () {
+        $grid.masonry('layout');
+    });
 }
 
 // // Submit Event

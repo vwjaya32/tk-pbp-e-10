@@ -13,5 +13,7 @@ class ImageForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-control',
                                             'placeholder':'Title'}),
-            'image': forms.ClearableFileInput(attrs={'class':'form-control'})
+            'image': forms.TextInput(attrs={'class':'form-control',
+                                            'id':'imageurl',
+                                            'placeholder':'Image URL'}),
         }

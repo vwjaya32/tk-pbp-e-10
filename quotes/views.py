@@ -25,12 +25,12 @@ def show_html(request):
 
 
 def get_image(request):
-    images = Image.objects.all()
+    images = Image.objects.all().order_by('pk')
     return JsonResponse({"images": list(images.values())})
 
 
-def delete_image(request, inum):
-    image = Image.objects.get(pk=inum)
+def delete_image(request, id):
+    image = Image.objects.get(pk=id)
     image.delete()
     messages.success(request, "Image has been deleted")
     return redirect('quotes:show_html')
@@ -38,7 +38,7 @@ def delete_image(request, inum):
 @login_required(login_url='/homepage/login/')
 def add_quote(request):
     if request.method == 'POST':
-        form = ImageForm(request.POST, request.FILES)
+        form = ImageForm(request.POST)
 
         if form.is_valid():
             data      = form.save(commit=False)

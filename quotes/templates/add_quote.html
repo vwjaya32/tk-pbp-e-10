@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+    {# JQUERY #}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/js/imagepreview.js"></script>
+{% endblock meta %}
+
 {% block content %}
     <div style="text-align: center;">
         <h1> Let's Motivate Others! </h1>
         <br/>
-        <form action="" method=POST enctype="multipart/form-data">
+        <form action="" method=POST>
             {% csrf_token %}
 
             {{ form.as_p }}
+
+            <div class="">
+                <img id="imagePreview" src="" alt="Not a valid Image">
+            </div>
 
             <input type="submit"
                    value="Submit"
