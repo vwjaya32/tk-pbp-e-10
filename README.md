@@ -57,4 +57,5 @@ Pada modul ini, pengguna dapat mengunggah gambar berisi kutipan motivasi yang da
 2. Bisa add Event di `Community Events`
 3. Bisa add Article di `Articles`
 4. Bisa add new item di `Catalogue`
+5. Bisa remove story di `Stories`
 </br>
