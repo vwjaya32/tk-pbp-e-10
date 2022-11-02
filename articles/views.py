@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest, JsonResponse
 from django.core import serializers
 from django.contrib.auth.decorators import user_passes_test
+import datetime
 
 # Import forms
 # ------------
@@ -88,19 +89,24 @@ def delete_comments(request, article_id, id):
 
 @user_passes_test(lambda u: u.is_superuser)
 def add_ajax(request):
+    form = edit_box()
     if request.method == "POST":
-        title = request.POST.get("title")
-        author = request.POST.get("author")
-        content = request.POST.get("content")
-        new = Articles.objects.create(title=title,author=author,content=content)
+        form = edit_box(request.POST)
+        if form.is_valid():
+            new_artc = Articles(
+                title = form.cleaned_data["title"],
+                author = form.cleaned_data["author"],
+                content = form.cleaned_data["content"],
+            )
+            new_artc.save()
         data = {
             "fields":{
-                "title":new.title,
-                "date":new.date,
-                "author":new.author,
-                "content":new.content,
+                "title":form.cleaned_data["title"],
+                "author":form.cleaned_data["author"],
+                "date": datetime.date.today(),
+                "content":form.cleaned_data["content"],
             },
-            "pk":new.pk
+            "pk":new_artc.pk
         }
         return JsonResponse(data)
 
