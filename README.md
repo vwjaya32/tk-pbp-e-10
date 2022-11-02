@@ -30,7 +30,7 @@ Sebagai tanggapan atas masalah kesehatan yang menjadi perhatian dunia, terutama 
 ## Modul 🎯
 Modul yang akan diimplementasikan-Handler:  
 - [ ] Stories - `Rafito`  
-Pada modul ini pengguna dapat membuat thread dan me-reply thread yang ada. Pengguna yang berpartisipasi dalam suatu forum akan masuk dalam daftar peserta thread.
+Pada modul ini pengguna dapat membuat thread dan me-reply thread yang ada. Pengguna yang berpartisipasi dalam suatu story akan masuk dalam daftar peserta thread.
 - [ ] Articles - `Gerardo`  
 Artikel tentang kesehatan mental akan ditampilkan pada modul ini. Artikel hanya dapat ditulis oleh Admin, namun dapat dibaca oleh semua tipe user.
 - [ ] Community Events - `Felix`  
