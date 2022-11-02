@@ -1,13 +1,34 @@
-/* HOVER */
+/* =============== GENERAL =============== */
+body{
+    min-height: 100vh;
+}
+
+/* =============== HOVER SECTION =============== */
 .grid-item:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.nav-link:hover{
     transform: scale(1.05);
 }
 
-.navbar{
-    background: rgb(51,49,80);
-    background: linear-gradient(0deg, rgba(51,49,80,1) 0%, rgba(28,28,52,1) 61%);
+#formSubmit:hover{
+    transform: scale(1);
+    -webkit-text-fill-color: black;
+    background-position: left bottom;
 }
 
+/* =============== RELATED TO NAVBAR =============== */
+.navbar{
+    background: #FFFFFF
+}
+
+.nav-link.active{
+    font-weight: bold;
+}
+
+/* =============== RELATED TO GENERAL HEADINGS =============== */
 h1 {
     padding-top: 15px;
     color: #009;
@@ -15,21 +36,85 @@ h1 {
 }
 
 
+/* =============== RELATED TO IMG UPLOAD MODAL =============== */
+#promptAdd{
+    box-shadow: 0 0 0;
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+#imagePreview{
+    margin-bottom: 15px;
+    height:auto;
+    width:100%;
+}
+
+#imageFrame{
+    margin: auto;
+    width:75%;
+}
+
+#formSubmit{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    border-width: 0;
+    background: linear-gradient(to right, #FFC107 50%, #613FE5 50%) right bottom;
+    background-size: 200%;
+    box-shadow: 0 0 0;
+
+    -webkit-text-fill-color: white;
+    font-weight: bold;
+
+    transition: all 0.4s ease-out;
+}
+
+
+/* =============== RELATED TO GRID =============== */
 .grid-item{
+    transition: all .2s ease-in-out;
     margin-left: 15px;
     margin-bottom: 15px;
-    width: 225px;
+    width: 250px;
     background-color: #cb8835;
 }
 
-.grid-item p{
+.grid-item p {
     text-align: center;
 }
 
+/* =============== RELATED TO IMG VIEW =============== */
 img {
     width:100%;
 }
 
-#title{
+/* =============== RELATED TO GENERAL BUTTON =============== */
+#log-btn {
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+/* =============== RELATED TO FOOTER =============== */
+.sticky-footer {
+    position: sticky;
+    top: 100%;
+    width: 100%;
+    bottom: 0;
+    background-color: #613FE5;
+    padding: 20px;
+}
+
+#footer {
+    color: white;
     text-align: center;
+    font-family: Noto Sans, sans-serif;
+}
+
+#footer p {
+    font-style: italic;
+}
+
+#footer h5 {
+    font-size: large;
 }

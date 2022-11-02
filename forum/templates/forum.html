@@ -1,46 +1,153 @@
-{% extends 'base.html' %} \
+{% extends 'base.html' %}
 {% load static %}
 
-<head>
-    {% block meta %}
+{% block meta %}
     <title>RYOK? | Forum</title>
     <script src="jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    {% endblock meta %}
-</head>
+    <script>
+    $(document).ready(() => {
+        get_task();
+    })
+    // function create() {
+    //     const form = $(".create_task");
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/todolist/create-task/",
+    //         data: form.serialize(),
+    //     }).done(function(data) {
+    //         form.trigger("reset");
+    //         get_task();
+    //     });
+    //     $("#staticBackdrop").modal("hide");
+    // }
+    function get_task() {
+        $.ajax({
+            type: "GET",
+            url: "/forum/json/"
+        }).done((data) => {
+            renderTask(data);
+        });
+    }
+    function renderTask(data) {
+        const individualCards = $('.card');
+        data.forEach(task => {
+            var len = (task.fields.content).length
+            if (len > 150) {
+            const taskCard = `
+            <div class="card">
+              <div class="container">
+                <div class="container-title">
+                 <h5 class="post">${task.fields.title}</h5>
+                 <i class="post" style="font-size: small">By ${task.fields.author}</i>
+                </div>
+                <br>
+                <p class="post" style="font-size: 60%">${task.fields.content.substring(0,150)}...</p>
+                <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%; margin-left: 500px;" href="/forum/read/${task.pk}">Show More!</a>
+              </div>
+            </div>`
+            individualCards.append(taskCard);
+            }
+            else {
+            const taskCard = `
+            <div class="card">
+              <div class="container">
+                <div class="container-title">
+                 <h5 class="post">${task.fields.title}</h5>
+                 <i class="post" style="font-size: small">By ${task.fields.author}</i>
+                </div>\<br>
+                <p class="post" style="font-size: 60%">${task.fields.content}</p>
+                <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%; margin-left: 500px;" href="/forum/read/${task.pk}">Show More!</a>
+              </div>
+            </div>`
+            individualCards.append(taskCard);
+            }
+        })
+    };
+    </script>
+{% endblock meta %}
 
 {% block content %}
-
-<body>
     <style>
         .navbar {
-            background: rgb(51, 49, 80);
-            background: linear-gradient(0deg, rgba(51, 49, 80, 1) 0%, rgba(28, 28, 52, 1) 61%);
+            background: rgb(255,255,255)
         }
-        
         body {
-            background: rgb(64, 62, 101)
+            background: linear-gradient(0deg, rgb(255,165,0) 10%, rgb(255,255,255) 80%);
+        }
+        .grandParentContaniner {
+          display:table; 
+          height:100%; 
+          margin: 0 auto;
+        }
+        .parentContainer {
+          display:table-cell; 
+          vertical-align:middle;
+        }
+        .card {
+          background: linear-gradient(0deg, rgba(32, 32, 32, 1) 10%, rgba(64, 64, 64, 1) 61%);
+          text-align: center;
+          transition: 0.3s;
+          border-radius: 5px;
+          margin-bottom: 15px;
+        }
+/*        .card:hover {
+          transform: translateY(3px);
+        }*/
+        .container {
+          padding: 10px 10px;
+        }
+        .container-title {
+            text-align:center;
+        }
+        .post{
+            color: white;
+        }
+        .btn {
+            box-shadow: 0 0 5px rgb(36, 35, 48);
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-property: box-shadow, transform;
+            transition-property: box-shadow, transform;
+        }
+        .vertical-center {
+          margin: 0;
+          position: absolute;
+          top: 50%;
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+        }
+        h1 {
+            font-family: 'Roboto Slab', serif;
+            font-weight: bold;
+        }
+        a {
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
         }
     </style>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"> RYOK? </a>
+            <a class="navbar-brand" href="../" style="font-style:italic"> RYOK? </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/articles/"> Articles </a>
+                        <a class="nav-link active" href="/articles/"> Articles </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/com_events/"> Events </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/mh_goods/"> Goods </a>
+                        <a class="nav-link" href="/goods_catalogue/"> Goods Catalogue </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/goods_cart/"> My Cart </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/mh_tests/"> Tests </a>
@@ -50,26 +157,25 @@
                     </li>
                 </ul>
                 {% if user.is_authenticated %}
-                <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button> {% else %}
-                <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button> {% endif %}
+                <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:logout' %}">Logout</a> {% else %}
+                <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:login' %}">Login</a> {% endif %}
             </div>
         </div>
     </nav>
     <br>
-    <h1 style="color: white;"> FORUM </h1>
-    <h5 style="color: white;"> PBP E-10 </h5>
-    <a type="button" class="btn btn-light" href="{% url 'forum:new_forum' %}">Start new Forum</a>
+    <h1 style="color: black;"> FORUM </h1>
     <br>
-    <div id="forumslots">
-        {% for dx in data %}
-        <br>
-        <div class="card">
-            <h5>{{dx.title}}</h5>
-            <p>{{dx.content}}</p>
+    <div class="grandParentContaniner">
+        <div class="parentContainer">
+        <a type="button" class="btn btn-light" href="{% url 'forum:new_forum' %}">Start new Forum</a>
         </div>
-        {% endfor %}
     </div>
-    <script>
-    </script>
-</body>
+    <br>
+    <br>
+    <div class="grandParentContaniner">
+        <div class="parentContainer">
+            <div class="card">
+            </div>
+        </div>
+    </div>
 {% endblock content %}

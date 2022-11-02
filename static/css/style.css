@@ -1,10 +1,12 @@
 .navbar {
     background: #FFFFFF
 }
+
 #log-btn {
     font-weight: bold;
     color: #FFFFFF;
 }
+
 .btn {
     box-shadow: 0 0 5px rgb(36, 35, 48);
     -webkit-transition-duration: 0.3s;
@@ -12,25 +14,30 @@
     -webkit-transition-property: box-shadow, transform;
     transition-property: box-shadow, transform;
 }
+
 .btn:hover {
     box-shadow: 0 0 8px rgb(36, 35, 48);
     -webkit-transform: scale(1.08);
     transform: scale(1.08);
 }
+
 .navbar-brand {
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
 }
+
 .container {
     bottom: 0;
     left: 0;
     right: 0;
 }
+
 h1 {
     font-family: 'Roboto Slab', serif;
     font-weight: bold;
     text-align:center;
 }
+
 h6 {
     margin-top: 10px;
     margin-bottom: 5px;

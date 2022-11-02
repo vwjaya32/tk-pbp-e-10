@@ -25,7 +25,7 @@ def show_html(request):
 
 
 def get_image(request):
-    images = Image.objects.all().order_by('pk')
+    images = Image.objects.all().order_by('-pk')
     return JsonResponse({"images": list(images.values())})
 
 
@@ -54,10 +54,13 @@ def add_quote(request):
 
 
 def ajax_add_quote(request):
-    return
-    # if request.method == 'POST':
-    #     form = ImageForm(request.POST, request.FILES)
-    #
-    #     if form.is_valid():
-    #         form.save()
-    #     return HttpResponse(serializers.serialize('json', [form, ]), content_type='application/json')
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user = request.user
+            data.save()
+            form.save()
+            form.save_m2m()
+        return HttpResponse(serializers.serialize('json', [data, ]), content_type='application/json')

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>RYOK? | Catalogue</title>
+{% endblock meta %}
+
+{% block content %}
+{% csrf_token %}
+
+<body>
+    <style>
+        .navbar {
+            background: rgb(51, 49, 80);
+            background: linear-gradient(0deg, rgba(51, 49, 80, 1) 0%, rgba(28, 28, 52, 1) 61%);
+        }
+        
+        body {
+            background: rgb(49, 34, 76)
+        }
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"> RYOK? </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/articles/"> Articles </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/com_events/"> Events </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/goods_catalogue/"> Goods Catalogue </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/goods_cart/"> My Cart </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mh_tests/"> Tests </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/quotes/"> Quotes </a>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button> {% else %}
+                <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button> {% endif %}
+            </div>
+        </div>
+    </nav>
+
+<div class="catalogue-items"></div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function loadData() {
+        console.log("Load Data")
+        $(document).ready(function () {
+            $.get("{%url 'goods_catalogue:get_catalogue'%}", function (data) {
+                console.log(data)
+                $.each(data, function (key, value) {
+                    var catalogue = `
+                        <div class="row mb-4 d-flex justify-content-between align-items-center id="item-${value.pk}">
+                        <div class="col-md-2 col-lg-2 col-xl-2">
+                            <img src="/media/${value.fields.item_picture}"
+                            class="img-fluid rounded-3" id="item-${value.pk}-image">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h5 class="text-black mb-0" id="item-${value.pk}-name">${value.fields.item_name}</h5>
+                            <h5 class="mb-0" id="item-${value.pk}-price">Rp${value.fields.item_price}</h5>
+                        </div>
+                        </div>
+                        <hr class="my-4">
+                        `
+                    $(".catalogue_item").append(catalogue)
+                })
+            })
+        })
+    }
+
+    loadData()
+</script>
+{% endblock content %}

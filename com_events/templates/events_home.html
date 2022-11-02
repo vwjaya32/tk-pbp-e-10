@@ -1,16 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<style>
-    .navbar{
-        background: rgb(51,49,80);
-        background: linear-gradient(0deg, rgba(51,49,80,1) 0%, rgba(28,28,52,1) 61%);
-    }
-</style>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+<body>
+  <style>
+      body{
+          min-height: 100vh;
+      }
+      footer {
+          position:sticky;
+          width: 100%;
+          top: 100%;
+          padding: 20px;
+          background-color: #613FE5;
+      }
+  </style>
+  <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"> RYOK? </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand" href="#" style="font-style:italic"> RYOK? </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -25,8 +32,11 @@
               <a class="nav-link" href="/com_events/"> Events </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/mh_goods/"> Goods </a>
+              <a class="nav-link" href="/goods_catalogue/"> Goods Catalogue </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/goods_cart/"> My Cart </a>
+          </li>
             <li class="nav-item">
               <a class="nav-link" href="/mh_tests/"> Tests </a>
             </li>
@@ -41,7 +51,7 @@
           {% endif %}
         </div>
       </div>
-    </nav>
+  </nav>
 <center>
 <h1>
     Events for {{ month }} {{ year }}

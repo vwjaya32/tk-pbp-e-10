@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'articles',
     'mh_tests',
     'com_events',
-    'mh_goods',
+    'goods_catalogue',
+    'goods_cart',
     'quotes',
     'forum',
 ]

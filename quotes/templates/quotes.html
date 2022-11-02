@@ -2,6 +2,7 @@
 
 
 {% block meta %}
+    <title> Main Page </title>
     {# EXTERNAL CSS #}
     <link rel="stylesheet" href="/static/css/quotes.css">
 
@@ -13,129 +14,71 @@
 
     {# EXTERNAL JS #}
     <script src="/static/js/masonry.js"></script>
-    <title> Main Page </title>
-    <script>
-    // Function Ready
-    $(function(){
-        showImage()
-    });
-
-function showImage() {
-    // Get Data & Append
-    $.ajax({
-        type: "GET",
-        url: "/quotes/get_image",
-        success: function (response) {
-            // Debug
-            console.log("Below is the data");
-            console.log(response);
-
-            let Array = response.images
-
-            for (let key in Array) {
-                let title = Array[key].title;
-                let image = Array[key].image;
-
-                appendImage(title, image);
-            }
-
-            console.log("Layout")
-            layout()
-        },
-        // Debug
-        error: function () {
-            alert("ERROR | get_image failure");
-        }
-    });
-
-    function appendImage(title, image) {
-        $("#board").append(`
-            <div class="grid-item">
-                <img src="${image}" alt="${title}">
-                <p> x </p>
-            </div>
-        `)
-        console.log("after that")
-    }
-
-    function layout(){
-        var $grid = $('#board').masonry({
-            itemSelector: '.grid-item',
-            columnWidth: 0,
-        });
-
-        $grid.imagesLoaded().progress(function () {
-            $grid.masonry();
-        });
-    }
-}
-</script>
+    <script src="/static/js/quotes.js"></script>
 
 {% endblock meta %}
 
 {% block content %}
     {# NAVBAR #}
-    <nav class="navbar navbar-expand-lg navbar-dark">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#"> RYOK? </a>
+    <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/homepage/"> RYOK? </a>
             <button class="navbar-toggler" type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link" href="/forum/"> Forums </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/articles/"> Articles </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/com_events/"> Events </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/mh_goods/"> Goods </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/mh_tests/"> Tests </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/quotes/"> Quotes </a>
-                </li>
-              </ul>
-              {% if user.is_authenticated %}
-              <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button>
-              {% else %}
-              <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button>
-              {% endif %}
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/forum/"> Forums </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/articles/"> Articles </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/com_events/"> Events </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/mh_goods/"> Goods </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/mh_tests/"> Tests </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link active" aria-current="page" href="/quotes/"> Quotes </a>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:logout' %}"> Logout </a>
+                {% else %}
+                    <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:login' %}">Login</a>
+                {% endif %}
             </div>
-          </div>
+        </div>
     </nav>
 
+    {# CONTENT #}
     <h1> Motivational Quotes </h1>
+    <br>
 
     {% if user.is_authenticated %}
+    {# Add Quotes Button #}
     <div class="d-flex justify-content-center mb-4">
-      <a class="btn btn-warning btn-lg" href="{% url 'quotes:add_quote' %}" role="button">
-        Add Image
-      </a>
+    {# Trigger Add Quote Modal#}
+        <button id="promptAdd"
+                type="button"
+                class="btn btn-warning btn-lg"
+                data-bs-toggle="modal"
+                data-bs-target="#add_quote_modal">
+            Share yours!
+        </button>
     </div>
     {% endif %}
-
-    {# Add Quotes Button #}
-{#    <div class="d-flex justify-content-center mb-4">#}
-        {# Trigger Add Quote Modal #}
-{#        <button type="button"#}
-{#                class="btn btn-primary"#}
-{#                data-bs-toggle="modal"#}
-{#                data-bs-target="#add_quote_modal">#}
-{#            Share words with others#}
-{#        </button>#}
-{#    </div>#}
+    <br>
 
     {# Add Quote Modal #}
     <div class="modal fade"
@@ -145,36 +88,43 @@ function showImage() {
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Let's Motivate Other! </h1>
+                <div class="modal-header text-center">
+                    <h1 class="modal-title fs-5 w-100" id="uploadTitle"> Let's Motivate Other! </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{% url 'quotes:add_quote' %}" method=POST enctype="multipart/form-data" id="add_quote">
                         {% csrf_token %}
                         {{ form.as_p }}
+
+                        <div class="" id="imageFrame"></div>
+
                         <input type="submit"
-                           value="Share with others"
-                           class="btn btn-primary">
+                               id="formSubmit"
+                               value="Share with others"
+                               class="btn">
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-
     {# Image Viewer #}
-    <div style="text-align: center;">
+    <div>
         <div class="grid"
          id="board">
-
+            {# AJAX #}
         </div>
     </div>
 
-    {# Image Layout #}
-    <script>
-    console.log("load")
-    </script>
-    
+
+    {# FOOTER #}
+    <footer class="sticky-footer">
+        <div id="footer">
+            <p> Developed by Team E-10 </p>
+            <h5> Platform Based Programming 2022 </h5>
+            <h5> Faculty of Computer Science University of Indonesia </h5>
+        </div>
+    </footer>
 
 {% endblock content %}

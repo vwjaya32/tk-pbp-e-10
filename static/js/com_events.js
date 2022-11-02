@@ -1,7 +1,8 @@
 
 $(document).ready(function(){
     $("#refresh_data_user").click(function(){
-        $.get("/com_events/json_all/", function(data) {
+        $.get("/com_events/json_all/", function(_data) {
+            const data = _data.data
             $("#title").empty();
             $("#main_div").empty();
             $("#title").append('List Of Events');
@@ -18,10 +19,34 @@ $(document).ready(function(){
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_confirm-${data[i].pk}"></button>
                             </div>
                             <div class="modal-body">
+                            Do you want to join ${data[i].fields.name} ?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" data-bs-dismiss="modal">Go Back</button>
                                 <button type="submit" class="btn btn-primary" data-pk='${data[i].pk}' id="confirm-${data[i].pk}">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="details-${data[i].pk}" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="mainModalLabel">
+                                ${data[i].fields.name}
+                                </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_confirm-${data[i].pk}"></button>
+                            </div>
+                            <div class="modal-body">
+                            <p>
+                            ${data[i].fields.description}
+                            </p>
+                            <p>
+                            ${data[i].fields.attendees}
+                            </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-bs-dismiss="modal">Go Back</button>
                             </div>
                         </div>
                     </div>
@@ -36,6 +61,9 @@ $(document).ready(function(){
                         <button data-bs-toggle="modal" data-bs-target="#modal_confirm-${data[i].pk}">
                             Join
                         </button>
+                        <button data-bs-toggle="modal" data-bs-target="#details-${data[i].pk}">
+                            Details
+                        </button>
                   </div>
                   `
                   )
@@ -49,7 +77,8 @@ $(document).ready(function(){
         });
     });
     $("#refresh_my_events").click(function(){
-        $.get("/com_events/json_user/", function(data) {
+        $.get("/com_events/json_user/", function(_data) {
+            const data = _data.data
             $("#title").empty();
             $("#main_div").empty();
             $("#title").append('My Events');
@@ -66,10 +95,34 @@ $(document).ready(function(){
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_confirm-${data[i].pk}"></button>
                             </div>
                             <div class="modal-body">
+                            Do you want to remove ${data[i].fields.name} ?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" data-bs-dismiss="modal">Go Back</button>
                                 <button type="submit" class="btn btn-primary" data-pk='${data[i].pk}' id="confirm-${data[i].pk}">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="details-${data[i].pk}" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="mainModalLabel">
+                                ${data[i].fields.name}
+                                </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_confirm-${data[i].pk}"></button>
+                            </div>
+                            <div class="modal-body">
+                            <p>
+                            ${data[i].fields.description}
+                            </p>
+                            <p>
+                            ${data[i].fields.attendees}
+                            </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-bs-dismiss="modal">Go Back</button>
                             </div>
                         </div>
                     </div>
@@ -83,6 +136,9 @@ $(document).ready(function(){
                       </div>
                         <button data-bs-toggle="modal" data-bs-target="#modal_confirm-${data[i].pk}">
                             Unjoin
+                        </button>
+                        <button data-bs-toggle="modal" data-bs-target="#details-${data[i].pk}">
+                            Details
                         </button>
                   </div>
                   `
@@ -102,7 +158,8 @@ $(document).ready(function(){
         setTimeout(function(){$("#refresh_data_admin").click();}, 200);
     }); 
     $("#refresh_data_admin").click(function(){
-        $.get("/com_events/json_all/", function(data) {
+        $.get("/com_events/json_all/", function(_data) {
+            const data = _data.data
             $("#title").empty();
             $("#main_div").empty();
             $("#title").append('List Of Events');
