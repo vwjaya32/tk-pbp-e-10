@@ -10,4 +10,5 @@ urlpatterns = [
     path('add_quote', add_quote, name='add_quote'),
     path('get_image', get_image, name='get_image'),
     path('delete_image/<int:id>', delete_image, name='delete_image'),
+    path('ajax_add_quote', ajax_add_quote, name="ajax_add_quote"),
 ]
