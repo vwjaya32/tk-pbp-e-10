@@ -29,15 +29,15 @@ def get_catalogue(request):
 def add_item(request):
     if request.method == 'POST':
         name = request.POST.get('name')
-        category = request.POST.get('category')
+        type = request.POST.get('type')
         price = request.POST.get('price')
         image = request.POST.get('image')
-        if category == "Soul Comforter":
+        if type == "Soul Comforter":
             item = SoulComforter.objects.create(
                 name=name+" (Soul Comforter)",
                 price=price,
                 image=image)
-        elif category == "Anxiety Boost":
+        elif type == "Anxiety Boost":
             item = AnxietyBoost.objects.create(
                 name=name+" (Anxiety Boost)",
                 price=price,
