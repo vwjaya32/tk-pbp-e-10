@@ -29,7 +29,7 @@ Sebagai tanggapan atas masalah kesehatan yang menjadi perhatian dunia, terutama 
 
 ## Modul 🎯
 Modul yang akan diimplementasikan-Handler:  
-- [ ] Forums - `Rafito`  
+- [ ] Stories - `Rafito`  
 Pada modul ini pengguna dapat membuat thread dan me-reply thread yang ada. Pengguna yang berpartisipasi dalam suatu forum akan masuk dalam daftar peserta thread.
 - [ ] Articles - `Gerardo`  
 Artikel tentang kesehatan mental akan ditampilkan pada modul ini. Artikel hanya dapat ditulis oleh Admin, namun dapat dibaca oleh semua tipe user.
@@ -46,17 +46,15 @@ Pada modul ini, pengguna dapat mengunggah gambar berisi kutipan motivasi yang da
 ## Role 🙍‍♂️🙍‍
 😊 Pengguna Biasa 😊
 1. Bisa mengakses `Mental Health Test`
-2. Bisa posting, baca, dan reply di `Forum`
-3. Bisa hapus postingan pribadi di `Forum`
-4. Bisa add jadwal event dari `Community Events`
-5. Bisa beli barang di `Catalogue`
-6. Bisa posting gambar & hapus gambar di `Motivational Quotes`
+2. Bisa posting, baca, dan reply di `Stories`
+3. Bisa add jadwal event dari `Community Events`
+4. Bisa beli barang di `Catalogue`
+5. Bisa posting gambar & hapus gambar di `Motivational Quotes`
 </br>
 
 😎 Admin/Polisi Mental 😎
 1. `Punya segala fitur dari Pengguna Biasa`
-2. Bisa hapus paksa thread di `Forum`
-3. Bisa add Event di `Community Events`
-4. Bisa add Article di `Articles`
-5. Bisa add new item di `Catalogue`
+2. Bisa add Event di `Community Events`
+3. Bisa add Article di `Articles`
+4. Bisa add new item di `Catalogue`
 </br>
