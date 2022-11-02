@@ -74,6 +74,10 @@
             font-weight: bold;
         }
         
+        #maintest h4 {
+            font-family: 'Roboto Slab', serif;
+        }
+        
         .card {
             max-width: 500px;
         }
@@ -86,10 +90,28 @@
             background-color: cornflowerblue;
         }
         
+        .delet:hover {
+            box-shadow: 0 0 8px rgb(36, 35, 48);
+            -webkit-transform: scale(1.08);
+            transform: scale(1.08);
+        }
+        
         h2 {
             font-family: "Century Gothic";
             font-weight: bold;
             color: rgb(0, 0, 0);
+        }
+        
+        @media (min-width:501px) {
+            /* .beeg{
+            display:flex;
+        } */
+            .card {
+                display: flex;
+            }
+            #maintest {
+                display: flex;
+            }
         }
         
         @media (max-width:500px) {
@@ -99,13 +121,7 @@
             .card {
                 display: flex;
             }
-        }
-        
-        @media (min-width:300px) {
-            /* .beeg{
-            display:flex;
-        } */
-            .card {
+            #maintest {
                 display: flex;
             }
         }
@@ -159,21 +175,21 @@
     <center>
         <div class="container bg-white text-dark rounded">
             <br>
-            <h2>Quick Mental Health Test</h2>
+            <h2 style="font-family: 'Roboto Slab', serif;">Quick Mental Health Test</h2>
             <h5 style="font-family: 'Noto Sans', sans-serif; font-size: larger;">Spend just 3 minutes of taking this test and we will quickly calculate your mental health state.</h5>
             <br>
         </div>
     </center>
     <br>
-    <div class="container bg-warning text-dark rounded" style="width: 500px;">
+    <div class="container bg-warning text-dark rounded" style="margin:0 auto; padding: 20px;">
         <center>
-            <h3 class="text-danger" style="font-size:xx-large;">Caution!</h3>
+            <h3 class="text-danger" style="font-family: 'Roboto Slab', serif; font-size:xx-large;">Caution!</h3>
             <p style="font-family: 'Noto Sans', sans-serif; font-size: medium;">This test does not serve as a real diagnostic tool, but can be used to picture of the condition you are currently experiencing. Use this test wisely, answer honestly according to your current conditions. Please consult your psychologist or
                 psychiatrist if needed.</p>
         </center>
     </div>
     <br>
-    <div class="bg-dark rounded" style="width: 1200px; margin:0 auto; padding: 20px;">
+    <div id="maintest" class="bg-dark rounded" style="margin:0 auto; padding: 20px;">
         <div class="container text-white rounded">
             <br>
             <h4>Do you often feel sad lately?</h4>
@@ -240,7 +256,7 @@
                     {% csrf_token %}
                     <center>
                         <br>
-                        <h5 id="result" class="text-white">Your score is: </h5>
+                        <h5 id="result" class="text-white" style="font-family: 'Roboto Slab', serif;">Your score is: </h5>
                         <br>
                         <h5 id="result2" class="text-white">Click the Check Score Button to check your score!</h5>
                         <br>
@@ -299,7 +315,7 @@
 
     <script>
         function displayValue() {
-            document.getElementById("result").innerHTML = "Your Results";
+            document.getElementById("result").innerHTML = "Your Result";
             var ele = document.getElementsByName('tes1');
             var ele2 = document.getElementsByName('tes2');
             var ele3 = document.getElementsByName('tes3');
@@ -394,12 +410,12 @@
             function getData(data) {
                 $("#beeg").append(
                     `
-                        <div id="${data.pk}_list" class="card" >
-                            <h4>Date</h4>
+                        <div id="${data.pk}_list" class="card" style="margin:0 auto; padding: 10px;">
+                            <h4 style="font-family: 'Roboto Slab', serif;">Date</h4>
                             <h5>${data.fields.date}</h5>
-                            <h4>My Score</h4>
+                            <h4 style="font-family: 'Roboto Slab', serif;">My Score</h4>
                             <h5>${data.fields.score}</h5>
-                            <button class="delet" onclick="deletes(${data.pk})">Delete</button>
+                            <button class="delet" style="color:white;" onclick="deletes(${data.pk})">Delete</button>
                             <br>
                         </div>
                         <br>
