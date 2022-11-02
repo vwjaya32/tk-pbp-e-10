@@ -2,7 +2,7 @@
 
 
 {% block meta %}
-    <title> Main Page </title>
+    <title> Motivational Quotes </title>
     {# EXTERNAL CSS #}
     <link rel="stylesheet" href="/static/css/quotes.css">
 
@@ -22,7 +22,7 @@
     {# NAVBAR #}
     <nav class="navbar navbar-expand-lg navbar-light py-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/homepage/"> RYOK? </a>
+            <a class="navbar-brand" href="../"> RYOK? </a>
             <button class="navbar-toggler" type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
@@ -93,7 +93,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'quotes:add_quote' %}" method=POST enctype="multipart/form-data" id="add_quote">
+                    <form method="POST" action="" id="add_quote">
                         {% csrf_token %}
                         {{ form.as_p }}
 
@@ -112,14 +112,14 @@
     {# Image Viewer #}
     <div>
         <div class="grid"
-         id="board">
+             id="board">
             {# AJAX #}
         </div>
     </div>
 
 
     {# FOOTER #}
-    <footer class="sticky-footer">
+    <footer>
         <div id="footer">
             <p> Developed by Team E-10 </p>
             <h5> Platform Based Programming 2022 </h5>

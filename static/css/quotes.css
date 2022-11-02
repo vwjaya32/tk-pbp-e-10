@@ -10,7 +10,7 @@ body{
 }
 
 .nav-link:hover{
-    transform: scale(1.05);
+    transform: scale(1.005);
 }
 
 #formSubmit:hover{
@@ -24,6 +24,10 @@ body{
     background: #FFFFFF
 }
 
+.nav-link{
+    font-style: italic;
+}
+
 .nav-link.active{
     font-weight: bold;
 }
@@ -35,11 +39,15 @@ h1 {
     text-align: center;
 }
 
+h5 {
+    text-align: center;
+}
+
 
 /* =============== RELATED TO IMG UPLOAD MODAL =============== */
 #promptAdd{
     box-shadow: 0 0 0;
-    transition: 0.5s;
+    transition: 0.3s;
     font-weight: bold;
 }
 
@@ -71,13 +79,40 @@ h1 {
 }
 
 
+/* =============== RELATED TO IMG MODAL =============== */
+#image-modal-dialog{
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 50%;
+    margin: 0 auto;
+}
+
+#image-modal-image{
+    width: 100%;
+    height: auto;
+}
+
+#delete-button{
+    width: 25%;
+}
+
 /* =============== RELATED TO GRID =============== */
+#board{
+    margin-bottom: 15px;
+    margin-right: 20px;
+}
+
 .grid-item{
     transition: all .2s ease-in-out;
     margin-left: 15px;
     margin-bottom: 15px;
-    width: 250px;
+    width: 275px;
     background-color: #cb8835;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .grid-item p {
@@ -91,18 +126,23 @@ img {
 
 /* =============== RELATED TO GENERAL BUTTON =============== */
 #log-btn {
+    box-shadow: 0 0 0 0;
     font-weight: bold;
     color: #FFFFFF;
 }
 
+.btn{
+    box-shadow: 0 0 0;
+}
+
 /* =============== RELATED TO FOOTER =============== */
-.sticky-footer {
-    position: sticky;
+footer {
     top: 100%;
-    width: 100%;
+    position: sticky;
     bottom: 0;
     background-color: #613FE5;
-    padding: 20px;
+    padding: 25px;
+    margin-top: 5rem;
 }
 
 #footer {
