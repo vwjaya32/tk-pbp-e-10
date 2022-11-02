@@ -144,6 +144,8 @@
     <div style="background-color:#09050D">
     <a type="button" class="btn" style="margin: 20px; margin-right: 5px; background-color: white;
     font-family: 'Noto Sans TC', sans-serif; font-size: large; font-weight:800; ;" href="{% url 'articles:write_articles' %}">+</a>
+    <a type="button" class="btn" style="margin: 20px; margin-right: 5px; background-color: white;
+    font-family: 'Noto Sans TC', sans-serif; font-size: large; font-weight:800; ;" id="ajax_btn">+</a>
 
     <a type="button" class="btn" style="background-color: white;
     font-size: large; font-weight:bold ;" href="/admin/">Manage</a> 
@@ -163,8 +165,69 @@
         </div>
     </footer>
 
+    <div id="myModal" class="modal">
+        <dialog class="modal-content">
+          <p>Write Articles</p>
+          <label for="recipient-name" class="col-form-label">Title:</label>
+          <input type="text" class="form-control" id="title">
+          <label for="recipient-name" class="col-form-label">Author:</label>
+          <input type="text" class="form-control" id="author">
+          <label for="message-text" class="col-form-label">Content:</label>
+          <textarea class="form-control" id="content"></textarea>
+          <button type="button" class="btn btn-success" id="done">Submit</button>
+        </dialog>
+    </div>
+
     {% if user.is_superuser %}
     <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("ajax_btn");
+        var sbmt = document.getElementById("done");
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+            modal.style.display = "none";
+            }
+        }
+
+        sbmt.onclick = function() {
+        modal.style.display = "none";
+        const title = $("#title").val()
+        const author = $("#author").val()
+        const content = $("#content").val()
+        const data = {title:title, author:author, content:content, csrfmiddlewaretoken:"{{ csrf_token }}"}
+            $.ajax({url:"/articles/add-ajax/", data:data, method:"POST"}).done(function(atc){
+                $("#articles_cards").append(
+                    `
+                    <div class="card" >
+                        <div class="card-body d-flex flex-column">
+                            <h4 class="card-title" style="font-size:large"> ${atc.fields.title} </h4>
+                            <h6 class="card-subtitle mb-2 text-muted">• ${atc.fields.date}</h6>
+                            <hr style="color:white"></hr>
+                            <p class="card-text" style="font-size:medium"> ${atc.fields.content.substring(0,50)}...</p>
+
+                            <div class="flex justify-between gap-3" style="position: absolute; bottom: 15px;">
+                                <div class="flex flex-col justify-center rounded" >
+                                    <a type="button" class="btn" style="background-color: #613FE5; margin-left: 15px; font-weight: bold; color: white;" 
+                                    href="/articles/read/${atc.pk}">Read More</a>
+                                    <a type="button" class="btn" style="background-color: #9D1325; margin-left: 10px; font-weight: bold; color: white;" 
+                                    href="/articles/delete-articles/${atc.pk}">X</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                )
+            })
+        document.getElementById("title").value = ""
+        document.getElementById("author").value = ""  
+        document.getElementById("content").value = ""  
+        }
+
         function ajax_get() {
 
             $.get('/articles/json-artc', function(articles) {

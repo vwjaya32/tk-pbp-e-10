@@ -1,3 +1,4 @@
+from importlib.resources import contents
 from nntplib import ArticleInfo
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -8,7 +9,7 @@ from django.urls import reverse
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
+from django.http import HttpResponseRedirect, HttpResponse, HttpRequest, JsonResponse
 from django.core import serializers
 from django.contrib.auth.decorators import user_passes_test
 
@@ -89,6 +90,23 @@ def delete_comments(request, article_id, id):
     Comments.objects.get(id=id).delete()
     return redirect("articles:read_articles", article_id)
 
+@user_passes_test(lambda u: u.is_superuser)
+def add_ajax(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        author = request.POST.get("author")
+        content = request.POST.get("content")
+        new = Articles.objects.create(title=title,author=author,content=content)
+        data = {
+            "fields":{
+                "title":new.title,
+                "date":new.date,
+                "author":new.author,
+                "content":new.content,
+            },
+            "pk":new.pk
+        }
+        return JsonResponse(data)
 
 # Data Delivery
 # -------------

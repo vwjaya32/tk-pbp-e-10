@@ -12,4 +12,5 @@ urlpatterns = [
     path('delete-comments/<int:article_id>/<int:id>', delete_comments, name='delete_comments'),
 
     path('json-artc', show_json_articles, name='show_json_articles'),
+    path("add-ajax/", add_ajax, name="add_ajax"),
 ]
