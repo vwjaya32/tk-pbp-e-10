@@ -28,3 +28,29 @@ class Catalogue(models.Model):
 			'imageURL': self.imageURL,
 			}
 
+class SoulComforter(Catalogue):
+	max_comfort = models.IntegerField()
+	object = CatalogueManager()
+
+	def get_parent(self):
+		return super()
+	
+	# def natural_key(self):
+	# 	return {'name': self.name, 
+	# 		'price': self.price,
+	# 		'imageURL': self.imageURL,
+	# 		}
+
+class AnxietyBoost(Catalogue):
+	boostrate = models.IntegerField()
+	object = CatalogueManager()
+
+	def get_parent(self):
+		return super()
+
+	def natural_key(self):
+		return {'name': self.item_name, 
+			'price': self.item_price,
+			'imageURL': self.imageURL,
+			}
+
