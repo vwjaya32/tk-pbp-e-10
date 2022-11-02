@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-<head>
-    {% block meta %}
+{% block meta %}
+    <!-- Headigs and scripts -->
     <title>RYOK? | Write Comment</title>
-    {% endblock meta %}
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- External Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,14 +13,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
-</head>
+{% endblock meta %}
 
 {% block content %}
-<body> 
+    <!-- Style properties -->
     <style>
-        *{
-            margin: 0; 
-            padding: 0;
+        #title-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            font-size: x-large;
+            font-style: italic;
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            font-size: larger;
+            font-style:oblique;
+            color: whitesmoke;
+            word-wrap: break-word;
         }
         .container {
             bottom: 0;
@@ -44,18 +54,17 @@
           display:table-cell; 
           vertical-align:middle;
         }
-        #title-text {
-            font-family: 'Nunito', sans-serif;
-            font-weight: bold;
-            font-size: x-large;
-            font-style: italic;
-            text-align: center;
-            font-family: 'Nunito', sans-serif;
-            font-weight: bold;
-            font-size: larger;
-            font-style:oblique;
-            color: whitesmoke;
-            word-wrap: break-word;
+        .btn {
+            box-shadow: 0 0 5px rgb(36, 35, 48);
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-property: box-shadow, transform;
+            transition-property: box-shadow, transform;
+        }
+        .btn:hover {
+            box-shadow: 0 0 8px rgb(36, 35, 48);
+            -webkit-transform: scale(1.08);
+            transform: scale(1.08);
         }
         h6 {
             margin-top: 10px;
@@ -79,25 +88,13 @@
             padding: 20px;
             background-color: rgb(255, 165, 0);
         }
-        .btn {
-            box-shadow: 0 0 5px rgb(36, 35, 48);
-            -webkit-transition-duration: 0.3s;
-            transition-duration: 0.3s;
-            -webkit-transition-property: box-shadow, transform;
-            transition-property: box-shadow, transform;
-        }
-        .btn:hover {
-            box-shadow: 0 0 8px rgb(36, 35, 48);
-            -webkit-transform: scale(1.08);
-            transform: scale(1.08);
-        }
-
     </style>
 
+    <!-- Add comment container -->
     <div class="container">
         <div class="card align-items-center">
         <div class="card-body">
-        <p id="title-text">What do you think about the article "{{posts.title}}"?</h1>
+        <p id="title-text">What do you think about the story "{{posts.title}}"?</h1>
         <form method="POST">
             {% csrf_token %}
             <h6>Pseudonym:</h6>
@@ -115,6 +112,7 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
         <div style="color: rgb(120, 114, 114); text-align: center; font-family: 'Noto Sans', sans-serif;"> 
             <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
@@ -122,6 +120,4 @@
             <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
         </div>
     </footer>
-
-</body>
 {% endblock content %}

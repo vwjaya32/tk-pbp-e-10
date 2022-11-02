@@ -53,7 +53,7 @@ def reply_thread(request, id):
         forms = reply_box(request.POST)
         if forms.is_valid():
             reply_posted = Replies(
-                author = request.user.username,
+                author = forms.cleaned_data["author"],
                 content = forms.cleaned_data["content"],
                 posts_index = Posts.objects.get(id=id),
             )

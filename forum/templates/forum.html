@@ -38,14 +38,14 @@
             <div class="card">
               <div class="container">
                 <div class="container-title">
-                 <h5 class="post">${thread.fields.title}</h5>
+                 <h5 class="post" id="title-text">${thread.fields.title}</h5>
                  <i class="post" style="font-size: small">By ${thread.fields.author}</i>
                 </div>
                 <br>
-                <p class="post" style="font-size: 60%">${thread.fields.content.substring(0,150)}...</p>
+                <p class="post" id="writer-text">${thread.fields.content.substring(0,150)}...</p>
                 <div class="grandParentContaniner">
                     <div class="parentContainer">
-                        <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%;" href="/forum/read/${thread.pk}">Read & Reply</a>
+                        <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 70%;" href="/forum/read/${thread.pk}">Read & Reply</a>
                     </div>
                 </div>
               </div>
@@ -57,13 +57,13 @@
             <div class="card">
               <div class="container">
                 <div class="container-title">
-                 <h5 class="post">${thread.fields.title}</h5>
+                 <h5 class="post" id="title-text">${thread.fields.title}</h5>
                  <i class="post" style="font-size: small">By ${thread.fields.author}</i>
                 </div>\<br>
-                <p class="post" style="font-size: 60%">${thread.fields.content}</p>
+                <p class="post" id="writer-text">${thread.fields.content}</p>
                 <div class="grandParentContaniner">
                     <div class="parentContainer">
-                        <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%;" href="/forum/read/${thread.pk}">Read & Reply</a>
+                        <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 70%;" href="/forum/read/${thread.pk}">Read & Reply</a>
                     </div>
                 </div>
               </div>
@@ -77,6 +77,17 @@
 
 {% block content %}
     <style>
+        #title-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            font-size: large;
+            color: white;
+        }
+        #writer-text {
+            font-family: 'Noto Sans', sans-serif; 
+            font-size: small; 
+            color: white;
+        }
         .navbar {
             background: rgb(255,255,255)
         }
@@ -208,7 +219,7 @@
     <br>
     <div class="grandParentContaniner">
         <div class="parentContainer">
-        <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 100%;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">CREATE</a>
+        <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 150%;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">CREATE</a>
         </div>
     </div>
     <br>

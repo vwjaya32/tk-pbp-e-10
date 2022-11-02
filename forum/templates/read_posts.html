@@ -1,49 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block meta %}
+    <!-- Heading and scripts -->
     <title>RYOK? | {{thread.title}}</title>
     <script src="jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- <script>
-    $(document).ready(() => {
-        get_task();
-    function get_task() {
-        $.ajax({
-            type: "GET",
-            url: "{% url 'forum:show_json_id' thread.id %}",
-        }).done((data) => {
-            renderThreads(data);
-        });
-    }
-    function renderThreads(data) {
-        const individualCards = $('.thread');
-        const taskCard = `
-            <p id="content-text">${data.fields.content}</p>
-            <h6 style="color: white;">${data.fields.date_time}</h6>`;
-        individualCards.append(taskCard);
-        data.forEach(thread => {
-            const taskCard = `
-            <p id="content-text">${thread.fields.content}</p>
-            <h6 style="color: white;">${thread.fields.date_time}</h6>`;
-        individualCards.append(taskCard);
-        })
-    };
-    // function create() {
-    //     const form = $(".create_task");
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "/todolist/create-task/",
-    //         data: form.serialize(),
-    //     }).done(function(data) {
-    //         form.trigger("reset");
-    //         get_task();
-    //     });
-    //     $("#staticBackdrop").modal("hide");
-    // }
-    </script> -->
+
+    <!-- External Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
 {% endblock meta %}
 
 {% block content %}
+    <!-- Style properties -->
     <style>
         #title-text {
             font-family: 'Nunito', sans-serif;
@@ -67,6 +38,18 @@
             margin-top: 10px;
             margin-right: 10px;
         }
+        #cmt-list p {
+            word-wrap: break-word;
+        }
+        #cmt-author-text {
+            margin-left: 2px;
+            font-weight: bold;
+            font-family: 'Nunito', sans-serif;
+        }
+        #cmt-comment-text {
+            margin-left: 28px;
+            font-weight: normal;
+        }
         .navbar {
             background: rgb(37, 33, 34);
         }
@@ -77,29 +60,6 @@
             margin-bottom: 30px;
             box-sizing: border-box;
             border-radius: 15px;
-        }
-        #cmt-list p {
-            word-wrap: break-word;
-        }
-        #cmt-author-text {
-            margin-left: 2px;
-            font-weight: bold;
-              font-family: 'Nunito', sans-serif;
-        }
-        #cmt-comment-text {
-            margin-left: 28px;
-            font-weight: normal;
-        }
-        body{
-            background: linear-gradient(0deg, rgb(255, 165, 0) 30%, rgb(37, 33, 34) 90%);
-            min-height: 100vh;
-        }
-        footer {
-            position:sticky;
-            width: 100%;
-            top: 100%;
-            padding: 20px;
-            background-color: rgb(255,165,0);
         }
         .btn {
             box-shadow: 0 0 5px rgb(36, 35, 48);
@@ -112,11 +72,20 @@
             -webkit-transform: scale(1.08);
             transform: scale(1.08);
         }
-        .thread {
+        body{
+            background: linear-gradient(0deg, rgb(255, 165, 0) 30%, rgb(37, 33, 34) 90%);
+            min-height: 100vh;
         }
-
+        footer {
+            position:sticky;
+            width: 100%;
+            top: 100%;
+            padding: 20px;
+            background-color: rgb(255,165,0);
+        }
     </style>
 
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/forum/" style="font-style:italic"> RYOK? </a>
@@ -153,6 +122,7 @@
             </div>
         </div>
     </nav>
+
     <!-- Title Bar -->
     <div style="text-align:center; padding:10px 10px; margin-top: 3rem;">
         <p id="title-text">{{thread.title}}</p>
@@ -161,7 +131,6 @@
 
     <!-- Content -->
     <div style="background: rgb(255,165,0); padding:20px; padding-bottom: 25vh ;border-top-left-radius: 50px; border-top-right-radius: 50px;">
-        <!-- Articles -->
         <div class="container" style="padding:10px; background-color: white; margin-top:20px">
             <p id="content-text">{{thread.content}}</p>
             <h6 id="content-text">{{thread.date_time}}</h6>
@@ -179,7 +148,6 @@
                         <p id="cmt-author-text">👾 {{i.author}}  |  {{i.date}}</p>
                         <p id="cmt-comment-text">{{i.content}}</p>
                     </div>
-                    <!-- <a type="button" style=" font-weight:bold; color:aliceblue; padding-top: 13px; background-color:#DE1C1C;" class="btn" href="{% url 'articles:delete_comments' thread.id i.id %}">X</a> -->
                 </div>
             {% endfor %}
         </div>
