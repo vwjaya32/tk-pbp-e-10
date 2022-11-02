@@ -11,14 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import serializers
 
 def show_events(request):
-    year = datetime.now().year
-    month = datetime.now().strftime('%B')
-    month_number = list(calendar.month_name).index(month)
-    month_number = int(month_number)
-    cal = HTMLCalendar().formatmonth(year, month_number)
-    context = {
-    }
-    return render(request, "events_home.html", context)
+    return render(request, "events_home.html")
 
 def list_events(request):
     form = EventForm()
@@ -67,7 +60,6 @@ def get_json_all(request):
                 }
             }for event in events]
     })
-    # return HttpResponse(serializers.serialize('json', events), content_type='application/json')
 
 def get_json_user(request):
     events = Event.objects.filter(attendees=request.user)
@@ -85,7 +77,6 @@ def get_json_user(request):
                 }
             }for event in events]
     })
-    # return HttpResponse(serializers.serialize('json', events), content_type='application/json')
 
 @login_required(login_url='/com_events/login/')
 def add_event_ajax(request):
@@ -93,11 +84,10 @@ def add_event_ajax(request):
         form = EventForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            manager = request.user
             name = data['name']
             date = data['date']
             description = data['description']
-            events = Event(manager = manager, name=name, date=date, description = description)
+            events = Event(name=name, date=date, description = description)
             events.save()
         return redirect('com_events:show_events')
     return HttpResponseNotFound()
