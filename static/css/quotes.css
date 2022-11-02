@@ -10,7 +10,7 @@ body{
 }
 
 .nav-link:hover{
-    transform: scale(1.005);
+    transform: scale(1.05);
 }
 
 #formSubmit:hover{

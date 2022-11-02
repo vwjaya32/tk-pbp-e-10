@@ -11,6 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     {# MASONRY IMAGE LOADED #}
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    {# MAGIC GRID LAYOUT #}
+    <script src="https://unpkg.com/magic-grid/dist/magic-grid.min.js"></script>
 
     {# EXTERNAL JS #}
     <script src="/static/js/masonry.js"></script>
@@ -67,19 +69,20 @@
 
 
     {% if user.is_authenticated %}
-    {# Add Quotes Button #}
-    <div class="d-flex justify-content-center mb-4">
-    {# Trigger Add Quote Modal#}
-        <button id="promptAdd"
-                type="button"
-                class="btn btn-warning btn-lg"
-                data-bs-toggle="modal"
-                data-bs-target="#add_quote_modal">
-            Share yours!
-        </button>
-    </div>
+        {# Add Quotes Button #}
+        <div class="d-flex justify-content-center mb-4">
+        {# Trigger Add Quote Modal#}
+            <button id="promptAdd"
+                    type="button"
+                    class="btn btn-warning btn-lg"
+                    data-bs-toggle="modal"
+                    data-bs-target="#add_quote_modal">
+                Share yours!
+            </button>
+        </div>
     {% endif %}
     <br>
+
 
     {# Add Quote Modal #}
     <div class="modal fade"

@@ -3,6 +3,7 @@ $(document).ready(function(){
     showImage()
 });
 
+// Show all Image
 function showImage(){
     // Get Data & Append
     $.ajax({
@@ -25,8 +26,6 @@ function showImage(){
                 let request_user = data.who; // who is login right now
                 let admin_stat = data.admin_stat; // is current user is admin
 
-                console.log(response.data[0])
-
                 // Check apakah user punya akses menghapus
                 let delete_access = "";
                 if (admin_stat){
@@ -47,6 +46,13 @@ function showImage(){
         }
     });
 }
+
+// Show User Image
+function showImageUserOnly(){
+
+}
+
+
 
 // Append HTML Element
 function appendImage(title, image, pk, username, delete_button){
