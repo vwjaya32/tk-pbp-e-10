@@ -85,3 +85,4 @@ def ajax_add_quote(request):
             new_image.save()
             return HttpResponse(200)
     return HttpResponse(404)
+
