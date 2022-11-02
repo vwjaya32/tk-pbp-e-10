@@ -13,24 +13,20 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpRequest, JsonRes
 from django.core import serializers
 from django.contrib.auth.decorators import user_passes_test
 
-# Form Classes
+# Import forms
 # ------------
-class edit_box(forms.Form):
-    author = forms.CharField(label="Author", widget=forms.TextInput(attrs={'size': 37}))
-    title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'size': 37}))
-    content = forms.CharField(label="Content", widget=forms.Textarea)
-
-class comment_box(forms.Form):
-    author = forms.CharField(label="Author", widget=forms.TextInput(attrs={'size': 37}))
-    content = forms.CharField(label="Content", widget=forms.Textarea)
+from .forms import edit_box
+from .forms import comment_box
 
 
 # Functions for default user
 # --------------------------
 def show_articles(request):
     articles_list = Articles.objects.all()
+    forms = edit_box(request.POST)
     context = {
         'data': articles_list,
+        'form': forms,
     }
     return render(request, "articles.html", context)
 
@@ -78,7 +74,7 @@ def write_articles(request):
 
     forms = edit_box()
     context={"form":forms}
-    return render(request, "write.html", context)
+    return render(request, "articles.html", context)
 
 @user_passes_test(lambda u: u.is_superuser)
 def delete_articles(request, id):
@@ -107,6 +103,7 @@ def add_ajax(request):
             "pk":new.pk
         }
         return JsonResponse(data)
+
 
 # Data Delivery
 # -------------
