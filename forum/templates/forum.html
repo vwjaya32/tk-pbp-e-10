@@ -7,60 +7,68 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
     $(document).ready(() => {
-        get_task();
+        get_thread();
     })
-    // function create() {
-    //     const form = $(".create_task");
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "/todolist/create-task/",
-    //         data: form.serialize(),
-    //     }).done(function(data) {
-    //         form.trigger("reset");
-    //         get_task();
-    //     });
-    //     $("#staticBackdrop").modal("hide");
-    // }
-    function get_task() {
+    function create() {
+        const form = $(".new_forum");
+        $.ajax({
+            type: "POST",
+            url: "/forum/start-forum/",
+            data: form.serialize(),
+        }).done(function(data) {
+            form.trigger("reset");
+            get_thread();
+        });
+        $("#staticBackdrop").modal("hide");
+    }
+    function get_thread() {
         $.ajax({
             type: "GET",
             url: "/forum/json/"
         }).done((data) => {
-            renderTask(data);
+            renderThread(data);
         });
     }
-    function renderTask(data) {
+    function renderThread(data) {
         const individualCards = $('.card');
-        data.forEach(task => {
-            var len = (task.fields.content).length
+        data.forEach(thread => {
+            var len = (thread.fields.content).length
             if (len > 150) {
-            const taskCard = `
+            const threadCard = `
             <div class="card">
               <div class="container">
                 <div class="container-title">
-                 <h5 class="post">${task.fields.title}</h5>
-                 <i class="post" style="font-size: small">By ${task.fields.author}</i>
+                 <h5 class="post">${thread.fields.title}</h5>
+                 <i class="post" style="font-size: small">By ${thread.fields.author}</i>
                 </div>
                 <br>
-                <p class="post" style="font-size: 60%">${task.fields.content.substring(0,150)}...</p>
-                <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%; margin-left: 500px;" href="/forum/read/${task.pk}">Read & Reply</a>
+                <p class="post" style="font-size: 60%">${thread.fields.content.substring(0,150)}...</p>
+                <div class="grandParentContaniner">
+                    <div class="parentContainer">
+                        <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%;" href="/forum/read/${thread.pk}">Read & Reply</a>
+                    </div>
+                </div>
               </div>
             </div>`
-            individualCards.append(taskCard);
+            individualCards.append(threadCard);
             }
             else {
-            const taskCard = `
+            const threadCard = `
             <div class="card">
               <div class="container">
                 <div class="container-title">
-                 <h5 class="post">${task.fields.title}</h5>
-                 <i class="post" style="font-size: small">By ${task.fields.author}</i>
+                 <h5 class="post">${thread.fields.title}</h5>
+                 <i class="post" style="font-size: small">By ${thread.fields.author}</i>
                 </div>\<br>
-                <p class="post" style="font-size: 60%">${task.fields.content}</p>
-                <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%; margin-left: 500px;" href="/forum/read/${task.pk}">Read & Reply</a>
+                <p class="post" style="font-size: 60%">${thread.fields.content}</p>
+                <div class="grandParentContaniner">
+                    <div class="parentContainer">
+                        <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%;" href="/forum/read/${thread.pk}">Read & Reply</a>
+                    </div>
+                </div>
               </div>
             </div>`
-            individualCards.append(taskCard);
+            individualCards.append(threadCard);
             }
         })
     };
@@ -110,6 +118,9 @@
             -webkit-transition-property: box-shadow, transform;
             transition-property: box-shadow, transform;
         }
+        #post {
+            background-color: black;
+        }
         .vertical-center {
           margin: 0;
           position: absolute;
@@ -126,6 +137,31 @@
             font-weight: bold;
         }
     </style>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(36, 35, 48);">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: white;">Let's create a story!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id=""></button>
+          </div>
+          <div class="grandParentContaniner">
+            <div class="parentContainer">
+                <form method="POST" action="/forum/start-forum/">
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                    <tr>
+                        <td></td>
+                        <td><input class="btn btn-success" type="submit" name="submit" value="Post" style="float:center" id="post" /></td>
+                    </tr>
+                </table>
+            </form>
+            </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>  
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="../" style="font-style:italic"> RYOK? </a>
@@ -163,11 +199,16 @@
         </div>
     </nav>
     <br>
-    <h1 style="color: black;"> FORUM </h1>
+    <div class="grandParentContaniner">
+        <div class="parentContainer">
+        <h1 style="color: black;"> STORIES </h1>
+        <h6>Let me hear your story.</h6>
+        </div>
+    </div>
     <br>
     <div class="grandParentContaniner">
         <div class="parentContainer">
-        <a type="button" class="btn btn-light" href="{% url 'forum:new_forum' %}">Start new Forum</a>
+        <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 100%;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">CREATE</a>
         </div>
     </div>
     <br>

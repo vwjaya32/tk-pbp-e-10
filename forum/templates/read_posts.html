@@ -61,7 +61,11 @@
         #content-text {
             font-weight:normal ;
             text-align: justify;
-            color: white;
+            color: black;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-right: 10px;
         }
         .navbar {
             background: rgb(37, 33, 34);
@@ -87,7 +91,7 @@
             font-weight: normal;
         }
         body{
-            background: linear-gradient(0deg, rgb(255,165,0) 10%, rgb(37, 33, 34) 90%);
+            background: linear-gradient(0deg, rgb(255, 165, 0) 30%, rgb(37, 33, 34) 90%);
             min-height: 100vh;
         }
         footer {
@@ -115,7 +119,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../" style="font-style:italic"> RYOK? </a>
+            <a class="navbar-brand" href="/forum/" style="font-style:italic"> RYOK? </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -158,19 +162,19 @@
     <!-- Content -->
     <div style="background: rgb(255,165,0); padding:20px; padding-bottom: 25vh ;border-top-left-radius: 50px; border-top-right-radius: 50px;">
         <!-- Articles -->
-        <div class="container" style="padding:10px; background-color: rgb(37, 33, 34); margin-top:20px">
+        <div class="container" style="padding:10px; background-color: white; margin-top:20px">
             <p id="content-text">{{thread.content}}</p>
-            <h6 style="color: white;">{{thread.date_time}}</h6>
+            <h6 id="content-text">{{thread.date_time}}</h6>
         </div>
         <!-- Comment -->
-        <div class=container style="background-color: #E1E1E1; padding:20px;">
-            <h2 style="font-size:large; ">What do you think? 👀</h2>
-
+        <div class=container style="background-color: rgb(37, 33, 34); padding:20px;">
+            <h2 style="font-size:large; color: white; margin-left: 10px;">What do you think? 👀</h2>
+            <br>
             <!-- Comment Button -->
-            <!-- <a type="button" style="font-weight:bold; color:aliceblue; background-color: #2B484B;" class="btn" href="{% url 'articles:write_comments' thread.id %}">Write a comment</a> -->
+            <a type="button" style="font-weight:bold; color:black; background-color: rgb(255,165,0); margin-left: 10px;" class="btn" href="{% url 'forum:reply_thread' thread.id %}">Write a comment</a>
 
             {% for i in comment %}
-                <div id="cmt-list" class="d-flex justify-content-between" style="border-radius: 15px; background-color:#FFCA0C; padding: 10px; margin: 10px;">
+                <div id="cmt-list" class="d-flex justify-content-between" style="border-radius: 15px; background-color: white; padding: 10px; margin: 10px;">
                     <div class="container">
                         <p id="cmt-author-text">👾 {{i.author}}  |  {{i.date}}</p>
                         <p id="cmt-comment-text">{{i.content}}</p>

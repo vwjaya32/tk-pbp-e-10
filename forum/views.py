@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 from forum.models import *
-from django import forms
+from .forms import *
 from django.urls import reverse
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm
@@ -12,19 +12,12 @@ from django.contrib.auth.decorators import login_required
 
 def show_posts(request):
     all_posts = Posts.objects.all()
+    forms = post_box()
     context = {
+        'form':forms,
         'data': all_posts,
     }
     return render(request, "forum.html", context)
-
-class make_box(forms.Form):
-    author = forms.CharField(label="Author", widget=forms.TextInput(attrs={'size': 37}))
-    title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'size': 37}))
-    content = forms.CharField(label="Content", widget=forms.Textarea)
-
-class reply_box(forms.Form):
-    author = forms.CharField(label="Author", widget=forms.TextInput(attrs={'size': 37}))
-    content = forms.CharField(label="Content", widget=forms.Textarea)
 
 def read_forum(request, id):
     forum_posts=Posts.objects.get(id=id)
@@ -35,9 +28,10 @@ def read_forum(request, id):
     }
     return render(request, "read_posts.html", context)
 
+@login_required(login_url='/login/')
 def new_forum(request):
     if request.method == "POST":
-        forms = make_box(request.POST)
+        forms = post_box(request.POST)
         if forms.is_valid():
             posted = Posts(
                 title = forms.cleaned_data["title"],
@@ -46,8 +40,11 @@ def new_forum(request):
             )
             posted.save()
             return redirect("forum:show_posts")
-    forms = make_box()
-    context={"form":forms}
+    forms = post_box()
+    context={
+        'form':forms,
+        'username': request.user
+    }
     return render(request, "write_forum.html", context)
 
 @login_required(login_url='/login/')
@@ -56,7 +53,7 @@ def reply_thread(request, id):
         forms = reply_box(request.POST)
         if forms.is_valid():
             reply_posted = Replies(
-                author = forms.cleaned_data["author"],
+                author = request.user.username,
                 content = forms.cleaned_data["content"],
                 posts_index = Posts.objects.get(id=id),
             )
@@ -65,7 +62,11 @@ def reply_thread(request, id):
 
     forms = reply_box()
     post_data = Posts.objects.get(id=id)
-    context={"form":forms, "posts":post_data, 'username': request.user}
+    context= {
+        'form':forms, 
+        'posts':post_data, 
+        'username': request.user
+    }
     return render(request, "write_reply.html", context)
 
 def show_forum_json(request):

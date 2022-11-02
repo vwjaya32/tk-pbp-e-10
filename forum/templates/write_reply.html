@@ -63,7 +63,7 @@
             color: whitesmoke;
         }
         body {
-            background: linear-gradient(0deg, rgb(255,165,0) 10%, rgb(37, 33, 34) 90%);
+            background: linear-gradient(0deg, rgb(255, 165, 0) 30%, rgb(37, 33, 34) 90%);
             min-height: 100vh;
         }
         textarea {
@@ -77,7 +77,7 @@
             width: 100%;
             top: 100%;
             padding: 20px;
-            background-color: rgb(37, 33, 34);
+            background-color: rgb(255, 165, 0);
         }
         .btn {
             box-shadow: 0 0 5px rgb(36, 35, 48);
@@ -100,15 +100,15 @@
         <p id="title-text">What do you think about the article "{{posts.title}}"?</h1>
         <form method="POST">
             {% csrf_token %}
+            <h6>Pseudonym:</h6>
+            <h6>(if you want to state your name, type your own username)</h6>
+            <input name="author" placeholder="{{username}}" class="form-control">
+            <h6>Your thoughts? </h6>
+            <textarea name="content" placeholder="Incredible!" class="form-control"></textarea>
             <div class="grandParentContaniner">
-                <div class="parentContainer">
-                <h6>{{username}}</h6>
-                <h6>Your thoughts? </h6>
-                </div>
-            </div>
-            <textarea name="content" placeholder="It's a great article!" class="form-control"></textarea>
-            <div class="grandParentContaniner">
+               <div class="parentContainer">
                 <input class="btn" style="font-weight:bold; color:aliceblue; background-color: #FFCA0C;" type="submit" name="submit" value="Post"/>
+               </div> 
             </div>
         </form>
         </div>
