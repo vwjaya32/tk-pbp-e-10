@@ -5,9 +5,9 @@ $(document).ready(function(){
             const data = _data.data
             $("#title").empty();
             $("#main_div").empty();
-            $("#title").append('List Of Events');
+            $("#title").append('List Of All Events Available');
               for(var i = 0 ; i < data.length; i++){
-                const date = new Date(data[i].fields.date)
+                const date = new Date(data[i].fields.date).toDateString()
                   $("#main_div").append(`
                 <div class="modal fade" id="modal_confirm-${data[i].pk}" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -38,9 +38,13 @@ $(document).ready(function(){
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_confirm-${data[i].pk}"></button>
                             </div>
                             <div class="modal-body">
+                            <p><u>
+                            Description:</u></p>
                             <p>
                             ${data[i].fields.description}
                             </p>
+                            <p><u>
+                            Users that participate in this event:</u></p>
                             <p>
                             ${data[i].fields.attendees}
                             </p>
@@ -51,20 +55,21 @@ $(document).ready(function(){
                         </div>
                     </div>
                 </div>
-                  <div id='item-${data[i].pk}'>
-                  <h1>${data[i].fields.name}</h1>
-                      <div>${date}
-                        <p>
-                          ${data[i].fields.description}
-                        </p>
-                      </div>
-                        <button data-bs-toggle="modal" data-bs-target="#modal_confirm-${data[i].pk}">
-                            Join
-                        </button>
-                        <button data-bs-toggle="modal" data-bs-target="#details-${data[i].pk}">
-                            Details
-                        </button>
-                  </div>
+                <div class="card">
+                    <div>
+                        <h2 id='item-${data[i].pk}'>${data[i].fields.name}</h2>
+                            <div>
+                                <p>EVENT DATE: ${date}</p>
+                            </div>
+                            <button class="join-btn" data-bs-toggle="modal" data-bs-target="#modal_confirm-${data[i].pk}">
+                                Join
+                            </button>
+                            <button class="details-btn" data-bs-toggle="modal" data-bs-target="#details-${data[i].pk}">
+                                Details
+                            </button>
+                    </div>
+                </div>
+                <br>
                   `
                   )
                   $(`#confirm-${data[i].pk}`).click(function(){
@@ -83,7 +88,7 @@ $(document).ready(function(){
             $("#main_div").empty();
             $("#title").append('My Events');
               for(var i = 0 ; i < data.length; i++){
-                const date = new Date(data[i].fields.date)
+                const date = new Date(data[i].fields.date).toDateString()
                   $("#main_div").append(`
                 <div class="modal fade" id="modal_confirm-${data[i].pk}" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -114,9 +119,13 @@ $(document).ready(function(){
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_confirm-${data[i].pk}"></button>
                             </div>
                             <div class="modal-body">
+                            <p><u>
+                            Description:</u></p>
                             <p>
                             ${data[i].fields.description}
                             </p>
+                            <p><u>
+                            Users that participate in this event:</u></p>
                             <p>
                             ${data[i].fields.attendees}
                             </p>
@@ -127,20 +136,21 @@ $(document).ready(function(){
                         </div>
                     </div>
                 </div>
-                  <div id='item-${data[i].pk}'>
-                  <h1>${data[i].fields.name}</h1>
-                      <div>${date}
-                        <p>
-                          ${data[i].fields.description}
-                        </p>
-                      </div>
-                        <button data-bs-toggle="modal" data-bs-target="#modal_confirm-${data[i].pk}">
+                <div class="card">
+                    <div id='item-${data[i].pk}'>
+                        <h2>${data[i].fields.name}</h2>
+                        <div>
+                        <p>EVENT DATE: ${date}</p>
+                        </div>
+                        <button class="unjoin-btn" data-bs-toggle="modal" data-bs-target="#modal_confirm-${data[i].pk}">
                             Unjoin
                         </button>
-                        <button data-bs-toggle="modal" data-bs-target="#details-${data[i].pk}">
+                        <button class="details-btn" data-bs-toggle="modal" data-bs-target="#details-${data[i].pk}">
                             Details
                         </button>
-                  </div>
+                    </div>
+                </div>
+                <br>
                   `
                   )
                   $(`#confirm-${data[i].pk}`).click(function(){
@@ -164,19 +174,20 @@ $(document).ready(function(){
             $("#main_div").empty();
             $("#title").append('List Of Events');
               for(var i = 0 ; i < data.length; i++){
-                const date = new Date(data[i].fields.date)
+                const date = new Date(data[i].fields.date).toDateString()
                   $("#main_div").append(`
+                  <div class="card">
                   <div id='item-${data[i].pk}'>
-                  <h1>${data[i].fields.name}</h1>
-                      <div>${date}
-                        <p>
-                          ${data[i].fields.description}
-                        </p>
+                  <h2>${data[i].fields.name}</h2>
+                      <div>
+                      <p>EVENT DATE: ${date}</p>
                       </div>
-                        <button data-pk="${data[i].pk}" id="delete-${data[i].pk}">
+                        <button class="delete-btn" data-pk="${data[i].pk}" id="delete-${data[i].pk}">
                             Delete
                         </button>
                   </div>
+                  </div>
+                  <br>
                   `
                   ) 
                 $(`#delete-${data[i].pk}`).click(function(){

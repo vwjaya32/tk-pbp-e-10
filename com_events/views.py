@@ -1,14 +1,11 @@
 import calendar
 from calendar import HTMLCalendar, month_name
 from datetime import datetime
-from multiprocessing import context
 from com_events.models import *
 from com_events.forms import EventForm
 from django.urls import reverse
 from django.shortcuts import render, redirect
-from django.http import *
-from django.contrib import *
-from django.contrib.auth import *
+from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
@@ -20,9 +17,6 @@ def show_events(request):
     month_number = int(month_number)
     cal = HTMLCalendar().formatmonth(year, month_number)
     context = {
-        "cal" : cal,
-        "month": month,
-        "year" : year,
     }
     return render(request, "events_home.html", context)
 

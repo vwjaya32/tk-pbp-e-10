@@ -1,66 +1,74 @@
 {% extends 'base.html' %}
 
+<head>
+  {% block meta %}
+  <title>RYOK? | Events</title>
+  <script src="jquery-3.6.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  <link rel="stylesheet" href="/static/css/events.css">
+  {% endblock meta %}
+</head>
+
 {% block content %}
 <body>
   <style>
-      body{
-          min-height: 100vh;
-      }
-      footer {
-          position:sticky;
-          width: 100%;
-          top: 100%;
-          padding: 20px;
-          background-color: #613FE5;
-      }
+    
   </style>
-  <nav class="navbar navbar-expand-lg navbar-light">
-      <div class="container-fluid">
-          <a class="navbar-brand" href="#" style="font-style:italic"> RYOK? </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="#" style="font-style:italic"> RYOK? </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/articles/"> Articles </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/com_events/"> Events </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/goods_catalogue/"> Goods Catalogue </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/goods_cart/"> My Cart </a>
-          </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/mh_tests/"> Tests </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/quotes/"> Quotes </a>
-            </li>
+              <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/articles/"> Articles </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/com_events/"> Events </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/mh_goods/"> Goods </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/mh_tests/"> Tests </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/quotes/"> Quotes </a>
+              </li>
           </ul>
           {% if user.is_authenticated %}
-          <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button>
-          {% else %}
-          <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button>
-          {% endif %}
-        </div>
+          <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:logout' %}">Logout</a> {% else %}
+          <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:login' %}">Login</a> {% endif %}
       </div>
-  </nav>
-<center>
+  </div>
+</nav>
+<div style="text-align: center;">
 <h1>
-    Events for {{ month }} {{ year }}
+  Community Events
 </h1>
+<h3>
+  Login Now to Join and Participate!
+</h3>
+<br>
+<br>
+<h4>
+  Check Out Available Events:
+</h4>
+<a id="log-btn" class="btn btn-info" href="{% url 'com_events:list_events' %}">List of Events</a>
+</div>
 
-{{ cal|safe }}
-
-<button><a href="{% url 'com_events:list_events' %}">List of Events</a></button>
-
-</center>
+<footer>
+  <div style="color: white; text-align: center; font-family: 'Noto Sans', sans-serif;">
+      <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
+      <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
+      <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
+  </div>
+</footer>
 
 {% endblock content %}
