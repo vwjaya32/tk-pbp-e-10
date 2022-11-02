@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
-from forum.models import *
-from .forms import *
 from django.urls import reverse
 from django.core import serializers
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from forum.models import *
+from .forms import *
 # Create your views here.
 
 def show_posts(request):

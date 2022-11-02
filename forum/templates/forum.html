@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block meta %}
+    <!-- Heading and scripts -->
     <title>RYOK? | Forum</title>
     <script src="jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -76,6 +77,7 @@
 {% endblock meta %}
 
 {% block content %}
+    <!-- Style properties -->
     <style>
         #title-text {
             font-family: 'Nunito', sans-serif;
@@ -87,6 +89,9 @@
             font-family: 'Noto Sans', sans-serif; 
             font-size: small; 
             color: white;
+        }
+        #post {
+            background-color: black;
         }
         .navbar {
             background: rgb(255,255,255)
@@ -110,9 +115,6 @@
           border-radius: 5px;
           margin-bottom: 15px;
         }
-/*        .card:hover {
-          transform: translateY(3px);
-        }*/
         .container {
           padding: 10px 10px;
         }
@@ -128,9 +130,6 @@
             transition-duration: 0.3s;
             -webkit-transition-property: box-shadow, transform;
             transition-property: box-shadow, transform;
-        }
-        #post {
-            background-color: black;
         }
         .vertical-center {
           margin: 0;
@@ -148,11 +147,13 @@
             font-weight: bold;
         }
     </style>
+
+    <!-- Modal for creating story -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header" style="background-color: rgb(36, 35, 48);">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: white;">Let's create a story!</h1>
+          <div class="modal-header" style="background-color: rgb(255, 165 ,0);">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: black;">Let's create a story!</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id=""></button>
           </div>
           <div class="grandParentContaniner">
@@ -168,11 +169,12 @@
                 </table>
             </form>
             </div>
-        </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>  
+
+    <!-- Navbar -->  
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="../" style="font-style:italic"> RYOK? </a>
@@ -210,6 +212,8 @@
         </div>
     </nav>
     <br>
+
+    <!-- Rest of the page -->
     <div class="grandParentContaniner">
         <div class="parentContainer">
         <h1 style="color: black;"> STORIES </h1>
