@@ -1,29 +1,70 @@
 {% extends 'base.html' %}
 
-<head>
-    {% block meta %}
+{% block meta %}
     <title>RYOK? | {{thread.title}}</title>
-    {% endblock meta %}
+    <script src="jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
+    <!-- <script>
+    $(document).ready(() => {
+        get_task();
+    function get_task() {
+        $.ajax({
+            type: "GET",
+            url: "{% url 'forum:show_json_id' thread.id %}",
+        }).done((data) => {
+            renderThreads(data);
+        });
+    }
+    function renderThreads(data) {
+        const individualCards = $('.thread');
+        const taskCard = `
+            <p id="content-text">${data.fields.content}</p>
+            <h6 style="color: white;">${data.fields.date_time}</h6>`;
+        individualCards.append(taskCard);
+        data.forEach(thread => {
+            const taskCard = `
+            <p id="content-text">${thread.fields.content}</p>
+            <h6 style="color: white;">${thread.fields.date_time}</h6>`;
+        individualCards.append(taskCard);
+        })
+    };
+    // function create() {
+    //     const form = $(".create_task");
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/todolist/create-task/",
+    //         data: form.serialize(),
+    //     }).done(function(data) {
+    //         form.trigger("reset");
+    //         get_task();
+    //     });
+    //     $("#staticBackdrop").modal("hide");
+    // }
+    </script> -->
+{% endblock meta %}
 
 {% block content %}
-<body>
     <style>
         #title-text {
             font-family: 'Nunito', sans-serif;
             font-weight: bold;
             font-size: x-large;
             font-style: italic;
+            color: white;
         }
         #writer-text {
             font-family: 'Noto Sans', sans-serif; 
             font-size: larger; 
             font-style: italic;
+            color: white;
         }
         #content-text {
             font-weight:normal ;
             text-align: justify;
+            color: white;
+        }
+        .navbar {
+            background: rgb(37, 33, 34);
         }
         .container {
             bottom: 0;
@@ -46,7 +87,7 @@
             font-weight: normal;
         }
         body{
-            background: #F5E0FF;
+            background: linear-gradient(0deg, rgb(255,165,0) 10%, rgb(37, 33, 34) 90%);
             min-height: 100vh;
         }
         footer {
@@ -54,7 +95,7 @@
             width: 100%;
             top: 100%;
             padding: 20px;
-            background-color: rgb(37, 33, 34);
+            background-color: rgb(255,165,0);
         }
         .btn {
             box-shadow: 0 0 5px rgb(36, 35, 48);
@@ -67,9 +108,47 @@
             -webkit-transform: scale(1.08);
             transform: scale(1.08);
         }
+        .thread {
+        }
 
     </style>
 
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../" style="font-style:italic"> RYOK? </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/forum/"> Forums </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/articles/"> Articles </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/com_events/"> Events </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/goods_catalogue/"> Goods Catalogue </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/goods_cart/"> My Cart </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mh_tests/"> Tests </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/quotes/"> Quotes </a>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:logout' %}">Logout</a> {% else %}
+                <a id="log-btn" class="btn btn-dark" href="{% url 'homepage:login' %}">Login</a> {% endif %}
+            </div>
+        </div>
+    </nav>
     <!-- Title Bar -->
     <div style="text-align:center; padding:10px 10px; margin-top: 3rem;">
         <p id="title-text">{{thread.title}}</p>
@@ -77,16 +156,15 @@
     </div>
 
     <!-- Content -->
-    <div style="background: rgb(88, 72, 134); padding:20px; padding-bottom: 25vh ;border-top-left-radius: 50px; border-top-right-radius: 50px;">
+    <div style="background: rgb(255,165,0); padding:20px; padding-bottom: 25vh ;border-top-left-radius: 50px; border-top-right-radius: 50px;">
         <!-- Articles -->
-        <div class=container style="padding:10px; background-color: rgb(120, 103, 116); margin-top:20px">
-            <p id="content-text">{{thread.content}} </p>
-            <h6>[{{thread.date}}]</h6>
+        <div class="container" style="padding:10px; background-color: rgb(37, 33, 34); margin-top:20px">
+            <p id="content-text">{{thread.content}}</p>
+            <h6 style="color: white;">{{thread.date_time}}</h6>
         </div>
-
         <!-- Comment -->
         <div class=container style="background-color: #E1E1E1; padding:20px;">
-            <h2 style="font-size:large; ">How do you think? 👀</h2>
+            <h2 style="font-size:large; ">What do you think? 👀</h2>
 
             <!-- Comment Button -->
             <!-- <a type="button" style="font-weight:bold; color:aliceblue; background-color: #2B484B;" class="btn" href="{% url 'articles:write_comments' thread.id %}">Write a comment</a> -->
@@ -104,13 +182,10 @@
     </div>
 
     <footer>
-        <div style="color: rgb(120, 114, 114); text-align: center; font-family: 'Noto Sans', sans-serif;"> 
+        <div style="color: black; text-align: center; font-family: 'Noto Sans', sans-serif;"> 
             <p style="font-style: italic; font-size: large;">Developed by Team E-10</p>
             <h5 style="font-size:large; ">Platform Based Programming 2022</h5>
             <h5 style="font-size:large; ">Faculty of Computer Science University of Indonesia</h5>
         </div>
     </footer>
-
-
-</body>
 {% endblock content %}

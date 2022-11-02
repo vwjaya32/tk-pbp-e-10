@@ -43,7 +43,7 @@
                 </div>
                 <br>
                 <p class="post" style="font-size: 60%">${task.fields.content.substring(0,150)}...</p>
-                <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%; margin-left: 500px;" href="/forum/read/${task.pk}">Show More!</a>
+                <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%; margin-left: 500px;" href="/forum/read/${task.pk}">Read & Reply</a>
               </div>
             </div>`
             individualCards.append(taskCard);
@@ -57,7 +57,7 @@
                  <i class="post" style="font-size: small">By ${task.fields.author}</i>
                 </div>\<br>
                 <p class="post" style="font-size: 60%">${task.fields.content}</p>
-                <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%; margin-left: 500px;" href="/forum/read/${task.pk}">Show More!</a>
+                <a type="button" class="btn" style="background-color: rgb(255,165,0); font-weight: bold; color: black; font-size: 50%; margin-left: 500px;" href="/forum/read/${task.pk}">Read & Reply</a>
               </div>
             </div>`
             individualCards.append(taskCard);
@@ -73,7 +73,7 @@
             background: rgb(255,255,255)
         }
         body {
-            background: linear-gradient(0deg, rgb(255,165,0) 10%, rgb(255,255,255) 80%);
+            background: linear-gradient(0deg, rgb(255,165,0) 10%, rgb(255,255,255) 90%);
         }
         .grandParentContaniner {
           display:table; 
@@ -135,10 +135,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
+                        <a class="nav-link active" aria-current="page" href="/forum/"> Forums </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/articles/"> Articles </a>
+                        <a class="nav-link" href="/articles/"> Articles </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/com_events/"> Events </a>

@@ -31,9 +31,18 @@
         }        
         .card {
             border-radius: 30px;
-            background-color: rgb(61, 59, 59);
-            box-shadow: 11px 11px 7px rgba(71, 71, 71, 0.764);
+            background-color: rgb(40, 40, 40);
+            box-shadow: 11px 11px 7px rgba(20, 20, 20, 0.764);
             padding: 10px;
+        }
+        .grandParentContaniner {
+          display:table; 
+          height:100%; 
+          margin: 0 auto;
+        }
+        .parentContainer {
+          display:table-cell; 
+          vertical-align:middle;
         }
         #title-text {
             font-family: 'Nunito', sans-serif;
@@ -54,7 +63,7 @@
             color: whitesmoke;
         }
         body {
-            background: #F5E0FF;
+            background: linear-gradient(0deg, rgb(255,165,0) 10%, rgb(37, 33, 34) 90%);
             min-height: 100vh;
         }
         textarea {
@@ -88,17 +97,19 @@
     <div class="container">
         <div class="card align-items-center">
         <div class="card-body">
-        <p id="title-text">How do you think about the article "{{the_artc.title}}"?</h1>
+        <p id="title-text">What do you think about the article "{{posts.title}}"?</h1>
         <form method="POST">
             {% csrf_token %}
-
-                <h6>Pseudonym: </h6>
-                <input name="author" placeholder="Baby John" class="form-control">
-
+            <div class="grandParentContaniner">
+                <div class="parentContainer">
+                <h6>{{username}}</h6>
                 <h6>Your thoughts? </h6>
-                <textarea name="content" placeholder="It's a great article!" class="form-control"></textarea>
+                </div>
+            </div>
+            <textarea name="content" placeholder="It's a great article!" class="form-control"></textarea>
+            <div class="grandParentContaniner">
                 <input class="btn" style="font-weight:bold; color:aliceblue; background-color: #FFCA0C;" type="submit" name="submit" value="Post"/>
-
+            </div>
         </form>
         </div>
         </div>
