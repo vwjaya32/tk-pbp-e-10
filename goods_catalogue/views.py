@@ -6,10 +6,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from goods_catalogue.models import *
-from goods_cart.models import *
 from homepage.models import *
 from .models import *
 from .forms import *
+from itertools import chain
 
 def show_catalogue(request):
     context = {'forms': ItemForm()}
@@ -51,21 +51,3 @@ def add_item(request):
                 ), 
             content_type="application/json")
 
-@login_required(login_url='/login/')
-def add_to_cart(request, pk):
-    product = Catalogue.objects.get(pk=pk)
-    customer = Customer.objects.get(user=request.user)
-    myorder = Order.objects.get(customer=customer)
-    try:
-        order_item = OrderItem.objects.get(product=product,)
-    except OrderItem.DoesNotExist:
-        order_item = OrderItem.objects.create(
-            product=product,
-            order=myorder,
-            quantity=1,
-        )
-    else:
-        order_item.quantity += 1
-        order_item.save()
-   
-    return JsonResponse({'status':'200'})
