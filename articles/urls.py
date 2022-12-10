@@ -12,5 +12,7 @@ urlpatterns = [
 
     path('json-artc', show_json_articles, name='show_json_articles'),
     path('json-cmts', show_json_comments, name='show_json_comments'),
+    path('json-cmts<int:id>', show_json_comments_id, name='show_json_comments_id'),
+    
     path("add-ajax/", add_ajax, name="add_ajax"),
 ]

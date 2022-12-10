@@ -120,3 +120,8 @@ def show_json_articles(request):
 def show_json_comments(request):
     data = Comments.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_json_comments_id(request, id):
+    a = Articles.objects.get(id=id)
+    data = Comments.objects.filter(artc_place=a)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
