@@ -116,3 +116,7 @@ def add_ajax(request):
 def show_json_articles(request):
     data = Articles.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_json_comments(request):
+    data = Comments.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
