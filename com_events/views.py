@@ -46,8 +46,7 @@ def unjoin_event(request, id):
 
 def get_json_all(request):
     events = Event.objects.all()
-    return JsonResponse(
-            ({
+    data = [{
                 'model':'com_events.event',
                 'pk': event.pk,
                 'fields':{
@@ -57,8 +56,8 @@ def get_json_all(request):
                     'is_joined':event.is_joined,
                     'attendees':[attendee.username for attendee in event.attendees.all()],
                 }
-            }for event in events), safe=False
-    )
+            }for event in events]
+    return JsonResponse(data, safe=False)
 
 def get_json_user(request):
     events = Event.objects.filter(attendees=request.user)
