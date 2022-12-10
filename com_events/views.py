@@ -46,7 +46,7 @@ def unjoin_event(request, id):
 
 def get_json_all(request):
     events = Event.objects.all()
-    data = {[{
+    data = {'data':[{
                 'model':'com_events.event',
                 'pk': event.pk,
                 'fields':{
