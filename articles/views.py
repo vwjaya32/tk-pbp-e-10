@@ -152,3 +152,23 @@ def write_articles_flutter(request):
             "pk":new_artc.pk
         }
         return JsonResponse({"instance": "Success!"}, status=200)
+
+@csrf_exempt
+def write_comments_flutter(request, artc_id):
+    if request.method == "POST":
+        forms = JSON.loads(request.body)
+
+        new_cmts = Comments(
+            author = forms["author"],
+            content = forms["content"],
+            artc_place = Articles.objects.get(id=artc_id),
+        )
+        new_cmts.save()
+
+        # return redirect("articles:read_articles", id)
+        return JsonResponse({"instance": "Success!"}, status=200)
+
+    # forms = comment_box()
+    # artc_data = Articles.objects.get(id=id)
+    # context={"form":forms, "the_artc":artc_data}
+    # return render(request, "write_cmt.html", context)

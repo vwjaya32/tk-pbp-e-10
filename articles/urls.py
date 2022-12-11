@@ -15,6 +15,7 @@ urlpatterns = [
     path('json-cmts/<int:id>', show_json_comments_id, name='show_json_comments_id'),
 
     path('write-a-flutter',  write_articles_flutter, name=' write_articles_flutter'),
+    path('write-c-flutter',  write_comments_flutter, name=' write_comments_flutter'),
 
     path("add-ajax/", add_ajax, name="add_ajax"),
 ]
