@@ -61,20 +61,17 @@ def get_json_all(request):
 
 def get_json_user(request):
     events = Event.objects.filter(attendees=request.user)
-    return JsonResponse({
-        'data':
-            [{
-                'model':'com_events.event',
-                'pk': event.pk,
-                'fields':{
-                    'name':event.name,
-                    'date':event.date,
-                    'description':event.description,
-                    'is_joined':event.is_joined,
-                    'attendees':[attendee.username for attendee in event.attendees.all()],
-                }
-            }for event in events]
-    })
+    data  = [{
+        'model':'com_events.event',
+        'pk': event.pk,
+        'fields':{
+            'name':event.name,
+            'date':event.date,
+            'description':event.description,
+            'is_joined':event.is_joined,
+            'attendees':[attendee.username for attendee in event.attendees.all()],}
+        }for event in events]
+    return JsonResponse(data, safe=False)
 
 @login_required(login_url='/com_events/login/')
 def add_event_ajax(request):
