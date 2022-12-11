@@ -161,7 +161,7 @@ def write_comments_flutter(request, artc_id):
         new_cmts = Comments(
             author = forms["author"],
             content = forms["content"],
-            artc_place = Articles.objects.get(id=artc_id),
+            artc_place = Articles.objects.get(pk=artc_id),
         )
         new_cmts.save()
 
