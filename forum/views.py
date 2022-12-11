@@ -78,6 +78,10 @@ def show_json_id(request, id):
     data = Posts.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+def show_forum_json_flutter(request):
+    data = Posts.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
 @csrf_exempt
 def add_stories_flutter(request):
     if request.method == 'POST':

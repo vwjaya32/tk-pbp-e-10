@@ -11,4 +11,6 @@ urlpatterns = [
     path('json/', show_forum_json, name='show_forum_json'),
     path('json/<int:id>/', show_json_id, name='show_json_id'),
     path('comment/<int:id>/', reply_thread, name='reply_thread'),
+    path("get-forum-flutter/", show_forum_json_flutter, name="show_forum_json_flutter"),
+    path("add-forum-flutter/", add_stories_flutter, name="add_stories_flutter"),
 ]
