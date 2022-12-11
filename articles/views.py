@@ -12,8 +12,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest, JsonResponse
 from django.core import serializers
 from django.contrib.auth.decorators import user_passes_test
-from django.views.decorators.csrf import csrf_exempt
 import datetime
+
+from django.views.decorators.csrf import csrf_exempt
+import json as JSON
 
 # Import forms
 # ------------
@@ -127,26 +129,26 @@ def show_json_comments_id(request, id):
     data = Comments.objects.filter(artc_place=a)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-# @csrf_exempt
-# def write_articles_flutter(request):
-#     if request.method == "POST":
-#         form = json.loads(request.body)
-#         # form = edit_box(request.POST)
+@csrf_exempt
+def write_articles_flutter(request):
+    if request.method == "POST":
+        form = JSON.loads(request.body)
+        # form = edit_box(request.POST)
 
-#         new_artc = Articles(
-#             title = form["title"],
-#             author = form["author"],
-#             content = form["content"],
-#         )
-#         new_artc.save()
-        
-#         data = {
-#             "fields":{
-#                 "title":form["title"],
-#                 "author":form["author"],
-#                 "date": datetime.date.today(),
-#                 "content":form["content"],
-#             },
-#             "pk":new_artc.pk
-#         }
-#         return JsonResponse({"instance": "Success!"}, status=200)
+        new_artc = Articles(
+            title = form["title"],
+            author = form["author"],
+            content = form["content"],
+        )
+        new_artc.save()
+
+        data = {
+            "fields":{
+                "title":form["title"],
+                "author":form["author"],
+                "date": datetime.date.today(),
+                "content":form["content"],
+            },
+            "pk":new_artc.pk
+        }
+        return JsonResponse({"instance": "Success!"}, status=200)
