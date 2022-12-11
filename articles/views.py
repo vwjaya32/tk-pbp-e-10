@@ -125,3 +125,27 @@ def show_json_comments_id(request, id):
     a = Articles.objects.get(id=id)
     data = Comments.objects.filter(artc_place=a)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+@csrf_exempt
+def write_articles_flutter(request):
+    if request.method == "POST":
+        form = json.loads(request.body)
+        # form = edit_box(request.POST)
+
+        new_artc = Articles(
+            title = form["title"],
+            author = form["author"],
+            content = form["content"],
+        )
+        new_artc.save()
+        
+        data = {
+            "fields":{
+                "title":form["title"],
+                "author":form["author"],
+                "date": datetime.date.today(),
+                "content":form["content"],
+            },
+            "pk":new_artc.pk
+        }
+        return JsonResponse({"Success"}, status=200)
