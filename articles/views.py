@@ -148,4 +148,4 @@ def write_articles_flutter(request):
             },
             "pk":new_artc.pk
         }
-        return JsonResponse({"Success"}, status=200)
+        return JsonResponse({"instance": "Success!"}, status=200)
