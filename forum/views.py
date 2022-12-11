@@ -82,8 +82,12 @@ def show_forum_json_flutter(request):
     data = Posts.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+def show_replies_json_flutter(request):
+    data = Replies.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
 @csrf_exempt
-def add_stories_flutter(request):
+def add_forum_flutter(request):
     if request.method == 'POST':
 
         new_posts = Posts.objects.create(
@@ -95,3 +99,18 @@ def add_stories_flutter(request):
 
         new_posts.save()
     return JsonResponse({"instance": "Stories berhasil ditambah"}, status=200)
+
+@csrf_exempt
+def add_replies_flutter(request):
+    if request.method == 'POST':
+
+        new_posts = Replies.objects.create(
+            id = request.POST['id'],
+            author = request.POST['author'],
+            posts_index = request.POST['posts_index'],
+            date = request.POST['date'],
+            content = request.POST['content'],
+        )
+
+        new_posts.save()
+    return JsonResponse({"instance": "Replies berhasil ditambah"}, status=200)
