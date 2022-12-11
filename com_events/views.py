@@ -44,19 +44,23 @@ def unjoin_event(request, id):
     event.save()
     return redirect('com_events:show_events')
 
+def get_json_all_mobile(request):
+    events = Event.objects.all()
+    data = [{
+                'model':'com_events.event',
+                'pk': event.pk,
+                'fields':{
+                    'name':event.name,
+                    'date':event.date,
+                    'description':event.description,
+                    'is_joined':event.is_joined,
+                    'attendees':[attendee.username for attendee in event.attendees.all()],
+                }
+            }for event in events]
+    return JsonResponse(data, safe=False)
+
 def get_json_all(request):
     events = Event.objects.all()
-    # data = [{
-    #             'model':'com_events.event',
-    #             'pk': event.pk,
-    #             'fields':{
-    #                 'name':event.name,
-    #                 'date':event.date,
-    #                 'description':event.description,
-    #                 'is_joined':event.is_joined,
-    #                 'attendees':[attendee.username for attendee in event.attendees.all()],
-    #             }
-    #         }for event in events]
     return JsonResponse({
         'data':
             [{
@@ -74,9 +78,6 @@ def get_json_all(request):
 
 def get_json_user(request):
     events = Event.objects.filter(attendees=request.user)
-    data  = [{
-        
-    }]
     return JsonResponse({
         'data':
             [{
