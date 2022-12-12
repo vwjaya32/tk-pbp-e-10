@@ -113,9 +113,9 @@ def add_event_ajax(request):
 def add_event_flutter(request):
     if request.method == 'POST':
         form = json.loads(request.POST)
-        name = form.get('name')
-        date = form.get('date')
-        description = form.get('description')
+        name = form['name']
+        date = form['date']
+        description = form['description']
         events = Event(name=name, date=date, description = description)
         events.save()
         return JsonResponse({"message":"Berhasil mengupload!"})
