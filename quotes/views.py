@@ -1,9 +1,11 @@
+import json
 from django.shortcuts import render
 from django.shortcuts import redirect  # Import for Forms
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.html import escape
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Image
 
@@ -92,3 +94,14 @@ def ajax_add_quote(request):
             return HttpResponse(200)
     return HttpResponse(404)
 
+@csrf_exempt
+def mob_add_quote(request):
+    if request.method == "POST":
+        form = json.loads(request.body)
+        user = form['user']
+        title = form['title']
+        image = form['image']
+        new_image = Image(user=user, title=title, image=image)
+        new_image.save()
+        return JsonResponse({"message":"Berhasil mengupload"})
+                          
