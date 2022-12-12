@@ -78,7 +78,7 @@ def delete_image(request, id):
     messages.success(request, "Image has been deleted")
     return redirect('quotes:show_html')
 
-
+@csrf_exempt
 @login_required(login_url='/home/login/')
 def ajax_add_quote(request):
     if request.method == "POST":
