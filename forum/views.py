@@ -104,7 +104,7 @@ def add_forum_flutter(request):
 def add_replies_flutter(request):
     if request.method == 'POST':
 
-        new_posts = Replies.objects.create(
+        new_replies = Replies.objects.create(
             id = request.POST['id'],
             author = request.POST['author'],
             posts_index = request.POST['posts_index'],
@@ -112,5 +112,5 @@ def add_replies_flutter(request):
             content = request.POST['content'],
         )
 
-        new_posts.save()
+        new_replies.save()
         return JsonResponse({"instance": "Replies berhasil ditambah"}, status=200)
