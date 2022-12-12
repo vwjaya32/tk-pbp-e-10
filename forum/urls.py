@@ -13,6 +13,6 @@ urlpatterns = [
     path('comment/<int:id>/', reply_thread, name='reply_thread'),
     path("get-forum-flutter/", show_forum_json_flutter, name="show_forum_json_flutter"),
     path("add-forum-flutter/", add_forum_flutter, name="add_forum_flutter"),
-    path("get-replies-flutter/", show_replies_json_flutter, name="show_replies_json_flutter"),
+    path("get-replies-flutter/<int:id>/", show_replies_json_flutter, name="show_replies_json_flutter"),
     path("add-replies-flutter/", add_replies_flutter, name="add_replies_flutter"),
 ]

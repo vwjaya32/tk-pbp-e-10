@@ -82,8 +82,8 @@ def show_forum_json_flutter(request):
     data = Posts.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-def show_replies_json_flutter(request):
-    data = Replies.objects.all()
+def show_replies_json_flutter(request, id):
+    data = Replies.objects.filter(posts_index = id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 @csrf_exempt
