@@ -12,5 +12,6 @@ urlpatterns = [
     path('delete/<int:id>', delete, name='delete'),
     path('join_event/<int:id>', join_event, name='join_event'),
     path('unjoin_event/<int:id>', unjoin_event, name='unjoin_event'),
-    path('add/', add_event_ajax, name='add')
+    path('add/', add_event_ajax, name='add'),
+    path('add_flutter', add_event_flutter, name='add_flutter')
 ]

@@ -9,6 +9,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 def show_events(request):
     return render(request, "events_home.html")
@@ -106,3 +107,14 @@ def add_event_ajax(request):
             events.save()
         return redirect('com_events:show_events')
     return HttpResponseNotFound()
+
+@csrf_exempt
+def add_event_flutter(request):
+    if request.method == 'POST':
+        form = request.POST
+        name = form.get('name')
+        date = form.get('date')
+        description = form.get('description')
+        events = Event(name=name, date=date, description = description)
+        events.save()
+        return JsonResponse({"message":"Berhasil mengupload barang!"})
