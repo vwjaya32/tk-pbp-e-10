@@ -129,11 +129,12 @@ def show_json_comments_id(request, id):
     data = Comments.objects.filter(artc_place=a)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+# Flutter's
+# -------------
 @csrf_exempt
 def write_articles_flutter(request):
     if request.method == "POST":
         form = JSON.loads(request.body)
-        # form = edit_box(request.POST)
 
         new_artc = Articles(
             title = form["title"],
@@ -165,10 +166,14 @@ def write_comments_flutter(request, artc_id):
         )
         new_cmts.save()
 
-        # return redirect("articles:read_articles", id)
         return JsonResponse({"instance": "Success!"}, status=200)
 
-    # forms = comment_box()
-    # artc_data = Articles.objects.get(id=id)
-    # context={"form":forms, "the_artc":artc_data}
-    # return render(request, "write_cmt.html", context)
+@csrf_exempt
+def delete_articles_flutter(request, id):
+    Articles.objects.get(id=id).delete()
+    return JsonResponse({"instance": "Success!"}, status=200)
+
+@csrf_exempt
+def delete_comments_flutter(request, article_id, id):
+    Comments.objects.get(id=id).delete()
+    return JsonResponse({"instance": "Success!"}, status=200)
