@@ -14,6 +14,9 @@ from django.core import serializers
 from django.contrib.auth.decorators import user_passes_test
 import datetime
 
+from django.views.decorators.csrf import csrf_exempt
+import json as JSON
+
 # Import forms
 # ------------
 from .forms import edit_box
@@ -120,3 +123,57 @@ def show_json_articles(request):
 def show_json_comments(request):
     data = Comments.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_json_comments_id(request, id):
+    a = Articles.objects.get(id=id)
+    data = Comments.objects.filter(artc_place=a)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+# Flutter's
+# -------------
+@csrf_exempt
+def write_articles_flutter(request):
+    if request.method == "POST":
+        form = JSON.loads(request.body)
+
+        new_artc = Articles(
+            title = form["title"],
+            author = form["author"],
+            content = form["content"],
+        )
+        new_artc.save()
+
+        data = {
+            "fields":{
+                "title":form["title"],
+                "author":form["author"],
+                "date": datetime.date.today(),
+                "content":form["content"],
+            },
+            "pk":new_artc.pk
+        }
+        return JsonResponse({"instance": "Success!"}, status=200)
+
+@csrf_exempt
+def write_comments_flutter(request, artc_id):
+    if request.method == "POST":
+        forms = JSON.loads(request.body)
+
+        new_cmts = Comments(
+            author = forms["author"],
+            content = forms["content"],
+            artc_place = Articles.objects.get(id=artc_id),
+        )
+        new_cmts.save()
+
+        return JsonResponse({"instance": "Success!"}, status=200)
+
+@csrf_exempt
+def delete_articles_flutter(request, id):
+    Articles.objects.get(id=id).delete()
+    return JsonResponse({"instance": "Success!"}, status=200)
+
+@csrf_exempt
+def delete_comments_flutter(request, article_id, id):
+    Comments.objects.get(id=id).delete()
+    return JsonResponse({"instance": "Success!"}, status=200)

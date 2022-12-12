@@ -1,11 +1,15 @@
+import json
 from django.shortcuts import render
 from django.shortcuts import redirect  # Import for Forms
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.html import escape
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Image
+
+from django.contrib.auth.models import User
 
 # Import Forms
 from .forms import ImageForm
@@ -76,7 +80,7 @@ def delete_image(request, id):
     messages.success(request, "Image has been deleted")
     return redirect('quotes:show_html')
 
-
+@csrf_exempt
 @login_required(login_url='/home/login/')
 def ajax_add_quote(request):
     if request.method == "POST":
@@ -92,3 +96,15 @@ def ajax_add_quote(request):
             return HttpResponse(200)
     return HttpResponse(404)
 
+@csrf_exempt
+def mob_add_quote(request):
+    if request.method == "POST":
+        form = json.loads(request.body)
+        who = form['user']
+        user = User.objects.get(username=who)
+        title = form['title']
+        image = form['image']
+        new_image = Image(user=user, title=title, image=image)
+        new_image.save()
+        return JsonResponse({"message":"Berhasil mengupload"})
+                          

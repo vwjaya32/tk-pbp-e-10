@@ -9,6 +9,8 @@ from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 def show_events(request):
     return render(request, "events_home.html")
@@ -43,6 +45,21 @@ def unjoin_event(request, id):
     event.is_joined == False
     event.save()
     return redirect('com_events:show_events')
+
+def get_json_all_mobile(request):
+    events = Event.objects.all()
+    data = [{
+                'model':'com_events.event',
+                'pk': event.pk,
+                'fields':{
+                    'name':event.name,
+                    'date':event.date,
+                    'description':event.description,
+                    'is_joined':event.is_joined,
+                    'attendees':[attendee.username for attendee in event.attendees.all()],
+                }
+            }for event in events]
+    return JsonResponse(data, safe=False)
 
 def get_json_all(request):
     events = Event.objects.all()
@@ -91,3 +108,14 @@ def add_event_ajax(request):
             events.save()
         return redirect('com_events:show_events')
     return HttpResponseNotFound()
+
+@csrf_exempt
+def add_event_flutter(request):
+    if request.method == 'POST':
+        form = json.loads(request.body)
+        name = form['name']
+        date = form['date']
+        description = form['description']
+        events = Event(name=name, date=date, description = description)
+        events.save()
+        return JsonResponse({"message":"Berhasil mengupload!"})
