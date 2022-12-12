@@ -98,7 +98,7 @@ def add_forum_flutter(request):
         )
 
         new_posts.save()
-    return JsonResponse({"instance": "Stories berhasil ditambah"}, status=200)
+        return JsonResponse({"instance": "Stories berhasil ditambah"}, status=200)
 
 @csrf_exempt
 def add_replies_flutter(request):
@@ -113,4 +113,4 @@ def add_replies_flutter(request):
         )
 
         new_posts.save()
-    return JsonResponse({"instance": "Replies berhasil ditambah"}, status=200)
+        return JsonResponse({"instance": "Replies berhasil ditambah"}, status=200)
