@@ -53,6 +53,23 @@ def json_res(request):
     data = MentalTest.objects.filter(user = request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+def get_json_user_all(request):
+    users = MentalTest.objects.all()
+    return JsonResponse({
+        'data':
+            [{
+                'model':'mh_tests.users',
+                'pk': mh_test.pk,
+                'fields':{
+                    'user':mh_test.user,
+                    'score':mh_test.score,
+                    'date':mh_test.date,
+                    
+                }
+            }for mh_test in users]
+    })
+
+
 # @login_required(login_url='/homepage/login/')
 @csrf_exempt
 def delete_res(request, pk):

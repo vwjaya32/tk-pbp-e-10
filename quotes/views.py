@@ -9,6 +9,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Image
 
+from django.contrib.auth.models import User
+
 # Import Forms
 from .forms import ImageForm
 
@@ -78,7 +80,7 @@ def delete_image(request, id):
     messages.success(request, "Image has been deleted")
     return redirect('quotes:show_html')
 
-
+@csrf_exempt
 @login_required(login_url='/home/login/')
 def ajax_add_quote(request):
     if request.method == "POST":
@@ -98,7 +100,8 @@ def ajax_add_quote(request):
 def mob_add_quote(request):
     if request.method == "POST":
         form = json.loads(request.body)
-        user = form['user']
+        who = form['user']
+        user = User.objects.get(username=who)
         title = form['title']
         image = form['image']
         new_image = Image(user=user, title=title, image=image)
