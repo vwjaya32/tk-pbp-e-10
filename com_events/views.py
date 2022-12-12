@@ -112,7 +112,7 @@ def add_event_ajax(request):
 @csrf_exempt
 def add_event_flutter(request):
     if request.method == 'POST':
-        form = json.loads(request.POST)
+        form = json.loads(request.body)
         name = form['name']
         date = form['date']
         description = form['description']
