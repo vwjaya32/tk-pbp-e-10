@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Checkout</title>
+{% endblock meta %}
+
+{% block content %}
+{% csrf_token %}
+<section class="h-100 h-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="row g-0">
+                    <div class="col-lg-8">
+                        <div class="p-5">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h1 class="fw-bold mb-0 text-black">Checkout</h1>
+                            </div>
+                            <h4 class="fw-bold mb-0 text-black">Shipping Address</h4>
+                            
+                            <hr class="my-3">
+
+                            <div class="address"></div>
+
+                            <hr class="my-4">
+
+                            <div class="cart_list"></div>
+
+                            <div class="pt-5">
+                                <h5 class="mb-0"><a href="{% url 'mycart:cart' %}" class="text-body"><i
+                                            class="fa fa-long-arrow-alt-left me-2"></i>Back to Cart</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 bg-grey">
+                        <div class="p-5">
+                            <h3 class="fw-bold mb-5 mt-2 pt-1">Order Summary</h3>
+                            <hr class="my-4">
+
+                            <div class="d-flex justify-content-between mb-5">
+                                <h5 class="text-uppercase">Total</h5>
+                                <h5 id="total-harga">Rp{{total_price}}</h5>
+                            </div>
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-dark btn-block btn-lg" id="show-checkout"
+                                onclick="processOrder({{order_id}})" data-mdb-ripple-color="dark">Confirm Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        let x = document.cookie
+        console.log(x)
+    })
+
+    var item = []
+
+    function loadData() {
+    $(document).ready(function () {
+      $.get("{%url 'mycart:get_mycart'%}", function (data) {
+        item = data
+        console.log("item saved")
+        console.log(item)
+        if (data.length) {
+          $.each(data, function (key, value) {
+            var new_cart = `
+              <div class="row mb-4 d-flex id="item-${value.pk}">
+                <div class="col-md-2 col-lg-2 col-xl-2">
+                  <img src="${value.fields.product.imageURL}"
+                    class="img-fluid rounded-3" id="item-${value.pk}-image">
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-3">
+                  <h5 class="text-black mb-0" id="item-${value.pk}-name">${value.fields.product.name}</h5>
+                  <h7 class="text-black mb-0" id="item-${value.pk}-quantity">${value.fields.quantity} barang</h7>
+                  <h6 class="mb-0" id="item-${value.pk}-price">Rp${value.fields.product.price}</h6>
+                </div>
+              </div>
+              <hr class="my-4">
+              `
+            $(".cart_list").append(new_cart)
+          })
+        }
+      })
+    })
+  }
+
+  function loadAddress() {
+    $(document).ready(function () {
+      $.get("{%url 'mycart:get_address'%}", function (data) {
+        console.log(data)
+        var cookieSplit = document.cookie.split("; ")
+        console.log(cookieSplit)
+        var addressId = parseInt(
+            cookieSplit.find(element => 
+                element.startsWith("address="))
+            .split("=")[1])
+        console.log(addressId)
+        var address = data.find(address => address.pk = addressId)
+        var address_data = `
+            <div class="row mb-4 d-flex" id="address-detail">
+                <h6 class="text-black mb-0" id="address-${addressId}-user">{{request.user}}\n</h5>
+                <h7 class="text-black mb-0" id="address-${addressId}-phone">{{phone}}</h5><br>
+                <h7 class="text-black mb-0" id="address-${addressId}">${address.fields.address}</h7><br>
+                <h7 class="text-black mb-0" id="address-${addressId}-detail2">${address.fields.kecamatan}, ${address.fields.kota}, ${address.fields.postcode}</h5>
+            </div>
+            <hr class="my-4">
+            `
+        $('.address').append(address_data) 
+      })
+    })
+  }
+
+  function processOrder(pk){
+    console.log(pk)
+    $(document).ready(function(){
+      $.ajax({
+        type: 'PUT',
+        url: "{% url 'mycart:process_order' 0 %}".replace(0, pk),
+        headers: { "X-CSRFToken": document.getElementsByName("csrfmiddlewaretoken")[0].value },
+        encode: true,
+        success: function(data){
+          console.log(data)
+          window.location = "{% url 'homepage:show_homepage' %}"
+        },
+        failure: function(data){
+          alert("failure")
+        }
+      })
+    })
+  }
+  
+  loadAddress()
+  loadData()
+</script>
+
+{% endblock content %}
