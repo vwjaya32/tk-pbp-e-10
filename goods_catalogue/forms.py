@@ -3,7 +3,7 @@ from django import forms
 class ItemForm(forms.Form):
     CHOICES = [
         ('Soul Comforter', 'Soul Comforter'),
-        ('Happiness Booster', 'Happiness Booster'),
+        ('Anxiety Booster', 'Anxiety Booster'),
     ]
     name = forms.CharField(label='', max_length=64, widget=forms.TextInput(attrs={'id':'input-name'}))
     type = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'id':'input-category'}))

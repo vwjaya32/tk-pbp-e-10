@@ -9,26 +9,9 @@
 </head>
 
 {% block content %}  
-
-{% if messages %}
-<div class="alert alert-danger" role="alert">
-    <ul class="list-unstyled py-0 my-0">
-        {% for message in messages %}
-        <li class="list-unstyled-item">{{ message }}</li>
-        {% endfor %}
-    </ul>
-</div>
-{% endif %}
-
 <body>
     <style>
         h1 {
-            color: white;
-        }
-        h2 {
-            color: white;
-        }
-        p {
             color: white;
         }
         #reg-wrapper {
@@ -62,24 +45,26 @@
         }
     </style>
 
-    <div class="kontainer">
-        <div class="box shadow">
-            <div class="text-center">
-                <h2 class="fw-bold mb-4 text-uppercase">Registration Form</h2>
-            </div>
-            <form method="POST" action="">
-                {% csrf_token %}
-                <table class="small">
-                    {{ form.as_table }}
-                </table>
-                <div class="mb-3 mt-4">
-                    <div class="d-grid gap-2">
-                        <input class="btn btn-dark btn-lg px-5" type="submit" value="Daftar">
-                    </div>
-                </div>
-            </form>
-            <p class="text-center mb-0">Already have an account? <a href="{% url 'homepage:login' %}" class="text-dark-50 fw-bold">Login</a></p>
-        </div>
+    <div class="container">
+        <div id="reg-wrapper" class="container card">
+            <h1>Registration Form</h1>  
+
+                <form method="POST" >  
+                    {% csrf_token %}  
+                    <table class="reg-table">  
+                        {{ form.as_table }}  
+                    </table>
+                    <input id="reg-btn" type="submit" name="submit" value="Create Account"/>
+                </form>
+
+            {% if messages %}  
+                <ul>   
+                    {% for message in messages %}  
+                        <li>{{ message }}</li>  
+                        {% endfor %}  
+                </ul>   
+            {% endif %}
+        </div>  
     </div>
 
 </body>

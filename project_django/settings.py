@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'mh_tests',
     'com_events',
     'goods_catalogue',
-    'mycart',
     'quotes',
     'forum',
     'authentication',

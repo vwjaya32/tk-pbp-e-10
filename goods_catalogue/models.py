@@ -7,7 +7,7 @@ class CatalogueManager(models.Manager):
 class Catalogue(models.Model):
 	name = models.CharField(max_length=255)
 	price = models.FloatField()
-	image = models.ImageField(upload_to='upload/', null=True, blank=True)
+	picture = models.ImageField(upload_to='upload/', null=True, blank=True)
 
 	objects = CatalogueManager()
 
@@ -17,19 +17,19 @@ class Catalogue(models.Model):
 	@property
 	def imageURL(self):
 		try:
-			url = self.image.url
+			url = self.picture.url
 		except:
 			url = ''
 		return url
 
 	def natural_key(self):
 		return {'name': self.name, 
-			'price': self.price,
-			'imageURL': self.imageURL,
-			}
+				'price': self.price,
+				'imageURL': self.imageURL,
+				}
 
 class SoulComforter(Catalogue):
-	comfortrate = models.IntegerField()
+	max_comfort = models.IntegerField()
 	object = CatalogueManager()
 
 	def get_parent(self):
@@ -41,7 +41,7 @@ class SoulComforter(Catalogue):
 	# 		'imageURL': self.imageURL,
 	# 		}
 
-class HappinessBoost(Catalogue):
+class AnxietyBoost(Catalogue):
 	boostrate = models.IntegerField()
 	object = CatalogueManager()
 
