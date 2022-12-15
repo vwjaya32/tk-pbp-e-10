@@ -1,4 +1,5 @@
 from django.db import models
+from homepage.models import *
 		
 class CatalogueManager(models.Manager):
 	def get_by_natural_key(self, name, price, imageURL):
@@ -53,4 +54,16 @@ class HappinessBoost(Catalogue):
 			'price': self.price,
 			'imageURL': self.imageURL,
 			}
+
+PILIHAN_PEMBAYARAN = (
+    ('BCA', "BCA"), ('OVO', 'OVO'), ('DANA', 'DANA'), ('SHOPEEPAY', 'SHOPEEPAY'), ('GOPAY', 'GOPAY'))
+PILIHAN_KURIR = (
+    ('JNE', 'JNE'), ('TIKI', 'TIKI'), ('SiCepat', 'SiCepat'), ('J&T', 'J&T'))
+
+# Create your models here.
+class Purchase(models.Model):
+    customer = models.ForeignKey(Customer, on_delete = models.CASCADE, default = None, blank = True)
+    nama_item = models.CharField(max_length = 255, default = "")
+    metode_pembayaran = models.CharField(max_length = 255, choices = PILIHAN_PEMBAYARAN, default= PILIHAN_PEMBAYARAN[0], verbose_name= "Metode Pembayaran")
+    metode_pengiriman = models.CharField(max_length = 255, choices = PILIHAN_KURIR, default=PILIHAN_KURIR[0], verbose_name= "Metode Pengiriman")
 

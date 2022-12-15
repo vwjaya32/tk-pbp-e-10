@@ -7,70 +7,28 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/catalogue.css' %}">
-{% csrf_token %}
-<div class="d-flex flex-row-reverse">
-{% if customer.is_admin %}
-<button type="button" class="btn btn-lg btn-dark" data-bs-toggle="modal" data-bs-target="#addModal" id="open-modal">
-    Add Item
-</button>
-<button type="button" class="btn btn-lg btn-outline-dark" onclick="orderSummary()">
-    Order Summary
-</button>
-{% endif %}
-</div>
 
-<div class="modal fade" id="addModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content card bg-dark text-white">
-            <div class="modal-header">
-                <h2 class="modal-title">Add Item</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="add-product" method="POST" action="">
-                    {% csrf_token %}
-                    <div class="mb-md-5 mt-md-4 pb-5">
-                        <div class="form-outline form-white mb-4" id="parent-input-name">
-                            <label class="form-label" for="input-name">Item Name</label>
-                            {{forms.name}}
-                        </div>
+<script>
+    $(document).ready(function(){
+    var tipe = ""
+    $("#confirmButton").click(function(){
+    $.ajax({
+      url: "{% url 'goods_catalogue:get_catalogue' %}", 
+      type: "POST",
+      data:{
+        'csrfmiddlewaretoken': '{{csrf_token}}',
+        'payment_method': $('#id_payment_method').val(),
+        'shipping_method': $('#id_shipping_method').val(),
+        'nama_item' : tipe},
+      success: function(data){
+      alert(data);
+      }
+    })
+    })
+    })
+</script>
 
-                        <div class="form-outline form-white mb-4" id="parent-input-price">
-                            <label class="form-label" for="input-price">Price Rp</label>
-                            {{forms.price}}
-                        </div>
-
-                        <div class="form-outline form-white mb-4" id="parent-input-type">
-                            <label class="form-label" for="input-type">Type</label>
-                            {{forms.type}}
-                        </div>
-                        <div class="form-outline form-white mb-4" id="parent-input-spec">
-                            <div class="input-spec-soulcomforter">
-                                <label class="form-label" for="input-spec">Comfort-rate</label>
-                                {{forms.comfortrate}}
-                            </div>
-                            <div class="input-spec-happinessbooster">
-                                <label class="form-label" for="input-spec">Boost-rate</label>
-                                {{forms.boostrate}}
-                            </div>
-                        </div>
-
-                        <div class="form-outline form-white mb-4" id="parent-input-image">
-                            <label class="form-label" for="input-name">Image</label>
-                            {{forms.image}}
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-lg px-5" data-bs-dismiss="modal">Close</button>
-                <button id="add-btn" onclick=addProduct() class="btn btn-outline-light btn-lg px-5"
-                    data-bs-dismiss="modal" name="submit">Add</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+<!--Navigation Bar-->
 <style>
     .navbar {
         background: rgb(51, 49, 80);
@@ -438,4 +396,28 @@
     }
     loadData()
 </script>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Form Pembelian</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table> {{form.as_table}} </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id = "confirmButton">Confirm Purchase</button>
+        </div>
+      </div>
+    </div>
+  
+    <script>
+    $(document).ready()
+    function modalClick(data){
+      tipe = data
+    }
+    </script>
 {% endblock content %}

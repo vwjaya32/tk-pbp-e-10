@@ -13,13 +13,13 @@ from .forms import *
 from mycart.models import *
 from itertools import chain
 
-@login_required(login_url='/login')
-def show_catalogue(request):
-    context = {
-        'forms': ItemForm(),
-        # 'customer': Customer.objects.get(user=request.user)
-    }
-    return render(request, "catalogue.html", context)
+# @login_required(login_url='/login')
+# def show_catalogue(request):
+#     context = {
+#         'forms': ItemForm(),
+#         # 'customer': Customer.objects.get(user=request.user)
+#     }
+#     return render(request, "catalogue.html", context)
 
 @login_required(login_url='/login')
 def get_catalogue(request):
@@ -92,3 +92,25 @@ def add_to_cart(request, pk):
     #             ), 
     #         content_type="application/json")
 
+@login_required(login_url='/login/')
+def show_catalogue(request):
+    if request.method == "POST":
+        form = ItemForm({
+            "metode_pembayaran": request.POST.get('metode_pembayaran'),
+            "metode_pengiriman": request.POST.get('metode_pengiriman')
+            })   
+        obj = form.save(commit = False)
+        obj.nama_item = request.POST.get('nama_item')
+        obj.customer = Customer.objects.get(user = request.user)
+        obj.save()
+        return HttpResponse('Pembayaran Diterima!')
+    form = ItemForm()
+    context = {"form": form}
+    return render(request, "catalogue.html", context)
+
+# def form_catalogue(request):
+#     #poin = request.user.pengunjung.poin
+#     #context = {"poin": poin}
+#     form = ItemForm()
+#     context = {"form": form}
+#     return render(request, "marketplaceform.html", context)
