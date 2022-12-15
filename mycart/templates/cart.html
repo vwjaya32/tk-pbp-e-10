@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Cart</title>
+{% endblock meta %}
+
+{% block content %}
+
+<body>
+  <style>
+      .navbar {
+          background: rgb(51, 49, 80);
+          background: linear-gradient(0deg, rgba(51, 49, 80, 1) 0%, rgba(28, 28, 52, 1) 61%);
+      }
+
+      body {
+          background: rgb(49, 34, 76)
+      }
+      a {
+          font-family: 'Nunito', sans-serif;
+          font-weight: bold;
+      }
+  </style>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="#"> RYOK? </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/articles/"> Articles </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/com_events/"> Events </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/goods_catalogue/"> Catalogue </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/mycart/"> Cart </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/mh_tests/"> Tests </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/quotes/"> Quotes </a>
+                  </li>
+              </ul>
+              {% if user.is_authenticated %}
+              <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button> {% else %}
+              <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button> {% endif %}
+          </div>
+      </div>
+  </nav>
+</body>
+
+{% csrf_token %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+<section class="h-100 h-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-lg-8">
+                <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h1 class="fw-bold mb-0 text-black">My Cart</h1>
+                    <!-- <h5 class="mb-0 text-muted">3 items</h5> -->
+                  </div>
+                  <hr class="my-4">
+
+                  <div class="cart_list"></div>
+
+                  <div class="pt-5">
+                    <h5 class="mb-0"><a href="{% url 'homepage:show_homepage' %}" class="text-body"><i
+                          class="fa-solid fa-arrow-left me-2"></i>Back to Homepage</a></h5>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 bg-grey">
+                <div class="p-5">
+                  <h3 class="fw-bold mb-5 mt-2 pt-1">Order Summary</h3>
+                  <hr class="my-4">
+
+                  <!-- <div class="d-flex justify-content-between mb-4">
+                    <h5 class="text-uppercase">items 3</h5>
+                    <h5>$</h5>
+                  </div>
+                  <hr class="my-4"> -->
+
+                  <div class="d-flex justify-content-between mb-5">
+                    <h5 class="text-uppercase">Total</h5>
+                    <h5 id="total-harga">Rp{{total_price}}</h5>
+                  </div>
+
+                  <button type="button" class="btn btn-dark btn-block btn-lg" id="show-checkout"
+                    onclick="location.href='checkout/'"
+                    data-mdb-ripple-color="dark">Checkout</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  // disable button if theres no item in cart
+  $(document).ready(function () {
+    if ($(".cart_list").is(":empty")) {
+      $("#show_checkout").attr("disabled", true);
+    } else {
+      $("#show_checkout").attr("disabled", false);
+    }
+  })
+
+  function loadData() {
+    console.log("Load Data")
+    $(document).ready(function () {
+      $.get("{%url 'mycart:get_mycart'%}", function (data) {
+        console.log(data)
+        if (data.length) {
+          $.each(data, function (key, value) {
+            var new_cart = `
+              <div class="row mb-4 d-flex justify-content-between align-items-center id="item-${value.pk}">
+                <div class="col-md-2 col-lg-2 col-xl-2">
+                  <img src="/static/images/placeholder.png"
+                    class="img-fluid rounded-3" id="item-${value.pk}-image">
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-3">
+                  <h5 class="text-black mb-0" id="item-${value.pk}-name">${value.fields.product.name}</h5>
+                  <h5 class="mb-0" id="item-${value.pk}-price">Rp${value.fields.product.price}</h5>
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                  <button type="button" class="btn btn-link px-2"
+                    id="item-${value.pk}-decrement"
+                    title="Decrease Quantity"
+                    onclick=decrementItem(${value.pk})>
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <h5 class="mb-0" id="item-${value.pk}-quantity">${value.fields.quantity}</h5>
+                  <button type="button" class="btn btn-link px-2"
+                    id="item-${value.pk}-increment"
+                    title="Increase Quantity"
+                    onclick=incrementItem(${value.pk})>
+                    <i class="fa fa-plus" ></i>
+                  </button>
+                </div>
+                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                  <button type="button" class="btn btn-link px-2"
+                    id="item-${value.pk}-delete"
+                    title="Delete Item"
+                    onclick=deleteItem(${value.pk})>
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <hr class="my-4">
+              `
+            $(".cart_list").append(new_cart)
+          })
+        } else {
+          var new_cart =
+            `<p>Your cart is empty:(</p>`
+          $(".cart_list").append(new_cart)
+        }
+      })
+    })
+  }
+
+  function incrementItem(pk) {
+    $(document).ready(function () {
+      $.ajax({
+        type: 'PUT',
+        headers: { "X-CSRFToken": document.getElementsByName("csrfmiddlewaretoken")[0].value },
+        url: `{% url 'mycart:inc_dec_item' 1 0 %}`.replace(0, pk),
+        encode: true,
+        success: function (data) {
+          $(`#item-${pk}-quantity`).text(`${data[0].fields.quantity}`)
+          price = parseInt($('#total-harga').text().slice(2))
+          price += data[0].fields.product.price
+          $("#total-harga").text(`Rp${price}`)
+        },
+        failure: function (data) {
+          alert('Got an error dude');
+        },
+      })
+    })
+  }
+
+  function decrementItem(pk) {
+    $(document).ready(function () {
+      if ($(`#item-${pk}-quantity`).text() == 1){
+        // pass
+      } else {
+        $.ajax({
+          type: 'PUT',
+          headers: { "X-CSRFToken": document.getElementsByName("csrfmiddlewaretoken")[0].value },
+          url: `{% url 'mycart:inc_dec_item' 2 0 %}`.replace(0, pk),
+          encode: true,
+          success: function (data) {
+            $(`#item-${pk}-quantity`).text(`${data[0].fields.quantity}`)
+            price = parseInt($('#total-harga').text().slice(2))
+            price -= data[0].fields.product.price
+            $("#total-harga").text(`Rp${price}`)
+          },
+          failure: function (data) {
+            alert('Got an error dude');
+          },
+        })
+      }
+    })
+  }
+
+  function deleteItem(pk) {
+    $.ajax({
+      type: 'DELETE',
+      headers: { "X-CSRFToken": document.getElementsByName("csrfmiddlewaretoken")[0].value },
+      url: "{% url 'mycart:delete' 1 %}".replace(1, pk),
+      encode: true,
+      success: function (data) {
+        $(".cart_list").empty()
+        loadData()
+      },
+      failure: function (data) {
+        alert('Got an error dude');
+      }
+    })
+  }
+
+  loadData()
+</script>
+{% endblock content %}

@@ -1,3 +1,68 @@
 from django.db import models
 
 # Create your models here.
+from django.contrib.auth.models import User
+
+class CustomerManager(models.Manager):
+	def get_by_natural_key(self, user, name, email, is_admin, phone):
+		return self.get(
+			user=user,
+			name=name,
+			email=email,
+			is_admin=is_admin,
+			phone=phone,
+			)
+
+class Customer(models.Model):
+	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+	name = models.CharField(max_length=255, null=True)
+	email = models.CharField(max_length=255, null=True)
+	is_admin = models.BooleanField(default=False)
+	phone = models.CharField(max_length=20, null=True)
+
+	def __str__(self):
+		return self.name
+
+	def natural_key(self):
+		return {
+			'user': self.user.id,
+			'name': self.name,
+			'email': self.email,
+			'is_admin': self.is_admin,
+			'phone': self.phone,
+			}
+
+class AddressManager(models.Manager):
+	def get_by_natural_key(self, id, customer, address, kota, kecamatan, kelurahan, postcode):
+		return self.get(
+			id=id,
+			customer=customer,
+			address=address,
+			kota=kota,
+			kecamatan=kecamatan,
+			kelurahan=kelurahan,
+			postcode=postcode,
+			)
+
+class Address(models.Model):
+	id = models.BigAutoField(primary_key=True)
+	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+	address = models.CharField(max_length=200, null=False)
+	kota = models.CharField(max_length=200, null=False)
+	kecamatan = models.CharField(max_length=200, null=False)
+	kelurahan = models.CharField(max_length=200, null=False)
+	postcode = models.CharField(max_length=200, null=False)
+
+	def __str__(self):
+		return self.address
+
+	def natural_key(self):
+		return {
+			'id': self.id,
+			'customer': self.customer,
+			'address': self.address, 
+			'kota': self.kota,
+			'kecamatan': self.kecamatan,
+			'kelurahan': self.kelurahan,
+			'postcode': self.postcode,
+			}

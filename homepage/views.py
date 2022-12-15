@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from homepage.models import *
+from goods_catalogue.models import *
 
 def show_homepage(request):
     return render(request, 'homepage.html')
