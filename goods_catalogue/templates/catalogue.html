@@ -6,270 +6,418 @@
 {% endblock meta %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/product.css' %}">
-{% csrf_token %}
+<link rel="stylesheet" href="{% static 'css/catalogue.css' %}">
+
+<script>
+    $(document).ready(function(){
+    var tipe = ""
+    $("#confirmButton").click(function(){
+    $.ajax({
+      url: "{% url 'goods_catalogue:get_catalogue' %}", 
+      type: "POST",
+      data:{
+        'csrfmiddlewaretoken': '{{csrf_token}}',
+        'payment_method': $('#id_payment_method').val(),
+        'shipping_method': $('#id_shipping_method').val(),
+        'nama_item' : tipe},
+      success: function(data){
+      alert(data);
+      }
+    })
+    })
+    })
+</script>
+
+<!--Navigation Bar-->
+<style>
+    .navbar {
+        background: rgb(51, 49, 80);
+        background: linear-gradient(0deg, rgba(51, 49, 80, 1) 0%, rgba(28, 28, 52, 1) 61%);
+    }
+    
+    body {
+        background: rgb(49, 34, 76)
+    }
+    a {
+        font-family: 'Nunito', sans-serif;
+        font-weight: bold;
+    }
+    b, p{
+        color: white;
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"> RYOK? </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/articles/"> Articles </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/com_events/"> Events </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/goods_catalogue/"> Catalogue </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mh_tests/"> Tests </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/quotes/"> Quotes </a>
+                </li>
+            </ul>
+            {% if user.is_authenticated %}
+            <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button> {% else %}
+            <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button> {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="catalogue-list">
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Soul Comforter</h2>
+                <div class="container" style="margin-top:50px;">
+                    <div class="row justify-content-center" id="soulcomforter-list">
+                          <div class="col-md-3 col-6 pt-3">
+                              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active">
+                                    <img src="https://i.postimg.cc/ncWrfb3b/teddy-1.jpg" class="d-block w-100" alt="..." />
+                                  </div>
+                                  <div class="carousel-item">
+                                    <img src="https://i.postimg.cc/RZnFMsY3/teddy-2.jpg" class="d-block w-100" alt="..." />
+                                  </div>
+                                  <div class="carousel-item">
+                                    <img src="https://i.postimg.cc/6QJQTVsM/teddy-3.jpg" class="d-block w-100" alt="..." />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="d-flex justify-content-center">
+                                <p class="text-img pt-2"><b>COMPANION</b> TEDDY</p>
+                              </div>
+                              <div class="d-flex justify-content-center">
+                                <p>40K</p>
+                              </div>
+                              <div class="col-12 text-center pt-12">
+                                <button class="btn btn-outline-primary explore" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalClick('TEDDY')"><b>BUY</b></button>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 pt-3">
+                              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active">
+                                    <img src="https://i.postimg.cc/Y9GJ78Yq/chicksoup1.jpg" class="d-block w-100" alt="..." />
+                                  </div>
+                                  <div class="carousel-item">
+                                    <img src="https://i.postimg.cc/SsBHx8fL/chicksoup2.jpg" class="d-block w-100" alt="..." />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="d-flex justify-content-center">
+                                <p class="text-img pt-2"><b>GOOD OL' CHI</b> SOUP</p>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                <p>30K</p>
+                              </div>
+                              <div class="col-12 text-center pt-12">
+                                <button class="btn btn-outline-primary explore"data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalClick('SOUP')"><b>BUY</b></button>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 pt-3">
+                              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active">
+                                    <img src="https://i.postimg.cc/rmkSywt0/scentedcandle2.jpg" class="d-block w-100" alt="..." />
+                                  </div>
+                                  <div class="carousel-item">
+                                    <img src="https://i.postimg.cc/ZRx6Wzrf/scentedcandle1.jpg" class="d-block w-100" alt="..." />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="d-flex justify-content-center">
+                                <p class="text-img pt-1"><b>SOOTHING</b> CANDLE</p>
+                              </div>
+                              <div class="d-flex justify-content-center">
+                                <p>85K</p>
+                              </div>
+                              <div class="col-12 text-center pt-12">
+                                <button class="btn btn-outline-primary explore" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalClick('CANDLE')"><b>BUY</b></button>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 pt-3">
+                                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                  <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                  </div>
+                                  <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                      <img src="https://i.postimg.cc/rwtcGSf4/heating1.jpg" class="d-block w-100" alt="..." />
+                                    </div>
+                                    <div class="carousel-item">
+                                      <img src="https://i.postimg.cc/85cZWbHQ/heating3.jpg" class="d-block w-100" alt="..." />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                  <p class="text-img pt-1"><b>HEATING</b> BLANKET</p>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                  <p>100K</p>
+                                </div>
+                                <div class="col-12 text-center pt-12">
+                                  <button class="btn btn-outline-primary explore" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalClick('BLANKET')"><b>BUY</b></button>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-{% if customer.is_authenticated %}
-<button type="button" class="btn btn-lg btn-dark" data-bs-toggle="modal" data-bs-target="#addModal" id="open-modal">
-    Add an Item!
-</button>
-{% endif %}
-
-<body>
-    <style>
-        .navbar {
-            background: rgb(51, 49, 80);
-            background: linear-gradient(0deg, rgba(51, 49, 80, 1) 0%, rgba(28, 28, 52, 1) 61%);
-        }
-        
-        body {
-            background: rgb(49, 34, 76)
-        }
-        a {
-            font-family: 'Nunito', sans-serif;
-            font-weight: bold;
-        }
-    </style>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"> RYOK? </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/forum/"> Forums </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/articles/"> Articles </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/com_events/"> Events </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/goods_catalogue/"> Catalogue </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/mh_tests/"> Tests </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/quotes/"> Quotes </a>
-                    </li>
-                </ul>
-                {% if user.is_authenticated %}
-                <button type="button" class="btn btn-light"><a href="{% url 'homepage:logout' %}">Logout</a></button> {% else %}
-                <button type="button" class="btn btn-light"><a href="{% url 'homepage:login' %}">Login</a></button> {% endif %}
-            </div>
-        </div>
-    </nav>
-
-    <div class="modal fade" id="addModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content card bg-dark text-white">
-                <div class="modal-header">
-                    <h2 class="modal-title">Add Item</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="add-product" method="POST" action="">
-                        {% csrf_token %}
-                        <div class="mb-md-5 mt-md-4 pb-5">
-                            <div class="form-outline form-white mb-4" id="parent-input-name">
-                                <label class="form-label" for="input-name">Item's Name</label>
-                                {{forms.name}}
-                            </div>
-    
-                            <div class="form-outline form-white mb-4" id="parent-input-price">
-                                <label class="form-label" for="input-price">Item's Price Rp</label>
-                                {{forms.price}}
-                            </div>
-    
-                            <div class="form-outline form-white mb-4" id="parent-input-category">
-                                <label class="form-label" for="input-category">Category</label>
-                                {{forms.type}}
-                            </div>
-                            <div class="form-outline form-white mb-4" id="parent-input-spec">
-                                <div class="input-spec-soulcomforter">
-                                    <label class="form-label" for="input-spec">Soul Comforter Comfort-rate</label>
-                                    {{forms.comfortrate}}
+                    
+<div class="catalogue-list">
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Happiness Booster</h2>
+                <div class="container" style="margin-top:50px;">
+                    <div class="row justify-content-center" id="happinessbooster-list">
+                        <div class="col-md-3 col-6 pt-3">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                                 </div>
-                                <div class="input-spec-anxietybooster">
-                                    <label class="form-label" for="input-spec">Anxiety Booster Boost-rate</label>
-                                    {{forms.boostrate}}
+                                <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://i.postimg.cc/T3dqgwkr/boost-juice1.jpg" class="d-block w-100" alt="..." />
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://i.postimg.cc/7YMn57NH/boost-juice2.jpg" class="d-block w-100" alt="..." />
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://i.postimg.cc/9FjBX1Zg/boost-juice3.jpg" class="d-block w-100" alt="..." />
+                                </div>
                                 </div>
                             </div>
-    
-                            <div class="form-outline form-white mb-4" id="parent-input-image">
-                                <label class="form-label" for="input-name">Image</label>
-                                {{forms.image}}
+                            <div class="d-flex justify-content-center">
+                                <p class="text-img pt-2"><b>SEROTONIN</b> JUICE</p>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <p>40K</p>
+                            </div>
+                            <div class="col-12 text-center pt-12">
+                                <button class="btn btn-outline-primary explore" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalClick('JUICE')"><b>BUY</b></button>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-lg px-5" data-bs-dismiss="modal">Close</button>
-                    <button id="add-btn" onclick=addProduct() class="btn btn-outline-light btn-lg px-5"
-                        data-bs-dismiss="modal" name="submit">Add this Item!</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="catalogue-list">
-        <div class="container-xl">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Soul Comforter</h2>
-                    <div class="container" style="margin-top:50px;">
-                        <div class="row justify-content-center" id="soulcomforter-list">
-    
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-xl">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Anxiety Booster</h2>
-                    <div class="container" style="margin-top:50px;">
-                        <div class="row justify-content-center" id="anxietybooster-list">
-    
+                        <div class="col-md-3 col-6 pt-3">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://i.postimg.cc/d05zz6tD/goal1.jpg" class="d-block w-100" alt="..." />
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://i.postimg.cc/7LHFsd4p/goal2.jpg" class="d-block w-100" alt="..." />
+                                </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <p class="text-img pt-2"><b>GOAL</b> PLANNER</p>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <p>50K</p>
+                            </div>
+                            <div class="col-12 text-center pt-12">
+                                <button class="btn btn-outline-primary explore" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalClick('PLANNER')"><b>BUY</b></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        // $(document).ready(function(){
-        //     if ($('#input-type_0').is(':cheecked')){
-        //         $('#parent-input-spec').text(`
-        //         <label class="form-label" for="input-spec">Panel's Max Power</label>
-        //         `)
-        //     } else if ($('#input-type_1').is(':cheecked')){
-        //         $('#parent-input-spec').text(`
-        //         <label class="form-label" for="input-spec">Battery's Capacity</label>
-        //         `)
-        //     } else if ($('#input-type_2').is(':cheecked')){
-        //         $('#parent-input-spec').text(`
-        //         <label class="form-label" for="input-spec">Inverter's Output</label>
-        //         `)
-        //     }
-        // })
-    
-        $(document).ready(function () {
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('.input-spec-soulcomforter').hide()
+        $('.input-spec-happinessbooster').hide()
+    })
+
+    $(document).ready(function () {
+        $('input#input-type_0').click(function () {
+            console.log('type 0 clicked')
+            $('.input-spec-soulcomforter').show()
+            $('.input-spec-happinessbooster').hide()
+        })
+    })
+
+    $(document).ready(function () {
+        $('input#input-type_1').click(function () {
+            console.log('type 1 clicked')
             $('.input-spec-soulcomforter').hide()
-            $('.input-spec-anxietybooster').hide()
+            $('.input-spec-happinessbooster').show()
         })
-    
+    })
+
+    function loadData() {
+        console.log("Load Data")
         $(document).ready(function () {
-            $('input#input-type_0').click(function () {
-                console.log('type 0 clicked')
-                $('.input-spec-soulcomforter').show()
-                $('.input-spec-anxietybooster').hide()
-            })
-        })
-    
-        $(document).ready(function () {
-            $('input#input-type_1').click(function () {
-                console.log('type 1 clicked')
-                $('.input-spec-soulcomforter').hide()
-                // $('.input-spec-panel #input-maxpower').value = ''
-                $('.input-spec-anxietybooster').show()
-                // $('.input-spec-panel #input-output').value = ''
-            })
-        })
-    
-        function loadData() {
-            console.log("Load Data")
-            $(document).ready(function () {
-                $.get("{%url 'goods_catalogue:get_catalogue'%}", function (data) {
-                    console.log(data)
-                    $.each(data, function (key, value) {
-                        var catalogue = `
-                            <div class="col-md-3">
-                                <div class="card-sl">
-                                    <div class="card-image" id="item-${value.pk}-image">
-                                        <img
-                                            src="/media/${value.fields.image}" />
-                                    </div>
-                                    <div class="card-heading" id="item-${value.pk}-name">
-                                        ${value.fields.name}
-                                    </div>
-                                    <div class="card-text">
-                                        Mental Health is the most popular issue in today's time.
-                                    </div>
-                                    <div class="card-text" id="item-${value.pk}-price">
-                                        Rp${value.fields.price} 
-                                    </div>
-                                    <a href='#' onclick="addToCart(${value.pk})" class="card-button">Add to Cart</a>
+            $.get("{%url 'goods_catalogue:get_catalogue'%}", function (data) {
+                console.log(data)
+                $.each(data, function (key, value) {
+                    var catalogue = `
+                        <div class="col-md-3">
+                            <div class="card-sl">
+                                <div class="card-image" id="item-${value.pk}-image">
+                                    <img
+                                        src="/static/images/placeholder.png" />
                                 </div>
-                            </div>
-                        `
-                        if ((value.fields.name).includes("(Soul Comforter)")) {
-                            $("#soulcomforter-list").append(catalogue)
-                        } else if (value.fields.name.includes("(Anxiety Booster)")) {
-                            $("#anxietybooster-list").append(catalogue)
-                        }
-    
-    
-                    })
-                })
-            })
-        }
-    
-        function addProduct() {
-            console.log("Data posting")
-            $(document).ready(function () {
-                var form = $('#add-item').serialize()
-                console.log(form)
-                $.ajax({
-                    type: "POST",
-                    url: `{% url 'goods_catalogue:add_item' %}`,
-                    data: form,
-                    dataType: "json",
-                    encode: true,
-                    success: function (data) {
-                        console.log("Finished data posting")
-                        console.log(data[0])
-                        var catalogue = `
-                            <div class="col-md-3">
-                                <div class="card-sl">
-                                    <div class="card-image" id="item-${data[0].pk}-image">
-                                        <img
-                                            src="/media/${data[0].fields.image}" />
-                                    </div>
-                                    <div class="card-heading" id="item-${data[0].pk}-name">
-                                        ${data[0].fields.name}
-                                    </div>
-                                    <div class="card-text">
-                                        Mental Health is the most popular issue in today's time.
-                                    </div>
-                                    <div class="card-text" id="item-${data[0].pk}-price">
-                                        Rp${data[0].fields.price} 
-                                    </div>
-                                    <a href='#' onclick"addToCart(${data[0].pk})" class="card-button">Add to Cart</a>
+                                <div class="card-heading" id="item-${value.pk}-name">
+                                    ${value.fields.name}
                                 </div>
+                                <div class="card-text">
+                                    Mental Health is the most popular issue in today's time.
+                                </div>
+                                <div class="card-text" id="item-${value.pk}-price">
+                                    Rp${value.fields.price} 
+                                </div>
+                                <a href='#' onclick="addToCart(${value.pk})" class="card-button">Add to Cart</a>
                             </div>
-                        `
-                        if ((data[0].fields.name).includes("(Soul Comforter)")) {
-                            $("#soulcomforter-list").append(catalogue)
-                        } else if (data[0].fields.name.includes("(Anxiety Booster)")) {
-                            $("#anxietybooster-list").append(catalogue)
-                        }
-                    },
-                    failure: function (data) {
-                        alert('Error!');
+                        </div>
+                    `
+                    if ((value.fields.name).includes("(Soul Comforter)")) {
+                        $("#soulcomforter-list").append(catalogue)
+                    } else if (value.fields.name.includes("(Happiness Booster)")) {
+                        $("#happinessbooster-list").append(catalogue)
                     }
+
+
                 })
             })
-        }
-    
-        loadData()
+        })
+    }
+
+    function addProduct() {
+        console.log("Data posting")
+        $(document).ready(function () {
+            var form = $('#add-product').serialize()
+            console.log(form)
+            $.ajax({
+                type: "POST",
+                url: `{% url 'goods_catalogue:add_item' %}`,
+                data: form,
+                dataType: "json",
+                encode: true,
+                success: function (data) {
+                    console.log("Finished data posting")
+                    console.log(data[0])
+                    var product = `
+                        <div class="col-md-3">
+                            <div class="card-sl">
+                                <div class="card-image" id="item-${data[0].pk}-image">
+                                    <img
+                                        src="/media/${data[0].fields.image}" />
+                                </div>
+                                <div class="card-heading" id="item-${data[0].pk}-name">
+                                    ${data[0].fields.name}
+                                </div>
+                                <div class="card-text">
+                                    Mental Health is the most popular issue in today's time.
+                                </div>
+                                <div class="card-text" id="item-${data[0].pk}-price">
+                                    Rp${data[0].fields.price} 
+                                </div>
+                                <a href='#' onclick"addToCart(${data[0].pk})" class="card-button">Add to Cart</a>
+                            </div>
+                        </div>
+                    `
+                    if ((data[0].fields.name).includes("(Soul Comforter)")) {
+                        $("#soulcomforter-list").append(catalogue)
+                    } else if (data[0].fields.name.includes("(Happiness Booster)")) {
+                        $("#happinessbooster-list").append(catalogue)
+                    }
+                },
+                failure: function (data) {
+                    alert('Error!');
+                }
+            })
+        })
+    }
+    function addToCart(pk) {
+        $(document).ready(function () {
+            console.log("Add to cart clicked")
+            $.ajax({
+                type: 'POST',
+                headers: { "X-CSRFToken": document.getElementsByName("csrfmiddlewaretoken")[0].value },
+                url: "{% url 'goods_catalogue:add_to_cart' 0 %}".replace(0, pk),
+                encode: true,
+                success: function (data) {
+                    console.log(data)
+                },
+                failure: function (data) {
+                    alert('Got an error dude');
+                },
+            })
+        })
+    }
+    loadData()
+</script>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Form Pembelian</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table> {{form.as_table}} </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id = "confirmButton">Confirm Purchase</button>
+        </div>
+      </div>
+    </div>
+  
+    <script>
+    $(document).ready()
+    function modalClick(data){
+      tipe = data
+    }
     </script>
-    {% endblock content %}
+{% endblock content %}

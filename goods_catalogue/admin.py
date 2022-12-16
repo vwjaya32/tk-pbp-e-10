@@ -3,4 +3,4 @@ from .models import *
 
 admin.site.register(Catalogue)
 admin.site.register(SoulComforter)
-admin.site.register(AnxietyBoost)
+admin.site.register(HappinessBoost)
