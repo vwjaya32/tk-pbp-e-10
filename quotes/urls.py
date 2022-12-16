@@ -12,5 +12,5 @@ urlpatterns = [
     path('delete_image/<int:id>', delete_image, name='delete_image'),
     path('ajax_add_quote', ajax_add_quote, name="ajax_add_quote"),
     path('mob_add_quote', mob_add_quote, name="mob_add_quote"),
-    path('mob_delete', mob_delete, name='mob_delete'),
+    path('mob_delete/<int:id>', mob_delete, name='mob_delete'),
 ]
