@@ -107,4 +107,9 @@ def mob_add_quote(request):
         new_image = Image(user=user, title=title, image=image)
         new_image.save()
         return JsonResponse({"message":"Berhasil mengupload"})
-                          
+
+@csrf_exempt
+def mob_delete(request, id):
+    image = Image.objects.get(pk=id)
+    image.delete()
+    return JsonResponse({"instance": "Success!"}, status=200)
